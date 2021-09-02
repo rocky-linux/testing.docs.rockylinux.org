@@ -1,0 +1,3921 @@
+
+<!doctype html>
+<html lang="sv" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.4/sv/books/admin_guide/07-file-systems/">
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>File system - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file-system" class="md-skip">
+          Gå till innehållet
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Sidhuvud">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File system
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Sök" placeholder="Sök" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Rensa" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialiserar sök
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Flikar" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      Table of Contents
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky paket Hur man tar bort varumärke
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Paketsignering och testning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Lägg till en publik spegel till Rocky's spegelhanterare
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Aktivera iptables Brandvägg
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        Installera Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        SSH Publika och privata nycklar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          File system
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        File system
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#partitioning" class="md-nav__link">
+    Partitioning
+  </a>
+  
+    <nav class="md-nav" aria-label="Partitioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parted-command" class="md-nav__link">
+    parted command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfdisk-command" class="md-nav__link">
+    cfdisk command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logical-volume-manager-lvm" class="md-nav__link">
+    Logical Volume Manager (LVM)
+  </a>
+  
+    <nav class="md-nav" aria-label="Logical Volume Manager (LVM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volume-groups" class="md-nav__link">
+    Volume groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-volumes" class="md-nav__link">
+    Logical volumes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-commands-for-volume-management" class="md-nav__link">
+    LVM commands for volume management
+  </a>
+  
+    <nav class="md-nav" aria-label="LVM commands for volume management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pvcreate-command" class="md-nav__link">
+    pvcreate command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgcreate-command" class="md-nav__link">
+    vgcreate command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvcreate-command" class="md-nav__link">
+    lvcreate command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-commands-to-view-volume-information" class="md-nav__link">
+    LVM commands to view volume information
+  </a>
+  
+    <nav class="md-nav" aria-label="LVM commands to view volume information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pvdisplay-command" class="md-nav__link">
+    pvdisplay command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgdisplay-command" class="md-nav__link">
+    vgdisplay command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvdisplay-command" class="md-nav__link">
+    lvdisplay command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparation-of-the-physical-media" class="md-nav__link">
+    Preparation of the physical media
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-of-a-file-system" class="md-nav__link">
+    Structure of a file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Structure of a file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkfs-command" class="md-nav__link">
+    mkfs command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-block" class="md-nav__link">
+    Boot block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super-block" class="md-nav__link">
+    Super block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-of-inodes" class="md-nav__link">
+    Table of inodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-area" class="md-nav__link">
+    Data area
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repairing-the-file-system" class="md-nav__link">
+    Repairing the file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Repairing the file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fsck-command" class="md-nav__link">
+    fsck command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organization-of-a-file-system" class="md-nav__link">
+    Organization of a file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Organization of a file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcfstab-file" class="md-nav__link">
+    /etc/fstab file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mount-management-commands" class="md-nav__link">
+    Mount management commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Mount management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mount-command" class="md-nav__link">
+    mount command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umount-command" class="md-nav__link">
+    umount command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-files" class="md-nav__link">
+    Types of files
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#details-of-a-file-name" class="md-nav__link">
+    Details of a file name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#different-types-of-files" class="md-nav__link">
+    Different types of files
+  </a>
+  
+    <nav class="md-nav" aria-label="Different types of files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-files" class="md-nav__link">
+    Ordinary files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-files" class="md-nav__link">
+    Directory files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-files" class="md-nav__link">
+    Special files
+  </a>
+  
+    <nav class="md-nav" aria-label="Special files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-mode" class="md-nav__link">
+    Block mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character-mode" class="md-nav__link">
+    Character mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communication-files" class="md-nav__link">
+    Communication files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-files" class="md-nav__link">
+    Link files
+  </a>
+  
+    <nav class="md-nav" aria-label="Link files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-link" class="md-nav__link">
+    Physical link
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical link">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-ln-for-a-physical-link" class="md-nav__link">
+    Command ln for a physical link
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symbolic-link" class="md-nav__link">
+    Symbolic link
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbolic link">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ln-command-for-a-symbolic-link" class="md-nav__link">
+    ln command for a symbolic link
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-attributes" class="md-nav__link">
+    File attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="File attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rights-associated-with-ordinary-files" class="md-nav__link">
+    Rights associated with ordinary files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rights-associated-with-directories" class="md-nav__link">
+    Rights associated with directories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-management" class="md-nav__link">
+    Attribute management
+  </a>
+  
+    <nav class="md-nav" aria-label="Attribute management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chmod-command" class="md-nav__link">
+    chmod command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-of-the-octal-method" class="md-nav__link">
+    Principle of the octal method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-of-the-symbolic-method" class="md-nav__link">
+    Principle of the symbolic method
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-rights" class="md-nav__link">
+    Special rights
+  </a>
+  
+    <nav class="md-nav" aria-label="Special rights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-sticky-bit" class="md-nav__link">
+    The sticky-bit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suid-and-sgid-on-a-command" class="md-nav__link">
+    SUID and SGID on a command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sgid-on-a-file" class="md-nav__link">
+    SGID on a file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-rights-and-mask" class="md-nav__link">
+    Default rights and mask
+  </a>
+  
+    <nav class="md-nav" aria-label="Default rights and mask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#umask-command" class="md-nav__link">
+    umask command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#partitioning" class="md-nav__link">
+    Partitioning
+  </a>
+  
+    <nav class="md-nav" aria-label="Partitioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parted-command" class="md-nav__link">
+    parted command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfdisk-command" class="md-nav__link">
+    cfdisk command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logical-volume-manager-lvm" class="md-nav__link">
+    Logical Volume Manager (LVM)
+  </a>
+  
+    <nav class="md-nav" aria-label="Logical Volume Manager (LVM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volume-groups" class="md-nav__link">
+    Volume groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-volumes" class="md-nav__link">
+    Logical volumes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-commands-for-volume-management" class="md-nav__link">
+    LVM commands for volume management
+  </a>
+  
+    <nav class="md-nav" aria-label="LVM commands for volume management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pvcreate-command" class="md-nav__link">
+    pvcreate command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgcreate-command" class="md-nav__link">
+    vgcreate command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvcreate-command" class="md-nav__link">
+    lvcreate command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-commands-to-view-volume-information" class="md-nav__link">
+    LVM commands to view volume information
+  </a>
+  
+    <nav class="md-nav" aria-label="LVM commands to view volume information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pvdisplay-command" class="md-nav__link">
+    pvdisplay command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgdisplay-command" class="md-nav__link">
+    vgdisplay command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvdisplay-command" class="md-nav__link">
+    lvdisplay command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparation-of-the-physical-media" class="md-nav__link">
+    Preparation of the physical media
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-of-a-file-system" class="md-nav__link">
+    Structure of a file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Structure of a file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkfs-command" class="md-nav__link">
+    mkfs command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-block" class="md-nav__link">
+    Boot block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super-block" class="md-nav__link">
+    Super block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-of-inodes" class="md-nav__link">
+    Table of inodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-area" class="md-nav__link">
+    Data area
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repairing-the-file-system" class="md-nav__link">
+    Repairing the file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Repairing the file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fsck-command" class="md-nav__link">
+    fsck command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organization-of-a-file-system" class="md-nav__link">
+    Organization of a file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Organization of a file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcfstab-file" class="md-nav__link">
+    /etc/fstab file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mount-management-commands" class="md-nav__link">
+    Mount management commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Mount management commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mount-command" class="md-nav__link">
+    mount command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umount-command" class="md-nav__link">
+    umount command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-files" class="md-nav__link">
+    Types of files
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#details-of-a-file-name" class="md-nav__link">
+    Details of a file name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#different-types-of-files" class="md-nav__link">
+    Different types of files
+  </a>
+  
+    <nav class="md-nav" aria-label="Different types of files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-files" class="md-nav__link">
+    Ordinary files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-files" class="md-nav__link">
+    Directory files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-files" class="md-nav__link">
+    Special files
+  </a>
+  
+    <nav class="md-nav" aria-label="Special files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-mode" class="md-nav__link">
+    Block mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character-mode" class="md-nav__link">
+    Character mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communication-files" class="md-nav__link">
+    Communication files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-files" class="md-nav__link">
+    Link files
+  </a>
+  
+    <nav class="md-nav" aria-label="Link files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-link" class="md-nav__link">
+    Physical link
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical link">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-ln-for-a-physical-link" class="md-nav__link">
+    Command ln for a physical link
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symbolic-link" class="md-nav__link">
+    Symbolic link
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbolic link">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ln-command-for-a-symbolic-link" class="md-nav__link">
+    ln command for a symbolic link
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-attributes" class="md-nav__link">
+    File attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="File attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rights-associated-with-ordinary-files" class="md-nav__link">
+    Rights associated with ordinary files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rights-associated-with-directories" class="md-nav__link">
+    Rights associated with directories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute-management" class="md-nav__link">
+    Attribute management
+  </a>
+  
+    <nav class="md-nav" aria-label="Attribute management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chmod-command" class="md-nav__link">
+    chmod command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-of-the-octal-method" class="md-nav__link">
+    Principle of the octal method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-of-the-symbolic-method" class="md-nav__link">
+    Principle of the symbolic method
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-rights" class="md-nav__link">
+    Special rights
+  </a>
+  
+    <nav class="md-nav" aria-label="Special rights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-sticky-bit" class="md-nav__link">
+    The sticky-bit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suid-and-sgid-on-a-command" class="md-nav__link">
+    SUID and SGID on a command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sgid-on-a-file" class="md-nav__link">
+    SGID on a file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-rights-and-mask" class="md-nav__link">
+    Default rights and mask
+  </a>
+  
+    <nav class="md-nav" aria-label="Default rights and mask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#umask-command" class="md-nav__link">
+    umask command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="file-system">File system<a class="headerlink" href="#file-system" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will learn how to work with filesystems.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter, future Linux administrators will learn how to:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> manage partitions on disk; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> use LVM for a better use of disk resources; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> provide users with a filesystem and manage the access rights.</p>
+<p>and also discover:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> how the tree structure is organized in Linux; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> the different types of files offered and how to work with them;</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>hardware</strong>, <strong>disk</strong>, <strong>partition</strong>, <strong>lvm</strong>, <strong>linux</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" />   </p>
+<p><strong>Reading time</strong>: 20 minutes</p>
+<hr />
+<h2 id="partitioning">Partitioning<a class="headerlink" href="#partitioning" title="Permanent link">&para;</a></h2>
+<p>Partitioning will allow the installation of several operating systems because it is impossible to have several of them cohabit on the same logical drive. Partitioning also allows the separation of data logically (security, access optimization, ...).</p>
+<p>The division of the physical disk into partitioned volumes is recorded in the partition table, stored in the first sector of the disk (MBR: <em>Master Boot Record</em>).</p>
+<p>The same physical disk can be divided into a maximum of 4 partitions:</p>
+<ul>
+<li><em>Primary</em> (or main)</li>
+<li><em>Extended</em></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There can be only one extended partition per physical disk. In order to benefit from additional drives, the extended partition can be split into logical partitions</p>
+</div>
+<p><img alt="Breakdown into only 4 primary partitions" src="../../../../books/admin_guide/images/07-file-systems-001.png" /></p>
+<p><img alt="Breakdown into 3 primary partitions and one extended" src="../../../../books/admin_guide/images/07-file-systems-002.png" /></p>
+<p>The <em>devices</em> are the files identifying the various hardware detected by the motherboard. These files are stored without <code>/dev</code>. The service which detects new devices and gives them names is called <em>udev</em>.</p>
+<p>They are identified by their type.</p>
+<p>Storage devices are named <em>hd</em> for IDE hard drives and <em>sd</em> for other media. Then comes a letter that starts with <em>a</em> for the first device, then <em>b</em>, <em>c</em>, ...</p>
+<p>Finally we will find a number that defines the partitioned volume: <em>1</em> for the first primary partition, ...</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Beware, the extended partition, which does not support a file system, still has a number.</p>
+</div>
+<p><img alt="Identification of partitions" src="../../../../books/admin_guide/images/07-file-systems-003.png" /></p>
+<p>There are at least two commands for partitioning a disk: <code>fdisk</code> and <code>cfdisk</code>. Both commands have an interactive menu. <code>cfdisk</code> is more reliable and better optimized, so it is best to use it.</p>
+<p>The only reason to use <code>fdisk</code> is when you want to list all logical devices with the <code>-l</code> option.</p>
+<div class="highlight"><pre><span></span><code>sudo fdisk -l
+sudo fdisk -l /dev/sdc
+sudo fdisk -l /dev/sdc2
+</code></pre></div>
+<h3 id="parted-command"><code>parted</code> command<a class="headerlink" href="#parted-command" title="Permanent link">&para;</a></h3>
+<p>The <code>parted</code> (<em>partition editor</em>) command is able to partition a disk.</p>
+<div class="highlight"><pre><span></span><code>parted [-l] [device]
+</code></pre></div>
+<p>It also has a recovery function capable of rewriting a deleted partition table.</p>
+<p>Under graphical interface, there is the very complete <code>gparted</code> tool: <em>G</em>nome <em>PAR</em>tition <em>ED</em>itor.</p>
+<p>The <code>gparted -l</code> command lists all logical devices on a computer.</p>
+<p>The <code>gparted</code> command alone will return to an interactive mode with its own internal options:</p>
+<ul>
+<li><code>help</code> or an incorrect command will display these options.</li>
+<li><code>print all</code> in this mode will have the same result as <code>gparted -l</code> on the command line.</li>
+<li><code>quit</code> to return to the prompt.</li>
+</ul>
+<h3 id="cfdisk-command"><code>cfdisk</code> command<a class="headerlink" href="#cfdisk-command" title="Permanent link">&para;</a></h3>
+<p>The <code>cfdisk</code> command is used to manage partitions.</p>
+<div class="highlight"><pre><span></span><code>cfdisk device
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo cfdisk /dev/sda
+                                 Disk: /dev/sda
+               Size: 16 GiB, 17179869184 bytes, 33554432 sectors
+                       Label: dos, identifier: 0xcf173747
+    Device        Boot       Start        End    Sectors   Size   Id Type
+&gt;&gt;  /dev/sda1     *           2048    2099199    2097152     1G   83 Linux
+    /dev/sda2              2099200   33554431   31455232    15G   8e Linux LVM
+ lqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
+ x Partition type: Linux (83)                                                 x
+ x     Attributes: 80                                                         x
+ xFilesystem UUID: 54a1f5a7-b8fa-4747-a87c-2dd635914d60                       x
+ x     Filesystem: xfs                                                        x
+ x     Mountpoint: /boot (mounted)                                            x
+ mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj
+     [Bootable]  [ Delete ]  [ Resize ]  [  Quit  ]  [  Type  ]  [  Help  ]
+     [  Write ]  [  Dump  ]
+</code></pre></div>
+<p>The preparation, without <em>LVM</em>, of the physical media goes through five steps:</p>
+<ul>
+<li>Setting up the physical disk;</li>
+<li>Partitioning of the volumes (geographical division of the disk, possibility of installing several systems, ...);</li>
+<li>Creation of the file systems (allows the operating system to manage the files, the tree structure, the rights, ...);</li>
+<li>Mounting of file systems (registration of the file system in the tree structure);</li>
+<li>Manage user access.</li>
+</ul>
+<h2 id="logical-volume-manager-lvm">Logical Volume Manager (LVM)<a class="headerlink" href="#logical-volume-manager-lvm" title="Permanent link">&para;</a></h2>
+<p><strong>L</strong>ogical <strong>V</strong>olume <strong>M</strong>anager (<em>LVM]</em>)</p>
+<p>Volume management creates an abstract layer on top of physical storage, offering advantages over using physical storage directly:</p>
+<ul>
+<li>More flexible disk capacity;</li>
+<li>Online data movement;</li>
+<li>Disks in <em>stripe</em> mode;</li>
+<li>Mirrored volumes (recopy);</li>
+<li>Volume snapshots (<em>snapshot</em>).</li>
+</ul>
+<p>The disadvantage is that if one of the physical volumes becomes out of order, then all the logical volumes that use this physical volume are lost. You will have to use LVM on raid disks.</p>
+<p>LVM is available under Linux from kernel version 2.4.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LVM is only managed by the operating system. Therefore the <em>BIOS</em> needs at least one partition without LVM to boot.</p>
+</div>
+<h3 id="volume-groups">Volume groups<a class="headerlink" href="#volume-groups" title="Permanent link">&para;</a></h3>
+<p>The physical volumes <em>PV</em> <em>Physical Volumes</em> (from partitions) are combined into volume groups <em>VG</em>.
+Each <em>VG</em> represents disk space that can be partitioned into <em>LV</em> <em>Logical Volumes</em>.
+<em>Extension</em> is the smallest unit of fixed-size space that can be allocated.</p>
+<ul>
+<li><strong>PE</strong> : <em>Physical Extension</em></li>
+<li><strong>LE</strong> : <em>Logical Extension</em></li>
+</ul>
+<p><img alt="Volume group, PE size equal to 4MB" src="../../../../books/admin_guide/images/07-file-systems-004.png" /></p>
+<h3 id="logical-volumes">Logical volumes<a class="headerlink" href="#logical-volumes" title="Permanent link">&para;</a></h3>
+<p>A volume group, <em>VG</em>, is divided into logical volumes, <em>LV</em>, offering different operating modes:</p>
+<ul>
+<li>Linear volumes;</li>
+<li>Volumes in <em>stripe</em> mode;</li>
+<li>Mirrored volumes.</li>
+</ul>
+<p><img alt="Linear volumes" src="../../../../books/admin_guide/images/07-file-systems-005.png" /></p>
+<p><img alt="Volumes in stripe mode" src="../../../../books/admin_guide/images/07-file-systems-006.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Striping_ improves performance by writing data to a predetermined number of physical volumes with a <em>round-robin</em> technique.</p>
+</div>
+<p><img alt="Mirrored volumes" src="../../../../books/admin_guide/images/07-file-systems-007.png" /></p>
+<h3 id="lvm-commands-for-volume-management">LVM commands for volume management<a class="headerlink" href="#lvm-commands-for-volume-management" title="Permanent link">&para;</a></h3>
+<h4 id="pvcreate-command"><code>pvcreate</code> command<a class="headerlink" href="#pvcreate-command" title="Permanent link">&para;</a></h4>
+<p>The <code>pvcreate</code> command is used to create physical volumes. It turns Linux partitions (or disks) into physical volumes.</p>
+<div class="highlight"><pre><span></span><code>pvcreate [-options] partition
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# pvcreate /dev/hdb1
+pvcreate -- physical volume « /dev/hdb1 » successfully created
+</code></pre></div>
+<p>You can also use a whole disk (which facilitates disk size increases in virtual environments for example).</p>
+<div class="highlight"><pre><span></span><code>[root]# pvcreate /dev/hdb
+pvcreate -- physical volume « /dev/hdb » successfully created
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>Forces the creation of the volume (disk already transformed into physical volume).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vgcreate-command"><code>vgcreate</code> command<a class="headerlink" href="#vgcreate-command" title="Permanent link">&para;</a></h4>
+<p>The <code>vgcreate</code> command is used to create volume groups. It groups one or more physical volumes into a volume group.</p>
+<div class="highlight"><pre><span></span><code>vgcreate volume physical_volume [PV...]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# vgcreate volume1 /dev/hdb1
+…
+vgcreate – volume group « volume1 » successfully created and activated
+</code></pre></div>
+<h4 id="lvcreate-command"><code>lvcreate</code> command<a class="headerlink" href="#lvcreate-command" title="Permanent link">&para;</a></h4>
+<p>The <code>lvcreate</code> command creates logical volumes. The file system is then created on these logical volumes.</p>
+<div class="highlight"><pre><span></span><code>lvcreate -L size [-n name] VG_name
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# lvcreate –L 600M –n VolLog1 volume1
+lvcreate -- logical volume « /dev/volume1/VolLog1 » successfully created
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-L size</code></td>
+<td>Logical volume size in K, M or G.</td>
+</tr>
+<tr>
+<td><code>-n name</code></td>
+<td>LV name. Special file created in <code>/dev/name_volume</code> with this name.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lvm-commands-to-view-volume-information">LVM commands to view volume information<a class="headerlink" href="#lvm-commands-to-view-volume-information" title="Permanent link">&para;</a></h3>
+<h4 id="pvdisplay-command"><code>pvdisplay</code> command<a class="headerlink" href="#pvdisplay-command" title="Permanent link">&para;</a></h4>
+<p>The <code>pvdisplay</code> command allows you to view information about the physical volumes.</p>
+<div class="highlight"><pre><span></span><code>pvdisplay /dev/PV_name
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# pvdisplay /dev/PV_name
+</code></pre></div>
+<h4 id="vgdisplay-command"><code>vgdisplay</code> command<a class="headerlink" href="#vgdisplay-command" title="Permanent link">&para;</a></h4>
+<p>The <code>vgdisplay</code> command allows you to view information about volume groups.</p>
+<div class="highlight"><pre><span></span><code>vgdisplay VG_name
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# vgdisplay volume1
+</code></pre></div>
+<h4 id="lvdisplay-command"><code>lvdisplay</code> command<a class="headerlink" href="#lvdisplay-command" title="Permanent link">&para;</a></h4>
+<p>The <code>lvdisplay</code> command allows you to view information about the logical volumes.</p>
+<div class="highlight"><pre><span></span><code>lvdisplay /dev/VG_name/LV_name
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# lvdisplay /dev/volume1/VolLog1
+</code></pre></div>
+<h3 id="preparation-of-the-physical-media">Preparation of the physical media<a class="headerlink" href="#preparation-of-the-physical-media" title="Permanent link">&para;</a></h3>
+<p>The preparation with LVM of the physical support is broken down as follows:</p>
+<ul>
+<li>Setting up the physical disk</li>
+<li>Partitioning of the volumes</li>
+<li><strong>LVM physical volume</strong></li>
+<li><strong>LVM volume groups</strong></li>
+<li><strong>LVM logical volumes</strong></li>
+<li>Creating file systems</li>
+<li>Mounting file systems</li>
+<li>Manage user access</li>
+</ul>
+<h2 id="structure-of-a-file-system">Structure of a file system<a class="headerlink" href="#structure-of-a-file-system" title="Permanent link">&para;</a></h2>
+<p>A <em>file system</em> <strong>FS</strong> is in charge of the following actions:</p>
+<ul>
+<li>Securing access and modification rights to files;</li>
+<li>Manipulating files: create, read, modify and delete;</li>
+<li>Locating files on the disk;</li>
+<li>Managing partition space.</li>
+</ul>
+<p>The Linux operating system is able to use different file systems (ext2, ext3, ext4, FAT16, FAT32, NTFS, HFS, BtrFS, JFS, XFS, ...).</p>
+<h3 id="mkfs-command"><code>mkfs</code> command<a class="headerlink" href="#mkfs-command" title="Permanent link">&para;</a></h3>
+<p>The <code>mkfs</code> command allows you to create a Linux file system.</p>
+<div class="highlight"><pre><span></span><code>mkfs [-t fstype] filesys
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# mkfs -t ext4 /dev/sda1
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code></td>
+<td>Indicates the type of file system to use.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Without a file system it is not possible to use the disk space.</p>
+</div>
+<p>Each file system has a structure which is identical on each partition. A <strong>boot block</strong> and a <strong>super block</strong> initialized by the system and then an <strong>inode table</strong> and a <strong>data area</strong> initialized by the administrator.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The only exception is the <strong>swap</strong> partition.</p>
+</div>
+<h3 id="boot-block">Boot block<a class="headerlink" href="#boot-block" title="Permanent link">&para;</a></h3>
+<p>The <strong>boot block</strong> occupies the first block on the disk and is present on all partitions. It contains the program that starts and initializes the system and is therefore only filled in for the boot partition.</p>
+<h3 id="super-block">Super block<a class="headerlink" href="#super-block" title="Permanent link">&para;</a></h3>
+<p>The size of the <strong>super block</strong> table is defined at creation. It is present on each partition and contains the elements necessary for its utilization.</p>
+<p>It describes the File System:</p>
+<ul>
+<li>Name of the Logical Volume;</li>
+<li>Name of the File System;</li>
+<li>Type of the File System;</li>
+<li>File System Status;</li>
+<li>Size of the File System;</li>
+<li>Number of free blocks;</li>
+<li>Pointer to the beginning of the list of free blocks;</li>
+<li>Size of the inode list;</li>
+<li>Number and list of free inodes.</li>
+</ul>
+<p>A copy is loaded in the central memory as soon as the system is initialized. This copy is updated as soon as it is modified and the system saves it periodically (command <code>sync</code>).</p>
+<p>When the system stops, it also copies this table in memory to its block.</p>
+<h3 id="table-of-inodes">Table of inodes<a class="headerlink" href="#table-of-inodes" title="Permanent link">&para;</a></h3>
+<p>The size of the <strong>inode table</strong> is defined at its creation and is stored on the partition. It consists of records, called inodes, corresponding to the files created. Each record contains the addresses of the data blocks making up the file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An inode number is unique within a file system.</p>
+</div>
+<p>A copy is loaded in the central memory as soon as the system is initialized. This copy is updated as soon as it is modified and the system saves it periodically (command <code>sync</code>).</p>
+<p>When the system stops, it also copies this table in memory to its block.</p>
+<p>A file is managed by its inode number.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The size of the inode table determines the maximum number of files the FS can contain.</p>
+</div>
+<p>Information present in the <em>inode table</em> :</p>
+<ul>
+<li>Inode number;</li>
+<li>File type and access permissions;</li>
+<li>Owner identification number;</li>
+<li>Identification number of the owner group;</li>
+<li>Number of links on this file;</li>
+<li>Size of the file in bytes;</li>
+<li>Date the file was last accessed;</li>
+<li>Date the file was last modified;</li>
+<li>Date of the last modification of the inode (= creation);</li>
+<li>Table of several pointers (block table) to the logical blocks containing the pieces of the file.</li>
+</ul>
+<h3 id="data-area">Data area<a class="headerlink" href="#data-area" title="Permanent link">&para;</a></h3>
+<p>Its size corresponds to the rest of the available space of the partition. This area contains the catalogs corresponding to each directory and the data blocks corresponding to the contents of the files.</p>
+<p><strong>In order to guarantee the consistency of the file system</strong>, an image of the superblock and the inode table is loaded into memory (RAM) when the operating system is loaded so that all I/O operations are done through these system tables. When the user creates or modifies files, this memory image is updated first. The operating system must therefore regularly update the superblock of the logical disk (<code>sync</code> command).</p>
+<p>These tables are written to the hard disk when the system is shut down.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>In the event of a sudden stop, the file system may lose its consistency and cause data loss.</p>
+</div>
+<h3 id="repairing-the-file-system">Repairing the file system<a class="headerlink" href="#repairing-the-file-system" title="Permanent link">&para;</a></h3>
+<p>It is possible to check the consistency of a file system with the <code>fsck</code> command.</p>
+<p>In case of errors, solutions are proposed to repair the inconsistencies. After repair, files that remain without entries in the inode table are attached to the <code>/lost+found</code> folder of the logical drive.</p>
+<h4 id="fsck-command"><code>fsck</code> command<a class="headerlink" href="#fsck-command" title="Permanent link">&para;</a></h4>
+<p>The <code>fsck</code> command is a console-mode integrity check and repair tool for Linux file systems.</p>
+<div class="highlight"><pre><span></span><code>fsck [-sACVRTNP] [ -t fstype ] filesys
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# fsck /dev/sda1
+</code></pre></div>
+<p>To check the root partition, it is possible to create a <code>forcefsck</code> file and reboot or run <code>shutdown</code> with the <code>-F</code> option.</p>
+<div class="highlight"><pre><span></span><code>[root]# touch /forcefsck
+[root]# reboot
+or
+[root]# shutdown –r -F now
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The partition to be checked must be unmounted.</p>
+</div>
+<h2 id="organization-of-a-file-system">Organization of a file system<a class="headerlink" href="#organization-of-a-file-system" title="Permanent link">&para;</a></h2>
+<p>By definition, a File System is a tree structure of directories built from a root directory (a logical device can only contain one file system).</p>
+<p><img alt="Organization of a file system" src="../../../../books/admin_guide/images/07-file-systems-008.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Linux everything is a file.</p>
+</div>
+<p>Text document, directory, binary, partition, network resource, screen, keyboard, Unix kernel, user program, ...</p>
+<p>Linux meets the <strong>FHS</strong> (<em>Filesystems Hierarchy Standard</em>) (see <code>man hier</code>) which defines the names of folders and their roles.</p>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Observation</th>
+<th>Abbreviation of</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Contains special directories</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/boot</code></td>
+<td>Files related to system startup</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/sbin</code></td>
+<td>Commands necessary for system startup and repair</td>
+<td><em>system binaries</em></td>
+</tr>
+<tr>
+<td><code>/bin</code></td>
+<td>Executables of basic system commands</td>
+<td><em>binaries</em></td>
+</tr>
+<tr>
+<td><code>/usr/bin</code></td>
+<td>System administration commands</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/lib</code></td>
+<td>Shared libraries and kernel modules</td>
+<td><em>libraries</em></td>
+</tr>
+<tr>
+<td><code>/usr</code></td>
+<td>Everything that is not necessary for minimal system operation</td>
+<td><em>UNIX System Resources</em></td>
+</tr>
+<tr>
+<td><code>/mnt</code></td>
+<td>For mounting temporary SF</td>
+<td><em>mount</em></td>
+</tr>
+<tr>
+<td><code>/media</code></td>
+<td>For mounting removable media</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/root</code></td>
+<td>Administrator's login directory</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/home</code></td>
+<td>User data</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/tmp</code></td>
+<td>Temporary files</td>
+<td><em>temporary</em></td>
+</tr>
+<tr>
+<td><code>/dev</code></td>
+<td>Special device files</td>
+<td><em>device</em></td>
+</tr>
+<tr>
+<td><code>/etc</code></td>
+<td>Configuration and script files</td>
+<td><em>editable text configuration</em></td>
+</tr>
+<tr>
+<td><code>/opt</code></td>
+<td>Specific to installed applications</td>
+<td><em>optional</em></td>
+</tr>
+<tr>
+<td><code>/proc</code></td>
+<td>Virtual file system representing different processes</td>
+<td><em>processes</em></td>
+</tr>
+<tr>
+<td><code>/var</code></td>
+<td>Miscellaneous variable files</td>
+<td><em>variables</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>To perform a mount or unmount, at the tree level, you must not be under its mount point.</li>
+<li>Mounting on a non-empty directory does not delete the content. It is only hidden.</li>
+<li>Only the administrator can perform mounts.</li>
+<li>Mount points to be automatically mounted at boot time must be entered in <code>/etc/fstab</code>.</li>
+</ul>
+<h3 id="etcfstab-file"><code>/etc/fstab</code> file<a class="headerlink" href="#etcfstab-file" title="Permanent link">&para;</a></h3>
+<p>The <code>/etc/fstab</code> file is read at system startup and contains the mounts to be performed. Each file system to be mounted is described on a single line, the fields being separated by spaces or tabs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Lines are read sequentially (<code>fsck</code>, <code>mount</code>, <code>umount</code>).</p>
+</div>
+<div class="highlight"><pre><span></span><code>/dev/mapper/VolGroup-lv_root   /         ext4    defaults        1   1
+UUID=46….92                    /boot     ext4    defaults        1   2
+/dev/mapper/VolGroup-lv_swap   swap      swap    defaults        0   0
+tmpfs                          /dev/shm  tmpfs   defaults        0   0
+devpts                         /dev/pts  devpts  gid=5,mode=620  0   0
+sysfs                          /sys      sysfs   defaults        0   0
+proc                           /proc     proc    defaults        0   0
+  1                              2         3        4            5   6
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>File system device (<code>/dev/sda1</code>, UUID=..., ...)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Mount point name, <strong>absolute path</strong> (except <strong>swap</strong>)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Filesystem type (ext4, swap, ...)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Special options for mounting (<code>defaults</code>, <code>ro</code>, ...)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Enable or disable backup management (0:not backed up, 1:backed up)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Check order when checking the SF with the <code>fsck</code> command (0:no check, 1:priority, 2:not priority)</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>mount -a</code> command allows new mounts to be taken into account without rebooting.
+They are then written to the <code>/etc/mtab</code> file which contains the current mounts.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only the mount points listed in <code>/etc/fstab</code> will be mounted on reboot.</p>
+</div>
+<p>It is possible to make a copy of the <code>/etc/mtab</code> file or to copy its contents to <code>/etc/fstab</code>.</p>
+<h3 id="mount-management-commands">Mount management commands<a class="headerlink" href="#mount-management-commands" title="Permanent link">&para;</a></h3>
+<h4 id="mount-command"><code>mount</code> command<a class="headerlink" href="#mount-command" title="Permanent link">&para;</a></h4>
+<p>The <code>mount</code> command allows you to mount and view the logical drives in the tree.</p>
+<div class="highlight"><pre><span></span><code>mount [-option] [device] [directory]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# mount /dev/sda7 /home
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td>Mount without writing to <code>/etc/mtab</code>.</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>To indicate the type of file system to use.</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Mounts all filesystems mentioned in <code>/etc/fstab</code>.</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Mounts the file system read-only (equivalent to <code>-o ro</code>).</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>Mounts the file system read/write, by default (equivalent <code>-o rw</code>).</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>Argument followed by a comma-separated list of options (<code>remount</code>, <code>ro</code>, ...).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>mount</code> command alone displays all mounted file systems.</p>
+</div>
+<h4 id="umount-command"><code>umount</code> command<a class="headerlink" href="#umount-command" title="Permanent link">&para;</a></h4>
+<p>The <code>umount</code> command is used to unmount logical drives.</p>
+<div class="highlight"><pre><span></span><code>umount [-option] [device] [directory]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# umount /home
+[root]# umount /dev/sda7
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td>Unmount without writing to <code>/etc/mtab</code>.</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>If unmount fails, remount as read-only.</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>Force unmount.</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Unmount all filesystems mentioned in <code>/etc/fstab</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When disassembling, you must not stay below the mounting point. Otherwise, the following error message is displayed: <code>device is busy</code>.</p>
+</div>
+<h2 id="types-of-files">Types of files<a class="headerlink" href="#types-of-files" title="Permanent link">&para;</a></h2>
+<p>As in any system, in order to be able to find one's way through the tree structure and the file management, it is important to respect the file naming rules.</p>
+<ul>
+<li>Files are coded on 255 characters;</li>
+<li>All ASCII characters can be used;</li>
+<li>Uppercase and lowercase letters are differentiated;</li>
+<li>No notion of extension.</li>
+</ul>
+<p>Groups of words separated by spaces must be enclosed in quotation marks:</p>
+<div class="highlight"><pre><span></span><code>[root]# mkdir &quot;working dir&quot;
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While there is nothing technically wrong with creating a file or directory with a space in it, it is generally a "best practice" to avoid this and replace any space with an underscore.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>.</strong> at the beginning of the file name only serves to hide it from a simple <code>ls</code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Under Linux, the extension of a file is not a necessary reference to open or modify it. However, it can be useful for the user.</p>
+</div>
+<p>Examples of extension agreements:</p>
+<ul>
+<li><code>.c</code> : source file in C language;</li>
+<li><code>.h</code> : C and Fortran header file;</li>
+<li><code>.o</code> : object file in C language;</li>
+<li><code>.tar</code> : data file archived with the <code>tar</code> utility;</li>
+<li><code>.cpio</code> : data file archived with the <code>cpio</code> utility;</li>
+<li><code>.gz</code> : data file compressed with the <code>gzip</code> utility;</li>
+<li><code>.tgz</code> : data file archived with the <code>tar</code> utility and compressed with the <code>gzip</code> utility;</li>
+<li><code>.html</code> : web page.</li>
+</ul>
+<h3 id="details-of-a-file-name">Details of a file name<a class="headerlink" href="#details-of-a-file-name" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>[root]# ls -liah /usr/bin/passwd
+266037 -rwsr-xr-x 1 root root 59K mars  22  2019 /usr/bin/passwd
+1      2    3     4  5    6    7       8               9
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>Inode number</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>File type (1st character of the block of 10)</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>Access rights (last 9 characters of the block of 10)</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Number of links (ordinary) or subdirectories (directories)</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td>Name of the owner</td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td>Name of the group</td>
+</tr>
+<tr>
+<td><code>7</code></td>
+<td>Size (byte, kilo, mega)</td>
+</tr>
+<tr>
+<td><code>8</code></td>
+<td>Date of last update</td>
+</tr>
+<tr>
+<td><code>9</code></td>
+<td>Name of the file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="different-types-of-files">Different types of files<a class="headerlink" href="#different-types-of-files" title="Permanent link">&para;</a></h3>
+<p>The following types of files can be found on a system:</p>
+<ul>
+<li>Ordinary (text, binary, ...);</li>
+<li>Directories;</li>
+<li>Special (printers, screens, ...);</li>
+<li>Links;</li>
+<li>Communications (tubes and socket).</li>
+</ul>
+<h4 id="ordinary-files">Ordinary files<a class="headerlink" href="#ordinary-files" title="Permanent link">&para;</a></h4>
+<p>These are text, program (source), executable (after compilation) or data (binary, ASCII) and multimedia files.</p>
+<div class="highlight"><pre><span></span><code>[root]# ls -l myfile
+-rwxr-xr-x   1   root  root  26  nov  31  15:21 myfile
+</code></pre></div>
+<p>The dash <code>-</code> at the beginning of the rights group (10-character block) indicates that it is an ordinary file type.</p>
+<h4 id="directory-files">Directory files<a class="headerlink" href="#directory-files" title="Permanent link">&para;</a></h4>
+<p>Directory files contain references to other files.</p>
+<p>By default in each directory are present <strong>.</strong>  and <strong>..</strong>.</p>
+<ul>
+<li>The <strong>.</strong> represents the position in the tree.</li>
+<li>The <strong>..</strong> represents the father of the current position.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root]# ls -l mydirectory
+drwxr-xr-x   1   root  root  26  nov  31  15:21 mydirectory
+</code></pre></div>
+<p>The letter <code>d</code> at the beginning of the rights group indicates that it is a directory type file.</p>
+<h4 id="special-files">Special files<a class="headerlink" href="#special-files" title="Permanent link">&para;</a></h4>
+<p>In order to communicate with peripherals (hard disks, printers, ...), Linux uses interface files called special files (<em>device file</em> or <em>special file</em>). They allow identification by the peripherals.</p>
+<p>These files are special because they do not contain data but specify the access mode to communicate with the device.</p>
+<p>They are defined in two modes:</p>
+<ul>
+<li><strong>block</strong> mode;</li>
+<li><strong>character</strong> mode.</li>
+</ul>
+<h5 id="block-mode">Block mode<a class="headerlink" href="#block-mode" title="Permanent link">&para;</a></h5>
+<p>The special <strong>block mode</strong> file allows, using the system buffers, to transfer data to the device.</p>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /dev/sda
+brw-------   1   root  root  8, 0 jan 1 1970 /dev/sda
+</code></pre></div>
+<p>The letter <code>b</code> at the beginning of the rights group indicates that it is a special file <strong>block</strong>.</p>
+<h5 id="character-mode">Character mode<a class="headerlink" href="#character-mode" title="Permanent link">&para;</a></h5>
+<p>The special <em>character mode</em> file is used to transfer data to the device as a stream of one character at a time without using a buffer. These are devices like printer, screen or DAT tapes, ...</p>
+<p>The standard output is the screen.</p>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /dev/tty0
+crw-------   1   root  root  8, 0 jan 1 1970 /dev/tty0
+</code></pre></div>
+<p>The letter <code>c</code> at the beginning of the rights group indicates that it is a special character file.</p>
+<h4 id="communication-files">Communication files<a class="headerlink" href="#communication-files" title="Permanent link">&para;</a></h4>
+<p>These are the pipe (<em>pipes</em>) and the <em>socket</em> files.</p>
+<ul>
+<li>
+<p><strong>Pipe files</strong> pass information between processes by FIFO (<em>First In, First Out</em>).
+One process writes transient information to a <em>pipe</em> file and another reads it. After reading, the information is no longer accessible.</p>
+</li>
+<li>
+<p><strong>Socket files</strong> allow bidirectional inter-process communication (on local or remote systems). They use an <em>inode</em> of the file system.</p>
+</li>
+</ul>
+<h4 id="link-files">Link files<a class="headerlink" href="#link-files" title="Permanent link">&para;</a></h4>
+<p>These files give the possibility to give several logical names to the same physical file. A new access point to the file is therefore created.</p>
+<p>There are two types of link files:</p>
+<ul>
+<li>Physical links;</li>
+<li>Symbolic links.</li>
+</ul>
+<h5 id="physical-link">Physical link<a class="headerlink" href="#physical-link" title="Permanent link">&para;</a></h5>
+<p>The link file and the source file have the same <em>inode</em> number and the link counter is incremented. It is not possible to link different directories or files from different file systems.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the source file is destroyed, the counter is decremented and the link file still accesses the file.</p>
+</div>
+<h6 id="command-ln-for-a-physical-link">Command <code>ln</code> for a physical link<a class="headerlink" href="#command-ln-for-a-physical-link" title="Permanent link">&para;</a></h6>
+<p>The <code>ln</code> command allows you to create physical links.</p>
+<div class="highlight"><pre><span></span><code>[root]# ls –li letter
+666 –rwxr--r-- 1 root root … letter
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ln /home/paul/letter /home/jack/read
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ls –li /home/*/*
+666 –rwxr--r-- 2 root root … letter
+666 –rwxr--r-- 2 root root … read
+</code></pre></div>
+<p><img alt="Representation of a physical link" src="../../../../books/admin_guide/images/07-file-systems-009.png" /></p>
+<h5 id="symbolic-link">Symbolic link<a class="headerlink" href="#symbolic-link" title="Permanent link">&para;</a></h5>
+<p>Unlike the physical link, the symbolic link involves the creation of a new <em>inode</em>. At the symbolic link level, only a path is stored in the inode table.</p>
+<p>The file created contains only an indication of the path to the file. This notion no longer has the limitations of physical links and it is now possible to link directories and files belonging to different file systems.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the source file is destroyed, the link file can no longer access the file.</p>
+</div>
+<h6 id="ln-command-for-a-symbolic-link"><code>ln</code> command for a symbolic link<a class="headerlink" href="#ln-command-for-a-symbolic-link" title="Permanent link">&para;</a></h6>
+<p>The command <code>ln</code> with the argument <code>-s</code> allows to create symbolic links.</p>
+<div class="highlight"><pre><span></span><code>[root]# ls –li letter
+666 -rwxr--r-- 1 root root … letter
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ln -s /home/paul/letter /tmp/read
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ls –li /home/paul/letter /tmp/read
+666 -rwxr--r--- 1 root root … letter
+678 lrwxrwxrwx 1 root root … read -&gt; letter
+</code></pre></div>
+<p><img alt="Representation of a symbolic link" src="../../../../books/admin_guide/images/07-file-systems-010.png" /></p>
+<h2 id="file-attributes">File attributes<a class="headerlink" href="#file-attributes" title="Permanent link">&para;</a></h2>
+<p>Linux is a multi-user operating system where the control of access to files is essential.</p>
+<p>These controls are functions of:</p>
+<ul>
+<li>file access permissions ;</li>
+<li>users (<em>ugo</em> <em>Users Groups Others</em>).</li>
+</ul>
+<p>The command <code>ls -l</code> allows to display the attributes.</p>
+<p>There are 4 file access rights:</p>
+<ul>
+<li><strong>r</strong>ead;</li>
+<li><strong>w</strong>rite;</li>
+<li>e<strong>x</strong>ecution;</li>
+<li><strong>-</strong> no right.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The rights associated with files differ from those associated with directories (see below).</p>
+</div>
+<p>The user types associated with file access rights are:</p>
+<ul>
+<li><strong>u</strong>ser_ (owner) ;</li>
+<li><strong>g</strong>roup_ (owner group);</li>
+<li><strong>o</strong>thers (others users);</li>
+</ul>
+<p>In some commands it is possible to designate everyone with <strong>a</strong> (<em>all</em>).</p>
+<p><strong>a = ugo</strong></p>
+<h3 id="rights-associated-with-ordinary-files">Rights associated with ordinary files<a class="headerlink" href="#rights-associated-with-ordinary-files" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>r</strong>ead: Allows reading a file (<code>cat</code>, <code>less</code>, ...) and copying a file (<code>cp</code>, ...).</li>
+<li><strong>w</strong>rite: Allows modification of the file content (<code>cat</code>, <code>&gt;&gt;</code>, <code>vim</code>, ...).</li>
+<li>e<strong>x</strong>ecute: Considers the file as an e<strong>X</strong>ecutable (binary or script).</li>
+<li><strong>-</strong>: No permissions.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Moving or renaming a file depends on the rights of the target directory. Deleting a file depends on the rights of the parent directory.</p>
+</div>
+<h3 id="rights-associated-with-directories">Rights associated with directories<a class="headerlink" href="#rights-associated-with-directories" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>r</strong>ead: Allows reading the contents of a directory (<code>ls -R</code>).</li>
+<li><strong>w</strong>rite: Allows modification of the contents of a directory (<code>touch</code>) and allows creation and deletion of files if the <strong>x</strong> permission is enabled.</li>
+<li>e<strong>x</strong>ecute: Allows descending in the directory (<code>cd</code>).</li>
+<li><strong>-</strong>: No rights.</li>
+</ul>
+<h3 id="attribute-management">Attribute management<a class="headerlink" href="#attribute-management" title="Permanent link">&para;</a></h3>
+<p>The display of rights is done with the command <code>ls -l</code>. It is the last 9 characters of the block of 10. More precisely 3 times 3 characters.</p>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /tmp/myfile
+-rwxrw-r-x  1  root  sys  ... /tmp/myfile
+  1  2  3       4     5
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Owner (<strong>u</strong>ser) permissions, here <code>rwx</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Owner group permissions (<strong>g</strong>roup), here <code>rw-</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Other users' permissions (<strong>o</strong>thers), here <code>r-x</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>File owner</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Group owner of the file</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Permissions apply to <strong>u</strong>ser, <strong>g</strong>roup and <strong>o</strong>ther (<strong>ugo</strong>) depending on the owner and group.</p>
+</div>
+<p>By default, the <em>owner</em> of a file is the one who creates it. The <em>group</em> of the file is the group of the owner who created the file. The <em>others</em> are those which are not concerned by the previous cases.</p>
+<p>The attributes are changed with the <code>chmod</code> command.</p>
+<p>Only the administrator and the owner of a file can change the rights of a file.</p>
+<h4 id="chmod-command"><code>chmod</code> command<a class="headerlink" href="#chmod-command" title="Permanent link">&para;</a></h4>
+<p>The <code>chmod</code> command allows you to change the access permissions to a file.</p>
+<div class="highlight"><pre><span></span><code>chmod [option] mode file
+</code></pre></div>
+<p>The mode indication can be an octal representation (e.g. <code>744</code>) or a symbolic representation ([<code>ugoa</code>][<code>+=-</code>][<code>rwxst</code>]).</p>
+<p>Several symbolic operations can be separated by commas</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# chmod -R u+rwx,g+wx,o-r /tmp/file1
+[root]# chmod g=x,o-r /tmp/file2
+[root]# chmod -R o=r /tmp/file3
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /tmp/fic*
+-rwxrwx--- 1 root root … /tmp/file1
+-rwx--x--- 1 root root … /tmp/file2
+-rwx--xr-- 1 root root … /tmp/file3
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# chmod 741 /tmp/file1
+[root]# chmod -R 744 /tmp/file2
+[root]# ls -l /tmp/fic*
+-rwxr----x 1 root root … /tmp/file1
+-rwxr--r-- 1 root root … /tmp/file2
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-R</code></td>
+<td>Recursively modify the permissions of directories and their contents.</td>
+</tr>
+</tbody>
+</table>
+<p>There are two methods for making rights changes:</p>
+<ul>
+<li>The <strong>octal</strong> method;</li>
+<li>The <strong>symbolic</strong> method.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The rights of files and directories are not dissociated. For some operations, it will be necessary to know the rights of the directory containing the file. A write-protected file can be deleted by another user as long as the rights of the directory containing it allow this user to perform this operation.</p>
+</div>
+<h4 id="principle-of-the-octal-method">Principle of the octal method<a class="headerlink" href="#principle-of-the-octal-method" title="Permanent link">&para;</a></h4>
+<p>Each right has a value.</p>
+<p><img alt="Octal method" src="../../../../books/admin_guide/images/07-file-systems-011.png" /></p>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /tmp/myfile
+-rwxrwxrwx  1  root  root  ... /tmp/myfile
+</code></pre></div>
+<p><img alt="Rights 777" src="../../../../books/admin_guide/images/07-file-systems-012.png" /></p>
+<div class="highlight"><pre><span></span><code>[root]# chmod 741 /tmp/myfile
+-rwxr----x  1  root  root  ... /tmp/myfile
+</code></pre></div>
+<p><img alt="Rights 741" src="../../../../books/admin_guide/images/07-file-systems-013.png" /></p>
+<h4 id="principle-of-the-symbolic-method">Principle of the symbolic method<a class="headerlink" href="#principle-of-the-symbolic-method" title="Permanent link">&para;</a></h4>
+<p>This method can be considered as a "literal" association between a user type, an operator, and rights.</p>
+<p><img alt="Symbolic method" src="../../../../books/admin_guide/images/07-file-systems-014.png" /></p>
+<div class="highlight"><pre><span></span><code>[root]# chmod u+rwx,g+wx,o-r /tmp/myfile
+[root]# chmod g=x,o-r /tmp/myfile
+[root]# chmod o=r /tmp/myfile
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /tmp/myfile
+r--r-- 1 root root … /tmp/myfile
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# chmod u+rwx,g+wx,o-r /tmp/myfile
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root]# ls -l /tmp/myfile
+-rwxrwx--- 1 root root … /tmp/myfile
+</code></pre></div>
+<h3 id="special-rights">Special rights<a class="headerlink" href="#special-rights" title="Permanent link">&para;</a></h3>
+<p>In addition to the fundamental rights (<code>rwx</code>), there are the particular rights:</p>
+<ul>
+<li><strong>set-user-ID</strong> (<em>SUID]</em>)</li>
+<li><strong>set-group-ID</strong> (<em>SGID]</em>)</li>
+<li><strong>sticky-bit</strong></li>
+</ul>
+<p>As with the fundamental rights, the particular rights each have a value. This value is placed before the <code>ugo</code> set of rights.</p>
+<p><img alt="Special rights" src="../../../../books/admin_guide/images/07-file-systems-015.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><code>S</code>, <code>S</code> and <code>T</code> in capital letters <strong>if the right does not exist</strong>.</p>
+</div>
+<h4 id="the-sticky-bit">The sticky-bit<a class="headerlink" href="#the-sticky-bit" title="Permanent link">&para;</a></h4>
+<p>One of the peculiarities of rights in Linux is that the right to write to a directory also allows deletion of <em>all</em> files, owner or not.</p>
+<p>The <em>sticky-bit</em> set on the directory will only allow users to delete files they own. This is the basic case for the <code>/tmp</code> directory.</p>
+<p>The setting of the <em>sticky-bit</em> can be done as follows:</p>
+<p>Octal method:
+<div class="highlight"><pre><span></span><code>[root]# chmod 1777 directory
+</code></pre></div></p>
+<p>Symbolic method:
+<div class="highlight"><pre><span></span><code>[root]# chmod o+t directory
+</code></pre></div></p>
+<p>Verification:
+<div class="highlight"><pre><span></span><code>[root]# ls -l
+drwxrwxrwt … directory
+</code></pre></div></p>
+<h4 id="suid-and-sgid-on-a-command">SUID and SGID on a command<a class="headerlink" href="#suid-and-sgid-on-a-command" title="Permanent link">&para;</a></h4>
+<p>These rights allow execution of a command according to the rights set on the command, and not according to the user's rights.</p>
+<p>The command is executed with the identity of the owner (<em>SUID</em>) or the group (<em>SGID</em>) of the command.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The identity of the user requesting the execution of the order is no longer taken into account.</p>
+<p>This is an additional possibility of access rights assigned to a user when it is necessary for them to have the same rights as the owner of a file or those of the group concerned.</p>
+</div>
+<p>Indeed, a user may have to run a program (usually a system utility) but not have the necessary access rights. By setting the appropriate rights (<strong>s</strong> at the owner level and/or at the group level), the user of the program has, for the time of its execution, the identity of the owner (or that of the group) of the program.</p>
+<p>Example:</p>
+<p>The file <code>/usr/bin/passwd</code> is an executable file (a command) with a <em>SUID</em>.</p>
+<p>When the user <em>bob</em> runs it, he will have to access the <code>/etc/shadow</code> file, but the permissions on this file do not allow <em>bob</em> to access it.</p>
+<p>Having a <em>SUID</em> this command, <code>/usr/bin/passwd</code>, will be executed with the <em>UID</em> of root and the <em>GID</em> of <em>root</em>. The latter being the owner of the <code>/etc/shadow</code> file, he will have read rights.</p>
+<p><img alt="How the SUID works" src="../../../../books/admin_guide/images/07-file-systems-016.png" /></p>
+<p>The setting of <em>SUID</em> and <em>SGID</em> can be done as below with the command <code>chmod</code>:</p>
+<p>Octal method:
+<div class="highlight"><pre><span></span><code>[root]# chmod 4777 command1
+[root]# chmod 2777 command2
+</code></pre></div></p>
+<p>Symbolic method:
+<div class="highlight"><pre><span></span><code>[root]# chmod u+s command1
+[root]# chmod g+s command2
+</code></pre></div></p>
+<p>Verification:
+<div class="highlight"><pre><span></span><code>[root]# ls -l
+-rwsrwxrwx … command1
+-rwxrwsrwx … command2
+</code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is not possible to pass the <em>SUID</em> or <em>SGID</em> to a shell script.
+The system does not allow it because it is too dangerous for security!</p>
+</div>
+<h4 id="sgid-on-a-file">SGID on a file<a class="headerlink" href="#sgid-on-a-file" title="Permanent link">&para;</a></h4>
+<p>In a directory with the <em>SGID</em> right, any file created will inherit the group that owns the directory instead of that of the creating user.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code>[rockstar] $ ls -ld /data/
+drwxrwsr-x 2 root users 4096 26 oct. 19:43 /data
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>[rockstar] $ touch /data/test_sgid /tmp/fic_reference
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[rockstar] $ ls -ld /data/test_sgid /tmp/fic_reference
+-rw-r--r--. 1 rockstar users 0 26 oct. 19:43 /data/test_sgid &lt;1&gt;
+-rw-r--r--. 1 rockstar rockstar 0 26 oct. 19:43  /tmp/fic_ref
+</code></pre></div>
+<p>&lt;1&gt; The <code>test_sgid</code> file inherits the group owner of its <code>/data</code> folder (in this case <code>users</code>) whatever the main group of the <code>rockstar</code> user is.</p>
+<h2 id="default-rights-and-mask">Default rights and mask<a class="headerlink" href="#default-rights-and-mask" title="Permanent link">&para;</a></h2>
+<p>When a file or directory is created, it already has permissions.</p>
+<ul>
+<li>For a directory: <code>rwxr-xr-x</code> or <em>755</em>.</li>
+<li>For a file: <code>rw-r-r-</code> or <em>644</em>.</li>
+</ul>
+<p>This behavior is defined by the <strong>default mask</strong>.</p>
+<p>The principle is to remove the value defined by the mask at maximum rights without the execution right.</p>
+<p>For a directory :</p>
+<p><img alt="How the SUID works" src="../../../../books/admin_guide/images/07-file-systems-017.png" /></p>
+<p>For a file, the execution rights are removed:</p>
+<p><img alt="Default rights of a file" src="../../../../books/admin_guide/images/07-file-systems-018.png" /></p>
+<h3 id="umask-command"><code>umask</code> command<a class="headerlink" href="#umask-command" title="Permanent link">&para;</a></h3>
+<p>The <code>umask</code> command allows you to display and modify the mask.</p>
+<div class="highlight"><pre><span></span><code>umask [option] [mode]
+</code></pre></div>
+<p>Example:
+<div class="highlight"><pre><span></span><code>$ umask 033
+$ umask
+0033
+$ umask -S
+u=rwx,g=r,o=r
+$ touch umask_033
+$ ls -la  umask_033
+-rw-r--r-- 1 rockstar rockstar 0 nov.   4 16:44 umask_033
+$ umask 025
+$ umask -S
+u=rwx,g=rx,o=w
+$ touch umask_025
+$ ls -la  umask_025
+-rw-r---w- 1 rockstar rockstar 0 nov.   4 16:44 umask_025
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-S</code></td>
+<td>Symbolic display of file rights.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>umask</code> does not affect existing files.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>umask</code> modifies the mask until the disconnection.</p>
+</div>
+<p>To keep the value, you have to modify the following profile files:
+For all users:</p>
+<ul>
+<li><code>/etc/profile</code></li>
+<li><code>/etc/bashrc</code></li>
+</ul>
+<p>For a particular user:</p>
+<ul>
+<li><code>~/.bashrc</code></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>umask -S</code> displays the file rights (without the execute right) of the files that will be created. So it is not the display of the mask used to subtract the maximum value.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>umask</code> command being a <em>bash</em> command, (a <code>type umask</code> returns <code>umask is a shell primitive</code>) you have to search <code>umask</code> in <code>man bash</code>.</p>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Sidfot">
+      
+        
+        <a href="../06-users/" class="md-footer__link md-footer__link--prev" aria-label="Föregående: User management" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Föregående
+              </span>
+              User management
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../08-process/" class="md-footer__link md-footer__link--next" aria-label="Nästa: Process management" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Nästa
+              </span>
+              Process management
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Kopiera till urklipp", "clipboard.copied": "Kopierat till urklipp", "search.config.lang": "sv", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "S\u00f6k", "search.result.placeholder": "Skriv s\u00f6kord", "search.result.none": "Inga s\u00f6kresultat", "search.result.one": "1 s\u00f6kresultat", "search.result.other": "# s\u00f6kresultat", "search.result.more.one": "1 till p\u00e5 denna sidan", "search.result.more.other": "# till p\u00e5 denna sidan", "search.result.term.missing": "Saknas", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2821 @@
+
+<!doctype html>
+<html lang="sv" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.3/sv/books/admin_guide/12-network/">
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>Implementing the network - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementing-the-network" class="md-skip">
+          Gå till innehållet
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Sidhuvud">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementing the network
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Sök" placeholder="Sök" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Rensa" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialiserar sök
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Flikar" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      Table of Contents
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky paket Hur man tar bort varumärke
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Paketsignering och testning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Lägg till en publik spegel till Rocky's spegelhanterare
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Aktivera iptables Brandvägg
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        Installera Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        SSH Publika och privata nycklar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Implementing the network
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Implementing the network
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    Generalities
+  </a>
+  
+    <nav class="md-nav" aria-label="Generalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-address-ip-address" class="md-nav__link">
+    MAC address / IP address
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-domain" class="md-nav__link">
+    DNS Domain
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reminder-of-the-osi-model" class="md-nav__link">
+    Reminder of the OSI model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-naming-of-interfaces" class="md-nav__link">
+    The naming of interfaces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-ip-command" class="md-nav__link">
+    Using the ip command
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hostname" class="md-nav__link">
+    The hostname
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etchosts-file" class="md-nav__link">
+    /etc/hosts file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcnsswitchconf-file" class="md-nav__link">
+    /etc/nsswitch.conf file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcresolvconf-file" class="md-nav__link">
+    /etc/resolv.conf file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-command" class="md-nav__link">
+    ip command
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-configuration" class="md-nav__link">
+    DHCP configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-configuration" class="md-nav__link">
+    Static configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    Routing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#name-resolution" class="md-nav__link">
+    Name resolution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dig-command" class="md-nav__link">
+    dig command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getent-command" class="md-nav__link">
+    getent command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipcalc-command" class="md-nav__link">
+    ipcalc command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ss-command" class="md-nav__link">
+    ss command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netstat-command" class="md-nav__link">
+    netstat command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-or-mac-address-conflicts" class="md-nav__link">
+    IP or MAC address conflicts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-configuration" class="md-nav__link">
+    Hot configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-summary" class="md-nav__link">
+    In summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    Generalities
+  </a>
+  
+    <nav class="md-nav" aria-label="Generalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-address-ip-address" class="md-nav__link">
+    MAC address / IP address
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-domain" class="md-nav__link">
+    DNS Domain
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reminder-of-the-osi-model" class="md-nav__link">
+    Reminder of the OSI model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-naming-of-interfaces" class="md-nav__link">
+    The naming of interfaces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-ip-command" class="md-nav__link">
+    Using the ip command
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hostname" class="md-nav__link">
+    The hostname
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etchosts-file" class="md-nav__link">
+    /etc/hosts file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcnsswitchconf-file" class="md-nav__link">
+    /etc/nsswitch.conf file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcresolvconf-file" class="md-nav__link">
+    /etc/resolv.conf file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-command" class="md-nav__link">
+    ip command
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp-configuration" class="md-nav__link">
+    DHCP configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-configuration" class="md-nav__link">
+    Static configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    Routing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#name-resolution" class="md-nav__link">
+    Name resolution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dig-command" class="md-nav__link">
+    dig command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getent-command" class="md-nav__link">
+    getent command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipcalc-command" class="md-nav__link">
+    ipcalc command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ss-command" class="md-nav__link">
+    ss command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netstat-command" class="md-nav__link">
+    netstat command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-or-mac-address-conflicts" class="md-nav__link">
+    IP or MAC address conflicts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-configuration" class="md-nav__link">
+    Hot configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-summary" class="md-nav__link">
+    In summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="implementing-the-network">Implementing the network<a class="headerlink" href="#implementing-the-network" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will learn how to work with and manage the network.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter you will learn how to:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Configure a workstation to use DHCP;<br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Configure a workstation to use a static configuration; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Configure a workstation to use a gateway; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Configure a workstation to use DNS servers; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Troubleshoot the network of a workstation.</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>network</strong>, <strong>linux</strong>, <strong>ip</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /><br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /></p>
+<p><strong>Reading time</strong>: 30 minutes</p>
+<hr />
+<h2 id="generalities">Generalities<a class="headerlink" href="#generalities" title="Permanent link">&para;</a></h2>
+<p>To illustrate this chapter, we will use the following architecture.</p>
+<p><img alt="Illustration of our network architecture" src="../../../../books/admin_guide/images/network-001.png" /></p>
+<p>It will allow us to consider :</p>
+<ul>
+<li>integration in a LAN (local area network);</li>
+<li>the configuration of a gateway to reach a remote server;</li>
+<li>the configuration of a DNS server and the implementation of name resolution.</li>
+</ul>
+<p>The minimum parameters to be defined for the machine are:</p>
+<ul>
+<li>the name of the machine ;</li>
+<li>the IP address;</li>
+<li>the subnet mask.</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li><code>pc-rocky</code>;</li>
+<li><code>192.168.1.10</code>;</li>
+<li><code>255.255.255.0</code>.</li>
+</ul>
+<p>The notation called CIDR is more and more frequent: 192.168.1.10/24</p>
+<p>IP addresses are used for the proper routing of messages (packets). They are divided into two parts:</p>
+<ul>
+<li>the fixed part, identifying the network;</li>
+<li>the identifier of the host in the network.</li>
+</ul>
+<p>The subnet mask is a set of <strong>4 bytes</strong> intended to isolate:</p>
+<ul>
+<li>the network address (<strong>NetID</strong> or <strong>SubnetID</strong>) by performing a bitwise logical AND between the IP address and the mask;</li>
+<li>the host address (<strong>HostID</strong>) by performing a bitwise logical AND between the IP address and the complement of the mask.</li>
+</ul>
+<p>There are also specific addresses within a network, which must be identified. The first address of a range as well as the last one have a particular role:</p>
+<ul>
+<li>
+<p>The first address of a range is the <strong>network address</strong>. It is used to identify networks and to route information from one network to another.</p>
+</li>
+<li>
+<p>The last address of a range is the <strong>broadcast address</strong>. It is used to broadcast information to all the machines on the network.</p>
+</li>
+</ul>
+<h3 id="mac-address-ip-address">MAC address / IP address<a class="headerlink" href="#mac-address-ip-address" title="Permanent link">&para;</a></h3>
+<p>A <strong>MAC address</strong> is a physical identifier written in the factory onto the device. This is sometimes referred to as the hardware address. It consists of 6 bytes often given in hexadecimal form (for example 5E:FF:56:A2:AF:15).
+It is composed of : 3 bytes of the manufacturer identifier and 3 bytes of the serial number.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This last statement is nowadays a little less true with virtualization. There are also software solutions for changing the MAC address.</p>
+</div>
+<p>An Internet Protocol (<strong>IP</strong>) address is an identification number permanently or temporarily assigned to each device connected to a computer network using the Internet Protocol.
+One part defines the network address (NetID or SubnetID as the case may be), the other part defines the address of the host in the network (HostID). The relative size of each part varies according to the network (sub)mask.</p>
+<p>An IPv4 address defines an address on 4 bytes. The number of available addresses being close to saturation a new standard was created, the IPv6 defined on 16 bytes.</p>
+<p>IPv6 is often represented by 8 groups of 2 bytes separated by a colon. Insignificant zeros can be omitted, one or more groups of 4 consecutive zeros can be replaced by a double colon.</p>
+<p>Subnet masks have from 0 to 128 bits. (for example 21ac:0000:0000:0611:21e0:00ba:321b:54da/64 or 21ac::611:21e0<img alt="🇧🇦" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f1e7-1f1e6.svg" title=":ba:" />321b:54da/64)</p>
+<p>In a web address or URL (Uniform Resource Locator), an ip address can be followed by a colon and the port address (which indicates the application to which the data is destined). Also to avoid confusion in a URL, the IPv6 address is written in square brackets [ ], colon, port address.</p>
+<p>IP and MAC addresses must be unique on a network!</p>
+<h3 id="dns-domain">DNS Domain<a class="headerlink" href="#dns-domain" title="Permanent link">&para;</a></h3>
+<p>Client machines can be part of a DNS (<strong>Domain Name System</strong>, e.g. <code>mydomain.lan</code>) domain.</p>
+<p>The fully qualified machine name (<strong>FQDN</strong>) becomes <code>pc-rocky.mydomain.lan</code>.</p>
+<p>A set of computers can be grouped into a logical, name-resolving, set called a DNS domain. A DNS domain is not, of course, limited to a single physical network.</p>
+<p>In order for a computer to be part of a DNS domain, it must be given a DNS suffix (here <code>mydomain.lan</code>) as well as servers that it can query.</p>
+<h3 id="reminder-of-the-osi-model">Reminder of the OSI model<a class="headerlink" href="#reminder-of-the-osi-model" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Memory aid</p>
+<p>To remember the order of the layers of the OSI model, remember the following sentence: <strong>Please Do Not Touch Steven's Pet Alligator</strong>.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Protocoles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7 - Application</td>
+<td>POP, IMAP, SMTP, SSH, SNMP, HTTP, FTP, ...</td>
+</tr>
+<tr>
+<td>6 - Presentation</td>
+<td>ASCII, MIME, ...</td>
+</tr>
+<tr>
+<td>5 - Session</td>
+<td>TLS, SSL, NetBIOS, ...</td>
+</tr>
+<tr>
+<td>4 - Transport</td>
+<td>TLS, SSL, TCP, UDP, ...</td>
+</tr>
+<tr>
+<td>3 - Network</td>
+<td>IPv4, IPv6, ARP, ...</td>
+</tr>
+<tr>
+<td>2 - Data Link</td>
+<td>Ethernet, WiFi, Token Ring, ...</td>
+</tr>
+<tr>
+<td>1 - Physical</td>
+<td>Cables, optical fibers, radio waves, ...</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Layer 1</strong> (Physical) supports transmission over a communication channel (Wifi, Optical fiber, RJ cable, etc.).
+Unit: the bit.</p>
+<p><strong>Layer 2</strong> (Data Link) supports network topology
+(token-ring, star, bus, etc.), data splitting and transmission errors.
+Unit: the frame.</p>
+<p><strong>Layer 3</strong> (Network) supports end-to-end data transmission (IP routing = Gateway).
+Unit: the packet.</p>
+<p><strong>Layer 4</strong> (Transport) supports service type (connected or unconnected)
+encryption and flow control.
+Unit: the segment or the datagram.</p>
+<p><strong>Layer 5</strong> (Session) supports the communication between two computers.</p>
+<p><strong>Layer 6</strong> (Presentation) represents the area that is independent of data at the application layer. Essentially this layer translates from network format to the application format, or or from the application format to the network format.</p>
+<p><strong>Layer 7</strong> (Application) represents the contact with the user.
+It provides the services offered by the network: http, dns, ftp, imap,
+pop, smtp, etc.</p>
+<h2 id="the-naming-of-interfaces">The naming of interfaces<a class="headerlink" href="#the-naming-of-interfaces" title="Permanent link">&para;</a></h2>
+<p><em>lo</em> is the "<strong>loopback</strong>" interface which allows TCP/IP programs to communicate with each other without leaving the local machine. This enables testing if the <strong>network module of the system is working properly</strong> and also allows pinging the localhost. All packets that enter through localhost leave through localhost. The packets received are the packets sent.</p>
+<p>The Linux kernel assigns interface names with a specific prefix depending on the type. Traditionally, all <strong>Ethernet</strong> interfaces, for example, began with <strong>eth</strong>. The prefix was followed by a number, the first being 0 (eth0, eth1, eth2...). The wifi interfaces were given a wlan prefix.</p>
+<p>On Rocky8 Linux distributions, systemd will name interfaces with the new following policy where "X" represents a number:</p>
+<ul>
+<li><code>enoX</code>:  on-board devices</li>
+<li><code>ensX</code>: PCI Express hotplug slot</li>
+<li><code>enpXsX</code>: physical/geographical location of the connector of the hardware</li>
+<li>...</li>
+</ul>
+<h2 id="using-the-ip-command">Using the <code>ip</code> command<a class="headerlink" href="#using-the-ip-command" title="Permanent link">&para;</a></h2>
+<p>Forget the old <code>ifconfig</code> command! Think <code>ip</code>!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Comment for administrators of older Linux systems:</p>
+<p>The historical network management command is <code>ifconfig</code>. This command has been replaced by the <code>ip</code> command, which is already well known to network administrators.</p>
+<p>The <code>ip</code> command is the only command to manage <strong>IP address, ARP, routing, etc.</strong>.</p>
+<p>The <code>ifconfig</code> command is no longer installed by default in Rocky8.</p>
+<p>It is important to get into good habits now.</p>
+</div>
+<h2 id="the-hostname">The hostname<a class="headerlink" href="#the-hostname" title="Permanent link">&para;</a></h2>
+<p>The <code>hostname</code> command displays or sets the host name of the system</p>
+<div class="highlight"><pre><span></span><code>hostname [-f] [hostname]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>Display the FQDN</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Display the system IPs address</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This command is used by various network programs to identify the machine.</p>
+</div>
+<p>To assign a host name, it is possible to use the <code>hostname</code> command, but the changes will not be retained at the next boot. The command with no arguments displays the host name.</p>
+<p>To set the host name, the file <code>/etc/sysconfig/network</code> must be modified:</p>
+<div class="highlight"><pre><span></span><code>NETWORKING=yes
+HOSTNAME=pc-rocky.mondomaine.lan
+</code></pre></div>
+<p>The RedHat boot script also consults the <code>/etc/hosts</code> file to resolve the host name of the system.</p>
+<p>When the system boots, Linux evaluates the <code>HOSTNAME</code> value in the <code>/etc/sysconfig/network</code> file.</p>
+<p>It then uses the <code>/etc/hosts</code> file to evaluate the main IP address of the server and its host name. It deduces the DNS domain name.</p>
+<p>It is therefore essential to fill in these two files before any configuration of network services.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To know if this configuration is well done, the commands <code>hostname</code> and <code>hostname -f</code> must answer with the expected values.</p>
+</div>
+<h2 id="etchosts-file">/etc/hosts file<a class="headerlink" href="#etchosts-file" title="Permanent link">&para;</a></h2>
+<p>The <code>/etc/hosts</code> file is a static host name mapping table, which follows the following format:</p>
+<div class="highlight"><pre><span></span><code>@IP &lt;hostname&gt;  [alias]  [# comment]
+</code></pre></div>
+<p>Example of <code>/etc/hosts</code> file:</p>
+<div class="highlight"><pre><span></span><code>127.0.0.1   localhost localhost.localdomain
+::1         localhost localhost.localdomain
+192.168.1.10    rockstar.rockylinux.lan rockstar
+</code></pre></div>
+<p>The <code>/etc/hosts</code> file is still used by the system, especially at boot time when the system FQDN is determined.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>RedHat recommends that at least one line containing the system name be filled in.</p>
+</div>
+<p>If the <strong>DNS</strong> service (<strong>D</strong>domain <strong>N</strong>ame <strong>S</strong>ervice) is not in place, you must fill in all the names in the hosts file for each of your machines.</p>
+<p>The <code>/etc/hosts</code> file contains one line per entry, with the IP address, the FQDN, then the host name (in that order) and a series of aliases (alias1 alias2 ...). The alias is an option.</p>
+<h2 id="etcnsswitchconf-file"><code>/etc/nsswitch.conf</code> file<a class="headerlink" href="#etcnsswitchconf-file" title="Permanent link">&para;</a></h2>
+<p>The <strong>NSS</strong> (<strong>N</strong>ame <strong>S</strong>ervice <strong>S</strong>witch) allows configuration files (e.g. <code>/etc/passwd</code>, <code>/etc/group</code>, <code>/etc/hosts</code>) to be substituted for one or more centralized databases.</p>
+<p>The <code>/etc/nsswitch.conf</code> file is used to configure the name service databases.</p>
+<div class="highlight"><pre><span></span><code>passwd: files
+shadow: files
+group: files
+
+hosts: files dns
+</code></pre></div>
+<p>In this case, Linux will first look for a host name match (<code>hosts:</code> line) in the <code>/etc/hosts</code> file (<code>files</code> value) before querying DNS (<code>dns</code> value)! This behavior can simply be changed by editing the <code>/etc/nsswitch.conf</code> file.</p>
+<p>Of course, it is possible to imagine querying an LDAP, MySQL or other server by configuring the name service to respond to system requests for hosts, users, groups, etc.</p>
+<p>The resolution of the name service can be tested with the <code>getent</code> command that we will see later in this course.</p>
+<h2 id="etcresolvconf-file"><code>/etc/resolv.conf</code> file<a class="headerlink" href="#etcresolvconf-file" title="Permanent link">&para;</a></h2>
+<p>The <code>/etc/resolv.conf</code> file contains the DNS name resolution configuration.</p>
+<div class="highlight"><pre><span></span><code>#Generated by NetworkManager
+domain mondomaine.lan
+search mondomaine.lan
+nameserver 192.168.1.254
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This file is historical. It is no longer filled in directly!</p>
+</div>
+<p>Newer generations of distributions have generally integrated the <code>NetworkManager</code> service. This service allows you to manage the configuration more efficiently, either in graphical or console mode.</p>
+<p>It allows for the addition of DNS servers from the configuration file of a network interface. It then dynamically populates the <code>/etc/resolv.conf</code> file which should never be edited directly, otherwise the configuration changes will be lost the next time the network service is started.</p>
+<h2 id="ip-command"><code>ip</code> command<a class="headerlink" href="#ip-command" title="Permanent link">&para;</a></h2>
+<p>The <code>ip</code> command from the <code>iproute2</code> package allows you to configure an interface and its routing table.</p>
+<p>Display interfaces :</p>
+<div class="highlight"><pre><span></span><code>[root]# ip link
+</code></pre></div>
+<p>Display interfaces information:</p>
+<div class="highlight"><pre><span></span><code>[root]# ip addr show
+</code></pre></div>
+<p>Display the information of an interface :</p>
+<div class="highlight"><pre><span></span><code>[root]# ip addr show eth0
+</code></pre></div>
+<p>Display the ARP table:</p>
+<div class="highlight"><pre><span></span><code>[root]# ip neigh
+</code></pre></div>
+<p>All historical network management commands have been grouped under the <code>ip</code> command, which is well known to network administrators.</p>
+<h2 id="dhcp-configuration">DHCP configuration<a class="headerlink" href="#dhcp-configuration" title="Permanent link">&para;</a></h2>
+<p>The <strong>DHCP</strong> protocol (<strong>D</strong>ynamic <strong>H</strong>ost <strong>C</strong>Control <strong>P</strong>rotocol) allows you to obtain a complete IP configuration via the network. This is the default configuration mode of a network interface under Rocky Linux, which explains why a system connected to the network of an Internet router can function without additional configuration.</p>
+<p>The configuration of interfaces under Rocky Linux is done in the <code>/etc/sysconfig/network-scripts/</code> folder.</p>
+<p>For each Ethernet interface, a <code>ifcfg-ethX</code> file allows for the configuration of the associated interface.</p>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=dhcp
+HWADDR=00:0c:29:96:32:e3
+</code></pre></div>
+<ul>
+<li>Interface name : (must be in the file name)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+</code></pre></div>
+<ul>
+<li>Automatically start the interface:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ONBOOT=yes
+</code></pre></div>
+<ul>
+<li>Make a DHCP request when the interface starts up:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>BOOTPROTO=dhcp
+</code></pre></div>
+<ul>
+<li>Specify the MAC address (optional but useful when there are several interfaces) :</li>
+</ul>
+<div class="highlight"><pre><span></span><code>HWADDR=00:0c:29:96:32:e3
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If NetworkManager is installed, the changes are taken into account automatically. If not, you have to restart the network service.</p>
+</div>
+<ul>
+<li>Restart the network service:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root]# systemctl restart NetworkManager
+</code></pre></div>
+<h2 id="static-configuration">Static configuration<a class="headerlink" href="#static-configuration" title="Permanent link">&para;</a></h2>
+<p>The static configuration requires at least:</p>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=none
+IPADDR=192.168.1.10
+NETMASK=255.255.255.0
+</code></pre></div>
+<ul>
+<li>Here we are replacing "dhcp" with "none" which equals static configuration:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>BOOTPROTO=none
+</code></pre></div>
+<ul>
+<li>IP Address:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>IPADDR=192.168.1.10
+</code></pre></div>
+<ul>
+<li>Subnet mask:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>NETMASK=255.255.255.0
+</code></pre></div>
+<ul>
+<li>The mask can be specified with a prefix:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>PREFIX=24
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You must use NETMASK OR PREFIX - Not both!</p>
+</div>
+<h2 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h2>
+<p><img alt="Network architecture with a gateway" src="../../../../books/admin_guide/images/network-002.png" /></p>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=none
+HWADDR=00:0c:29:96:32:e3
+IPADDR=192.168.1.10
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.254
+</code></pre></div>
+<p>The <code>ip route</code> command:</p>
+<div class="highlight"><pre><span></span><code>[root]# ip route show
+192.168.1.0/24 dev eth0 […] src 192.168.1.10 metric 1
+default via 192.168.1.254 dev eth0 proto static
+</code></pre></div>
+<p>It is a good idea to know how to read a routing table, especially in an environment with multiple network interfaces.</p>
+<ul>
+<li>
+<p>In the example shown, the <code>192.168.1.0/24</code> network is reachable directly from the <code>eth0</code> device, so there is a metric at <code>1</code> (does not traverse a router).</p>
+</li>
+<li>
+<p>All other networks than the previous one will be reachable, again from the <code>eth0</code> device, but this time the packets will be addressed to a <code>192.168.1.254</code> gateway. The routing protocol is a static protocol (although it is possible to add a route to a dynamically assigned address in Linux).</p>
+</li>
+</ul>
+<h2 id="name-resolution">Name resolution<a class="headerlink" href="#name-resolution" title="Permanent link">&para;</a></h2>
+<p>A system needs to resolve:</p>
+<ul>
+<li>FQDNs into IP addresses</li>
+</ul>
+<div class="highlight"><pre><span></span><code>www.free.fr = 212.27.48.10
+</code></pre></div>
+<ul>
+<li>IP addresses into names</li>
+</ul>
+<div class="highlight"><pre><span></span><code>212.27.48.10 = www.free.fr
+</code></pre></div>
+<ul>
+<li>or to obtain information about an area:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>MX de free.fr = 10 mx1.free.fr + 20 mx2.free.fr
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=none
+HWADDR=00:0c:29:96:32:e3
+IPADDR=192.168.1.10
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.254
+DNS1=172.16.1.2
+DNS2=172.16.1.3
+DOMAIN=rockylinux.lan
+</code></pre></div>
+<p>In this case, to reach the DNS, you have to go through the gateway.</p>
+<div class="highlight"><pre><span></span><code> #Generated by NetworkManager
+ domain mondomaine.lan
+ search mondomaine.lan
+ nameserver 172.16.1.2
+ nameserver 172.16.1.3
+</code></pre></div>
+<p>The file has been updated by NetworkManager.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>The <code>ping</code> command sends datagrams to another machine and waits for a response.</p>
+<p>It is the basic command for testing the network because it checks the connectivity between your network interface and another.</p>
+<p>Syntax of the <code>ping</code> command:</p>
+<div class="highlight"><pre><span></span><code>ping [-c numerical] destination
+</code></pre></div>
+<p>The <code>-c</code> (count) option allows you to stop the command after the countdown in seconds.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# ping –c 4 localhost
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Validate connectivity from near to far</p>
+</div>
+<p>1) Validate the TCP/IP software layer</p>
+<div class="highlight"><pre><span></span><code>[root]# ping localhost
+</code></pre></div>
+<p>"Pinging" the inner loop does not detect a hardware failure on the network interface. It simply determines whether the IP software configuration is correct.</p>
+<p>2) Validate the network card</p>
+<div class="highlight"><pre><span></span><code>[root]# ping 192.168.1.10
+</code></pre></div>
+<p>To determine that the network card is functional, we must now ping its IP address. The network card, if the network cable is not connected, should be in a "down" state.</p>
+<p>If the ping does not work, first check the network cable to your network switch and reassemble the interface (see the <code>if up</code> command), then check the interface itself.</p>
+<p>3) Validate the connectivity of the gateway</p>
+<div class="highlight"><pre><span></span><code>[root]# ping 192.168.1.254
+</code></pre></div>
+<p>4) Validate the connectivity of a remote server</p>
+<div class="highlight"><pre><span></span><code>[root]# ping 172.16.1.2
+</code></pre></div>
+<p>5) Validate the DNS service</p>
+<div class="highlight"><pre><span></span><code>[root]# ping www.free.fr
+</code></pre></div>
+<h3 id="dig-command"><code>dig</code> command<a class="headerlink" href="#dig-command" title="Permanent link">&para;</a></h3>
+<p>The <code>dig</code> command is used to query the DNS server.</p>
+<p>The <code>dig</code> command syntax:</p>
+<div class="highlight"><pre><span></span><code>dig [-t type] [+short] [name]
+</code></pre></div>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>[root]# dig +short rockylinux.org
+76.223.126.88
+[root]# dig -t MX +short rockylinux.org                                                          ✔
+5 alt1.aspmx.l.google.com.
+...
+</code></pre></div>
+<p>The <code>dig</code> command is used to query DNS servers. It is very verbose by default, but this behavior can be changed with the <code>+short</code> option.</p>
+<p>It is also possible to specify a DNS <strong>record type</strong> to resolve, such as an MX <strong>type</strong> to get information about the mail exchangers for a domain.</p>
+<h3 id="getent-command"><code>getent</code> command<a class="headerlink" href="#getent-command" title="Permanent link">&para;</a></h3>
+<p>The <code>getent</code> (get entry) command is used to get an NSSwitch entry (<code>hosts</code> + <code>dns</code>)</p>
+<p>Syntax of the <code>getent</code> command:</p>
+<div class="highlight"><pre><span></span><code>getent hosts name
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# getent hosts rockylinux.org
+  76.223.126.88 rockylinux.org
+</code></pre></div>
+<p>Querying only a DNS server may return an erroneous result that does not take into account the contents of a <code>hosts</code> file, although this should be rare nowadays.</p>
+<p>To take the <code>/etc/hosts</code> file into account as well, the NSSwitch name service must be queried, which will take care of any DNS resolution.</p>
+<h3 id="ipcalc-command"><code>ipcalc</code> command<a class="headerlink" href="#ipcalc-command" title="Permanent link">&para;</a></h3>
+<p>The <code>ipcalc</code> (<strong>ip calculation</strong>) command is used to calculate the address of a network or broadcast from an IP address and a mask.</p>
+<p>Syntax of the <code>ipcalc</code> command:</p>
+<div class="highlight"><pre><span></span><code>ipcalc  [options] IP &lt;netmask&gt;
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# ipcalc –b 172.16.66.203 255.255.240.0
+BROADCAST=172.16.79.255
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This command is interesting followed by a redirection to automatically fill in the configuration files of your interfaces:</p>
+<div class="highlight"><pre><span></span><code>[root]# ipcalc –b 172.16.66.203 255.255.240.0 &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-eth0
+</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-b</code></td>
+<td>Displays the broadcast address.</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Displays the network address and mask.</td>
+</tr>
+</tbody>
+</table>
+<p><code>ipcalc</code> is a simple way to calculate the IP information of a host. The various options indicate what information <code>ipcalc</code> should display on the standard output. Multiple options can be specified. An IP address on which to operate must be specified. Most operations also require a network mask or CIDR prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Option short</th>
+<th>Option long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-b</code></td>
+<td><code>--broadcast</code></td>
+<td>Displays the broadcast address of the given IP address and the network mask.</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td><code>--hostname</code></td>
+<td>Displays the hostname of the IP address given via DNS.</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--netmask</code></td>
+<td>Calculates the network mask for the given IP address. Assumes that the IP address is part of a complete class A, B, or C network. Many networks do not use default network masks, in which case an incorrect incorrect value will be returned.</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td><code>--prefix</code></td>
+<td>Indicates the prefix of the mask/IP address.</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--network</code></td>
+<td>Indicates the network address of the given IP address and mask.</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--silent</code></td>
+<td>Never displays any error messages.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ss-command"><code>ss</code> command<a class="headerlink" href="#ss-command" title="Permanent link">&para;</a></h3>
+<p>The <code>ss</code> (<strong>socket statistics</strong>) command displays the listening ports on the network.</p>
+<p>Syntax of the <code>ss</code> command:</p>
+<div class="highlight"><pre><span></span><code>ss [-tuna]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# ss –tuna
+tcp   LISTEN   0   128   *:22   *:*
+</code></pre></div>
+<p>The commands <code>ss</code> and <code>netstat</code> (to follow) will be very important for the rest of your Linux life.</p>
+<p>When implementing network services, it is very common to check with one of these two commands that the service is listening on the expected ports.</p>
+<h3 id="netstat-command"><code>netstat</code> command<a class="headerlink" href="#netstat-command" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>netstat</code> command is now deprecated and is no-longer installed by default on Rocky Linux. You may still find some Linux versions that have it installed, but it is best to move on to using <code>ss</code> for everything that you would have used <code>netstat</code> for.</p>
+</div>
+<p>The <code>netstat</code> command (<strong>network statistics</strong>) displays the listening ports on the network.</p>
+<p>Syntax of the <code>netstat</code> command:</p>
+<div class="highlight"><pre><span></span><code>netstat -tapn
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# netstat –tapn
+tcp  0  0  0.0.0.0:22  0.0.0.0:*  LISTEN 2161/sshd
+</code></pre></div>
+<h3 id="ip-or-mac-address-conflicts">IP or MAC address conflicts<a class="headerlink" href="#ip-or-mac-address-conflicts" title="Permanent link">&para;</a></h3>
+<p>A misconfiguration can cause multiple interfaces to use the same IP address. This can happen when a network has multiple DHCP servers or when the same IP address is manually assigned multiple times.</p>
+<p>When the network is malfunctioning, and when an IP address conflict could be the cause, it is possible to use the <code>arp-scan</code> software (requires the EPEL repository):</p>
+<div class="highlight"><pre><span></span><code>$ dnf install arp-scan
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ arp-scan -I eth0 -l
+
+172.16.1.104  00:01:02:03:04:05       3COM CORPORATION
+172.16.1.107  00:0c:29:1b:eb:97       VMware, Inc.
+172.16.1.250  00:26:ab:b1:b7:f6       (Unknown)
+172.16.1.252  00:50:56:a9:6a:ed       VMWare, Inc.
+172.16.1.253  00:50:56:b6:78:ec       VMWare, Inc.
+172.16.1.253  00:50:56:b6:78:ec       VMWare, Inc. (DUP: 2)
+172.16.1.253  00:50:56:b6:78:ec       VMWare, Inc. (DUP: 3)
+172.16.1.253  00:50:56:b6:78:ec       VMWare, Inc. (DUP: 4)
+172.16.1.232   88:51:fb:5e:fa:b3       (Unknown) (DUP: 2)
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>As the above example shows, it is also possible to have MAC address conflicts! These problems are brought about by virtualization technologies and the copying of virtual machines.</p>
+</div>
+<h2 id="hot-configuration">Hot configuration<a class="headerlink" href="#hot-configuration" title="Permanent link">&para;</a></h2>
+<p>The <code>ip</code> command can hot add an IP address to an interface</p>
+<div class="highlight"><pre><span></span><code>ip addr add @IP dev DEVICE
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# ip addr add 192.168.2.10 dev eth1
+</code></pre></div>
+<p>The <code>ip</code> command allows for the activation or deactivation of an interface:</p>
+<div class="highlight"><pre><span></span><code>ip link set DEVICE up
+ip link set DEVICE down
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# ip link set eth1 up
+[root]# ip link set eth1 down
+</code></pre></div>
+<p>The <code>ip</code> command is used to add a route:</p>
+<div class="highlight"><pre><span></span><code>ip route add [default|netaddr] via @IP [dev device]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# ip route add default via 192.168.1.254
+[root]# ip route add 192.168.100.0/24 via 192.168.2.254 dev eth1
+</code></pre></div>
+<h2 id="in-summary">In summary<a class="headerlink" href="#in-summary" title="Permanent link">&para;</a></h2>
+<p>The files used in this chapter are :</p>
+<p><img alt="Synthesis of the files implemented in the network part" src="../../../../books/admin_guide/images/network-003.png" /></p>
+<p>A complete interface configuration could be this (file <code>/etc/sysconfig/network-scripts/ifcfg-eth0</code>):</p>
+<div class="highlight"><pre><span></span><code> DEVICE=eth0
+ ONBOOT=yes
+ BOOTPROTO=none
+ HWADDR=00:0c:29:96:32:e3
+ IPADDR=192.168.1.10
+ NETMASK=255.255.255.0
+ GATEWAY=192.168.1.254
+ DNS1=172.16.1.1
+ DNS2=172.16.1.2
+ DOMAIN=rockylinux.lan
+</code></pre></div>
+<p>The troubleshooting method should go from closest to farthest:</p>
+<ol>
+<li>ping localhost (software test)</li>
+<li>ping IP-address (hardware test)</li>
+<li>ping gateway (connectivity test)</li>
+<li>ping remote-server (routing test)</li>
+<li>DNS query (dig or ping)</li>
+</ol>
+<p><img alt="Method of troubleshooting or network validation" src="../../../../books/admin_guide/images/network-004.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Sidfot">
+      
+        
+        <a href="../11-tasks/" class="md-footer__link md-footer__link--prev" aria-label="Föregående: Task management" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Föregående
+              </span>
+              Task management
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../13-softwares/" class="md-footer__link md-footer__link--next" aria-label="Nästa: Software Management" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Nästa
+              </span>
+              Software Management
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Kopiera till urklipp", "clipboard.copied": "Kopierat till urklipp", "search.config.lang": "sv", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "S\u00f6k", "search.result.placeholder": "Skriv s\u00f6kord", "search.result.none": "Inga s\u00f6kresultat", "search.result.one": "1 s\u00f6kresultat", "search.result.other": "# s\u00f6kresultat", "search.result.more.one": "1 till p\u00e5 denna sidan", "search.result.more.other": "# till p\u00e5 denna sidan", "search.result.term.missing": "Saknas", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

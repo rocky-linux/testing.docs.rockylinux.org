@@ -1,0 +1,2586 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.3/books/admin_guide/10-boot/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>System startup - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-startup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System startup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../sv/" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      Table of Contents
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky package debranding How-To
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Package signing and testing'
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Adding a public mirror to Rocky's mirror manager
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Enabling iptables Firewall
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        Installing Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        SSH Public and Private Key
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          System startup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        System startup
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-boot-process" class="md-nav__link">
+    The boot process
+  </a>
+  
+    <nav class="md-nav" aria-label="The boot process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-bios-startup" class="md-nav__link">
+    The BIOS startup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-master-boot-record-mbr" class="md-nav__link">
+    The Master boot record (MBR)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-grub2-bootloader" class="md-nav__link">
+    The GRUB2 bootloader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kernel" class="md-nav__link">
+    The kernel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd" class="md-nav__link">
+    systemd
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protecting-the-grub2-bootloader" class="md-nav__link">
+    Protecting the GRUB2 bootloader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systemd_1" class="md-nav__link">
+    Systemd
+  </a>
+  
+    <nav class="md-nav" aria-label="Systemd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-system-services" class="md-nav__link">
+    Managing system services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-of-a-service-file-for-the-postfix-service" class="md-nav__link">
+    Example of a .service file for the postfix service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-system-targets" class="md-nav__link">
+    Using system targets
+  </a>
+  
+    <nav class="md-nav" aria-label="Using system targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-default-target" class="md-nav__link">
+    The default target
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-suspension-and-hibernation" class="md-nav__link">
+    Shutdown, suspension and hibernation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-journald-process" class="md-nav__link">
+    The journald process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journalctl-command" class="md-nav__link">
+    journalctl command
+  </a>
+  
+    <nav class="md-nav" aria-label="journalctl command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-continuous-display" class="md-nav__link">
+    Using continuous display
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-messages" class="md-nav__link">
+    Filtering messages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-boot-process" class="md-nav__link">
+    The boot process
+  </a>
+  
+    <nav class="md-nav" aria-label="The boot process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-bios-startup" class="md-nav__link">
+    The BIOS startup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-master-boot-record-mbr" class="md-nav__link">
+    The Master boot record (MBR)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-grub2-bootloader" class="md-nav__link">
+    The GRUB2 bootloader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kernel" class="md-nav__link">
+    The kernel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd" class="md-nav__link">
+    systemd
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protecting-the-grub2-bootloader" class="md-nav__link">
+    Protecting the GRUB2 bootloader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systemd_1" class="md-nav__link">
+    Systemd
+  </a>
+  
+    <nav class="md-nav" aria-label="Systemd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-system-services" class="md-nav__link">
+    Managing system services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-of-a-service-file-for-the-postfix-service" class="md-nav__link">
+    Example of a .service file for the postfix service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-system-targets" class="md-nav__link">
+    Using system targets
+  </a>
+  
+    <nav class="md-nav" aria-label="Using system targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-default-target" class="md-nav__link">
+    The default target
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-suspension-and-hibernation" class="md-nav__link">
+    Shutdown, suspension and hibernation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-journald-process" class="md-nav__link">
+    The journald process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journalctl-command" class="md-nav__link">
+    journalctl command
+  </a>
+  
+    <nav class="md-nav" aria-label="journalctl command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-continuous-display" class="md-nav__link">
+    Using continuous display
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-messages" class="md-nav__link">
+    Filtering messages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="system-startup">System startup<a class="headerlink" href="#system-startup" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will learn how the system start.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter, future Linux administrators will learn:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> The different stages of the booting process; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> How Rocky Linux supports this boot via GRUB2 and systemd; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> How to protect GRUB2 from an attack; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> How to manage the services; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> How to access to the logs from journald.</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>users</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" />   </p>
+<p><strong>Reading time</strong>: 20 minutes</p>
+<hr />
+<h2 id="the-boot-process">The boot process<a class="headerlink" href="#the-boot-process" title="Permanent link">&para;</a></h2>
+<p>It is important to understand the boot process of Linux in order to be able to solve problems that may occur.</p>
+<p>The boot process includes:</p>
+<h3 id="the-bios-startup">The BIOS startup<a class="headerlink" href="#the-bios-startup" title="Permanent link">&para;</a></h3>
+<p>The <strong>BIOS</strong> (Basic Input/Output System) performs the <strong>POST</strong> (power on self test) to detect, test and initialize the system hardware components.</p>
+<p>It then loads the <strong>MBR</strong> (Master Boot Record).</p>
+<h3 id="the-master-boot-record-mbr">The Master boot record (MBR)<a class="headerlink" href="#the-master-boot-record-mbr" title="Permanent link">&para;</a></h3>
+<p>The Master Boot Record is the first 512 bytes of the boot disk. The MBR discovers the boot device and loads the bootloader <strong>GRUB2</strong> into memory and transfers control to it.</p>
+<p>The next 64 bytes contain the partition table of the disk.</p>
+<h3 id="the-grub2-bootloader">The GRUB2 bootloader<a class="headerlink" href="#the-grub2-bootloader" title="Permanent link">&para;</a></h3>
+<p>The default bootloader for the Rocky 8 distribution is <strong>GRUB2</strong> (GRand Unified Bootloader). GRUB2 replaces the old GRUB bootloader (also called GRUB legacy).</p>
+<p>The GRUB 2 configuration file is located under <code>/boot/grub2/grub.cfg</code> but this file should not be edited directly.</p>
+<p>The GRUB2 menu configuration settings are located under <code>/etc/default/grub</code> and are used to generate the <code>grub.cfg</code> file.</p>
+<div class="highlight"><pre><span></span><code># cat /etc/default/grub
+GRUB_TIMEOUT=5
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT=&quot;console&quot;
+GRUB_CMDLINE_LINUX=&quot;rd.lvm.lv=rhel/swap crashkernel=auto rd.lvm.lv=rhel/root rhgb quiet net.ifnames=0&quot;
+GRUB_DISABLE_RECOVERY=&quot;true&quot;
+</code></pre></div>
+<p>If changes are made to one or more of these parameters, the <code>grub2-mkconfig</code> command must be run to regenerate the <code>/boot/grub2/grub.cfg</code> file.</p>
+<div class="highlight"><pre><span></span><code>[root] # grub2-mkconfig –o /boot/grub2/grub.cfg
+</code></pre></div>
+<ul>
+<li>GRUB2 looks for the compressed kernel image (the <code>vmlinuz</code> file) in the <code>/boot</code> directory.</li>
+<li>GRUB2 loads the kernel image into memory and extracts the contents of the <code>initramfs</code> image file into a temporary folder in memory using the <code>tmpfs</code> file system.</li>
+</ul>
+<h3 id="the-kernel">The kernel<a class="headerlink" href="#the-kernel" title="Permanent link">&para;</a></h3>
+<p>The kernel starts the <code>systemd</code> process with PID 1.
+<div class="highlight"><pre><span></span><code>root          1      0  0 02:10 ?        00:00:02 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+</code></pre></div></p>
+<h3 id="systemd"><code>systemd</code><a class="headerlink" href="#systemd" title="Permanent link">&para;</a></h3>
+<p>Systemd is the parent of all system processes. It reads the target of the <code>/etc/systemd/system/default.target</code> link (e.g. <code>/usr/lib/systemd/system/multi-user.target</code>) to determine the default target of the system. The file defines the services to be started.</p>
+<p>Systemd then places the system in the target-defined state by performing the following initialization tasks:</p>
+<ol>
+<li>Set the machine name</li>
+<li>Initialize the network</li>
+<li>Initialize SELinux</li>
+<li>Display the welcome banner</li>
+<li>Initialize the hardware based on the arguments given to the kernel at boot time</li>
+<li>Mount the file systems, including virtual file systems like /proc</li>
+<li>Clean up directories in /var</li>
+<li>Start the virtual memory (swap)</li>
+</ol>
+<h2 id="protecting-the-grub2-bootloader">Protecting the GRUB2 bootloader<a class="headerlink" href="#protecting-the-grub2-bootloader" title="Permanent link">&para;</a></h2>
+<p>Why protect the bootloader with a password?</p>
+<ol>
+<li>Prevent <em>Single</em> user mode access - If an attacker can boot into single user mode, he becomes the root user.</li>
+<li>Prevent access to GRUB console - If an attacker manages to use GRUB console, he can change its configuration or collect information about the system by using the <code>cat</code> command.</li>
+<li>Prevent access to insecure operating systems. If there is a dual boot on the system, an attacker can select an operating system like DOS at boot time that ignores access controls and file permissions.</li>
+</ol>
+<p>To password protect the GRUB2 bootloader:</p>
+<ul>
+<li>
+<p>Remove <code>-unrestricted</code> from the main <code>CLASS=</code> statement in the <code>/etc/grub.d/10_linux</code> file.</p>
+</li>
+<li>
+<p>If a user has not yet been configured, use the <code>grub2-setpassword</code> command to provide a password for the root user:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code># grub2-setpassword
+</code></pre></div>
+<p>A <code>/boot/grub2/user.cfg</code> file will be created if it was not already present. It contains the hashed password of the GRUB2.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command only supports configurations with a single root user.</p>
+</div>
+<div class="highlight"><pre><span></span><code>[root]# cat /boot/grub2/user.cfg
+GRUB2_PASSWORD=grub.pbkdf2.sha512.10000.CC6F56....A21
+</code></pre></div>
+<ul>
+<li>Recreate the configuration file with the <code>grub2-mkconfig</code> command:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root]# grub2-mkconfig -o /boot/grub2/grub.cfg
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-3.10.0-327.el7.x86_64
+Found initrd image: /boot/initramfs-3.10.0-327.el7.x86_64.img
+Found linux image: /boot/vmlinuz-0-rescue-f9725b0c842348ce9e0bc81968cf7181
+Found initrd image: /boot/initramfs-0-rescue-f9725b0c842348ce9e0bc81968cf7181.img
+done
+</code></pre></div>
+<ul>
+<li>Restart the server and check.</li>
+</ul>
+<p>All entries defined in the GRUB menu will now require a user and password to be entered at each boot. The system will not boot a kernel without direct user intervention from the console.</p>
+<ul>
+<li>When the user is requested, enter <code>root</code>;</li>
+<li>When a password is requested, enter the password provided at the <code>grub2-setpassword</code> command.</li>
+</ul>
+<p>To protect only the editing of GRUB menu entries and access to the console, the execution of the <code>grub2-setpassword</code> command is sufficient. There may be cases where you have good reasons for doing only that. This might be particularly true in a remote data center where entering a password each time a server is rebooted is either difficult or impossible to do.</p>
+<h2 id="systemd_1">Systemd<a class="headerlink" href="#systemd_1" title="Permanent link">&para;</a></h2>
+<p><em>Systemd</em> is a service manager for the Linux operating systems.</p>
+<p>It is developed to:</p>
+<ul>
+<li>remain compatible with older SysV initialization scripts,</li>
+<li>provide many features, such as parallel start of system services at system startup, on-demand activation of daemons, support for snapshots, or management of dependencies between services.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Systemd is the default initialization system since RedHat/CentOS 7.</p>
+</div>
+<p>Systemd introduces the concept of systemd units.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>File extension</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service unit</td>
+<td><code>.service</code></td>
+<td>System service</td>
+</tr>
+<tr>
+<td>Target unit</td>
+<td><code>.target</code></td>
+<td>A group of systemd units</td>
+</tr>
+<tr>
+<td>Mount unit</td>
+<td><code>.automount</code></td>
+<td>An automatic mount point for file system</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are many types of units: Device unit, Mount unit, Path unit, Scope unit, Slice unit, Snapshot unit, Socket unit, Swap unit, Timer unit.</p>
+</div>
+<ul>
+<li>
+<p>Systemd supports system state snapshots and restore.</p>
+</li>
+<li>
+<p>Mount points can be configured as systemd targets.</p>
+</li>
+<li>
+<p>At startup, systemd creates listening sockets for all system services that support this type of activation and passes these sockets to these services as soon as they are started. This makes it possible to restart a service without losing a single message sent to it by the network during its unavailability. The corresponding socket remains accessible and all messages are queued.</p>
+</li>
+<li>
+<p>System services that use D-BUS for their inter-process communications can be started on demand the first time they are used by a client.</p>
+</li>
+<li>
+<p>Systemd stops or restarts only running services. Previous versions (before RHEL7) attempted to stop services directly without checking their current status.</p>
+</li>
+<li>
+<p>System services do not inherit any context (like HOME and PATH environment variables). Each service operates in its own execution context.</p>
+</li>
+</ul>
+<p>All service unit operations are subject to a default timeout of 5 minutes to prevent a malfunctioning service from freezing the system.</p>
+<h3 id="managing-system-services">Managing system services<a class="headerlink" href="#managing-system-services" title="Permanent link">&para;</a></h3>
+<p>Service units end with the <code>.service</code> file extension and have a similar purpose to init scripts. The <code>systemctl</code> command is used to <code>display</code>, <code>start</code>, <code>stop</code>, <code>restart</code> a system service:</p>
+<table>
+<thead>
+<tr>
+<th>systemctl</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>systemctl start <em>name</em>.service</td>
+<td>Start a service</td>
+</tr>
+<tr>
+<td>systemctl stop <em>name</em>.service</td>
+<td>Stops a service</td>
+</tr>
+<tr>
+<td>systemctl restart <em>name</em>.service</td>
+<td>Restart a service</td>
+</tr>
+<tr>
+<td>systemctl reload <em>name</em>.service</td>
+<td>Reload a configuration</td>
+</tr>
+<tr>
+<td>systemctl status <em>name</em>.service</td>
+<td>Checks if a service is running</td>
+</tr>
+<tr>
+<td>systemctl try-restart <em>name</em>.service</td>
+<td>Restart a service only if it is running</td>
+</tr>
+<tr>
+<td>systemctl list-units --type service --all</td>
+<td>Display the status of all services</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>systemctl</code> command is also used for the <code>enable</code> or <code>disable</code> of system a service and displaying associated services:</p>
+<table>
+<thead>
+<tr>
+<th>systemctl</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>systemctl enable <em>name</em>.service</td>
+<td>Activate a service</td>
+</tr>
+<tr>
+<td>systemctl disable <em>name</em>.service</td>
+<td>Disable a service</td>
+</tr>
+<tr>
+<td>systemctl list-unit-files --type service</td>
+<td>Lists all services and checks if they are running</td>
+</tr>
+<tr>
+<td>systemctl list-dependencies --after</td>
+<td>Lists the services that start before the specified unit</td>
+</tr>
+<tr>
+<td>systemctl list-dependencies --before</td>
+<td>Lists the services that start after the specified unit</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>systemctl stop nfs-server.service
+# or
+systemctl stop nfs-server
+</code></pre></div>
+<p>To list all units currently loaded:</p>
+<div class="highlight"><pre><span></span><code>systemctl list-units --type service
+</code></pre></div>
+<p>To list all units to check if they are activated:</p>
+<div class="highlight"><pre><span></span><code>systemctl list-unit-files --type service
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>systemctl enable httpd.service
+systemctl disable bluetooth.service
+</code></pre></div>
+<h3 id="example-of-a-service-file-for-the-postfix-service">Example of a .service file for the postfix service<a class="headerlink" href="#example-of-a-service-file-for-the-postfix-service" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>postfix.service Unit File
+What follows is the content of the /usr/lib/systemd/system/postfix.service unit file as currently provided by the postfix package:
+
+[Unit]
+Description=Postfix Mail Transport Agent
+After=syslog.target network.target
+Conflicts=sendmail.service exim.service
+
+[Service]
+Type=forking
+PIDFile=/var/spool/postfix/pid/master.pid
+EnvironmentFile=-/etc/sysconfig/network
+ExecStartPre=-/usr/libexec/postfix/aliasesdb
+ExecStartPre=-/usr/libexec/postfix/chroot-update
+ExecStart=/usr/sbin/postfix start
+ExecReload=/usr/sbin/postfix reload
+ExecStop=/usr/sbin/postfix stop
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div>
+<h3 id="using-system-targets">Using system targets<a class="headerlink" href="#using-system-targets" title="Permanent link">&para;</a></h3>
+<p>On Rocky8/RHEL8, the concept of run levels has been replaced by Systemd targets.</p>
+<p>Systemd targets are represented by target units. Target units end with the <code>.target</code> file extension and their sole purpose is to group other Systemd units into a chain of dependencies.</p>
+<p>For example, the <code>graphical.target</code> unit, which is used to start a graphical session, starts system services such as the <strong>GNOME display manager</strong> (<code>gdm.service</code>) or the <strong>accounts service</strong> (<code>accounts-daemon.service</code>) and also activates the <code>multi-user.target</code> unit.</p>
+<p>Similarly, the <code>multi-user.target</code> unit starts other essential system services, such as <strong>NetworkManager</strong> (<code>NetworkManager.service</code>) or <strong>D-Bus</strong> (<code>dbus.service</code>) and activates another target unit named <code>basic.target</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Target Units</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>poweroff.target</td>
+<td>Shuts down the system and turns it off</td>
+</tr>
+<tr>
+<td>rescue.target</td>
+<td>Activates a rescue shell</td>
+</tr>
+<tr>
+<td>multi-user.target</td>
+<td>Activates a multi-user system without graphical interface</td>
+</tr>
+<tr>
+<td>graphical.target</td>
+<td>Activates a multi-user system with graphical interface</td>
+</tr>
+<tr>
+<td>reboot.target</td>
+<td>Shuts down and restarts the system</td>
+</tr>
+</tbody>
+</table>
+<h4 id="the-default-target">The default target<a class="headerlink" href="#the-default-target" title="Permanent link">&para;</a></h4>
+<p>To determine which target is used by default:</p>
+<div class="highlight"><pre><span></span><code>systemctl get-default
+</code></pre></div>
+<p>This command searches for the target of the symbolic link located at <code>/etc/systemd/system/default.target</code> and displays the result.</p>
+<div class="highlight"><pre><span></span><code>$ systemctl get-default
+graphical.target
+</code></pre></div>
+<p>The <code>systemctl</code> command can also provide a list of available targets:</p>
+<div class="highlight"><pre><span></span><code>systemctl list-units --type target
+UNIT                   LOAD   ACTIVE SUB    DESCRIPTION
+basic.target           loaded active active Basic System
+bluetooth.target       loaded active active Bluetooth
+cryptsetup.target      loaded active active Encrypted Volumes
+getty.target           loaded active active Login Prompts
+graphical.target       loaded active active Graphical Interface
+local-fs-pre.target    loaded active active Local File Systems (Pre)
+local-fs.target        loaded active active Local File Systems
+multi-user.target      loaded active active Multi-User System
+network-online.target  loaded active active Network is Online
+network.target         loaded active active Network
+nss-user-lookup.target loaded active active User and Group Name Lookups
+paths.target           loaded active active Paths
+remote-fs.target       loaded active active Remote File Systems
+slices.target          loaded active active Slices
+sockets.target         loaded active active Sockets
+sound.target           loaded active active Sound Card
+swap.target            loaded active active Swap
+sysinit.target         loaded active active System Initialization
+timers.target          loaded active active Timers
+</code></pre></div>
+<p>To configure the system to use a different default target:</p>
+<div class="highlight"><pre><span></span><code>systemctl set-default name.target
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code># systemctl set-default multi-user.target
+rm &#39;/etc/systemd/system/default.target&#39;
+ln -s &#39;/usr/lib/systemd/system/multi-user.target&#39; &#39;/etc/systemd/system/default.target&#39;
+</code></pre></div>
+<p>To switch to a different target unit in the current session:</p>
+<div class="highlight"><pre><span></span><code>systemctl isolate name.target
+</code></pre></div>
+<p>The <strong>Rescue mode</strong> provides a simple environment to repair your system in cases where it is impossible to perform a normal boot process.</p>
+<p>In <code>rescue mode</code>, the system attempts to mount all local file systems and start several important system services, but does not enable a network interface or allow other users to connect to the system at the same time.</p>
+<p>On Rocky 8, the <code>rescue mode</code> is equivalent to the old <code>single user mode</code> and requires the root password.</p>
+<p>To change the current target and enter <code>rescue mode</code> in the current session:</p>
+<div class="highlight"><pre><span></span><code>systemctl rescue
+</code></pre></div>
+<p><strong>Emergency mode</strong> provides the most minimalist environment possible and allows the system to be repaired even in situations where the system is unable to enter rescue mode. In the emergency mode, the system mounts the root file system only for reading. It will not attempt to mount any other local file system, will not activate any network interface, and will start some essential services.</p>
+<p>To change the current target and enter emergency mode in the current session:</p>
+<div class="highlight"><pre><span></span><code>systemctl emergency
+</code></pre></div>
+<h4 id="shutdown-suspension-and-hibernation">Shutdown, suspension and hibernation<a class="headerlink" href="#shutdown-suspension-and-hibernation" title="Permanent link">&para;</a></h4>
+<p>The <code>systemctl</code> command replaces a number of power management commands used in previous versions:</p>
+<table>
+<thead>
+<tr>
+<th>Old command</th>
+<th>New command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>halt</code></td>
+<td><code>systemctl halt</code></td>
+<td>Shuts down the system.</td>
+</tr>
+<tr>
+<td><code>poweroff</code></td>
+<td><code>systemctl poweroff</code></td>
+<td>Turns off the system.</td>
+</tr>
+<tr>
+<td><code>reboot</code></td>
+<td><code>systemctl reboot</code></td>
+<td>Restarts the system.</td>
+</tr>
+<tr>
+<td><code>pm-suspend</code></td>
+<td><code>systemctl suspend</code></td>
+<td>Suspends the system.</td>
+</tr>
+<tr>
+<td><code>pm-hibernate</code></td>
+<td><code>systemctl hibernate</code></td>
+<td>Hibernates the system.</td>
+</tr>
+<tr>
+<td><code>pm-suspend-hybrid</code></td>
+<td><code>systemctl hybrid-sleep</code></td>
+<td>Hibernates and suspends the system.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-journald-process">The <code>journald</code> process<a class="headerlink" href="#the-journald-process" title="Permanent link">&para;</a></h3>
+<p>Log files can, in addition to <code>rsyslogd</code>, also be managed by the <code>journald</code> daemon which is a component of <code>systemd</code>.</p>
+<p>The <code>journald</code> daemon captures Syslog messages, kernel log messages, messages from the initial RAM disk and from the start of boot, as well as messages written to the standard output and the standard error output of all services, then indexes them and makes them available to the user.</p>
+<p>The format of the native log file, which is a structured and indexed binary file, improves searches and allows for faster operation, it also stores metadata information, such as timestamps or user IDs.</p>
+<h3 id="journalctl-command"><code>journalctl</code> command<a class="headerlink" href="#journalctl-command" title="Permanent link">&para;</a></h3>
+<p>The <code>journalctl</code> command displays the log files.</p>
+<div class="highlight"><pre><span></span><code>journalctl
+</code></pre></div>
+<p>The command lists all log files generated on the system. The structure of this output is similar to that used in <code>/var/log/messages/</code> but it offers some improvements:</p>
+<ul>
+<li>the priority of entries is marked visually;</li>
+<li>timestamps are converted to the local time zone of your system;</li>
+<li>all logged data is displayed, including rotating logs;</li>
+<li>the beginning of a start is marked with a special line.</li>
+</ul>
+<h4 id="using-continuous-display">Using continuous display<a class="headerlink" href="#using-continuous-display" title="Permanent link">&para;</a></h4>
+<p>With continuous display, log messages are displayed in real time.</p>
+<div class="highlight"><pre><span></span><code>journalctl -f
+</code></pre></div>
+<p>This command returns a list of the ten most recent log lines. The journalctl utility then continues to run and waits for new changes to occur before displaying them immediately.</p>
+<h4 id="filtering-messages">Filtering messages<a class="headerlink" href="#filtering-messages" title="Permanent link">&para;</a></h4>
+<p>It is possible to use different filtering methods to extract information that fits different needs. Log messages are often used to track erroneous behavior on the system. To view entries with a selected or higher priority:</p>
+<div class="highlight"><pre><span></span><code>journalctl -p priority
+</code></pre></div>
+<p>You must replace priority with one of the following keywords (or a number):</p>
+<ul>
+<li>debug (7),</li>
+<li>info (6),</li>
+<li>notice (5),</li>
+<li>warning (4),</li>
+<li>err (3),</li>
+<li>crit (2),</li>
+<li>alert (1),</li>
+<li>and emerg (0).</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../09-backups/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Backups and restorations" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Backups and restorations
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../11-tasks/" class="md-footer__link md-footer__link--next" aria-label="Next: Task management" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Task management
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

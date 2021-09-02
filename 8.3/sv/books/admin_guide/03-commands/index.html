@@ -1,0 +1,4237 @@
+
+<!doctype html>
+<html lang="sv" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.3/sv/books/admin_guide/03-commands/">
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>Commands for Linux users - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#commands-for-linux-users" class="md-skip">
+          Gå till innehållet
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Sidhuvud">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Commands for Linux users
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Sök" placeholder="Sök" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Rensa" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialiserar sök
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Flikar" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      Table of Contents
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky paket Hur man tar bort varumärke
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Paketsignering och testning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Lägg till en publik spegel till Rocky's spegelhanterare
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Aktivera iptables Brandvägg
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        Installera Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        SSH Publika och privata nycklar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Commands for Linux users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Commands for Linux users
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    Generalities
+  </a>
+  
+    <nav class="md-nav" aria-label="Generalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-users" class="md-nav__link">
+    The users
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-shell" class="md-nav__link">
+    The shell
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-commands" class="md-nav__link">
+    General commands
+  </a>
+  
+    <nav class="md-nav" aria-label="General commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apropos-whatis-et-man-commands" class="md-nav__link">
+    apropos, whatis et man commands
+  </a>
+  
+    <nav class="md-nav" aria-label="apropos, whatis et man commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apropos-command" class="md-nav__link">
+    apropos command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whatis-command" class="md-nav__link">
+    whatis command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#man-command" class="md-nav__link">
+    man command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-command" class="md-nav__link">
+    shutdown command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history-command" class="md-nav__link">
+    history command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-auto-completion" class="md-nav__link">
+    The auto-completion
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-and-identification" class="md-nav__link">
+    Display and identification
+  </a>
+  
+    <nav class="md-nav" aria-label="Display and identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clear-command" class="md-nav__link">
+    clear command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echo-command" class="md-nav__link">
+    echo command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-command" class="md-nav__link">
+    date command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-who-and-whoami-commands" class="md-nav__link">
+    id, who and whoami commands
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-tree" class="md-nav__link">
+    File tree
+  </a>
+  
+    <nav class="md-nav" aria-label="File tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pwd-command" class="md-nav__link">
+    pwd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cd-command" class="md-nav__link">
+    cd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ls-command" class="md-nav__link">
+    ls command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-command" class="md-nav__link">
+    mkdir command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#touch-command" class="md-nav__link">
+    touch command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmdir-command" class="md-nav__link">
+    rmdir command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-command" class="md-nav__link">
+    rm command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv-command" class="md-nav__link">
+    mv command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-command" class="md-nav__link">
+    cp command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualization" class="md-nav__link">
+    Visualization
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-command" class="md-nav__link">
+    file command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-command" class="md-nav__link">
+    more command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#less-command" class="md-nav__link">
+    less command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat-command" class="md-nav__link">
+    cat command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tac-command" class="md-nav__link">
+    tac command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head-command" class="md-nav__link">
+    head command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tail-command" class="md-nav__link">
+    tail command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-command" class="md-nav__link">
+    sort command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wc-command" class="md-nav__link">
+    wc command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search" class="md-nav__link">
+    Search
+  </a>
+  
+    <nav class="md-nav" aria-label="Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find-command" class="md-nav__link">
+    find command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-exec-option-of-the-find-command" class="md-nav__link">
+    -exec option of the find command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whereis-command" class="md-nav__link">
+    whereis command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep-command" class="md-nav__link">
+    grep command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-characters-wildcards" class="md-nav__link">
+    Meta-characters (wildcards)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redirects-and-pipes" class="md-nav__link">
+    Redirects and pipes
+  </a>
+  
+    <nav class="md-nav" aria-label="Redirects and pipes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-input-and-output" class="md-nav__link">
+    Standard input and output
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-redirection" class="md-nav__link">
+    Input redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-redirection" class="md-nav__link">
+    Output redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-redirection" class="md-nav__link">
+    Examples of redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipes" class="md-nav__link">
+    Pipes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-points" class="md-nav__link">
+    Special points
+  </a>
+  
+    <nav class="md-nav" aria-label="Special points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tee-command" class="md-nav__link">
+    tee command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias-and-unalias-commands" class="md-nav__link">
+    alias and unalias commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aliases-and-useful-functions" class="md-nav__link">
+    Aliases and useful functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-character" class="md-nav__link">
+    The character ;
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-knowledge" class="md-nav__link">
+    Check your Knowledge
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    Generalities
+  </a>
+  
+    <nav class="md-nav" aria-label="Generalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-users" class="md-nav__link">
+    The users
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-shell" class="md-nav__link">
+    The shell
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-commands" class="md-nav__link">
+    General commands
+  </a>
+  
+    <nav class="md-nav" aria-label="General commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apropos-whatis-et-man-commands" class="md-nav__link">
+    apropos, whatis et man commands
+  </a>
+  
+    <nav class="md-nav" aria-label="apropos, whatis et man commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apropos-command" class="md-nav__link">
+    apropos command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whatis-command" class="md-nav__link">
+    whatis command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#man-command" class="md-nav__link">
+    man command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-command" class="md-nav__link">
+    shutdown command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history-command" class="md-nav__link">
+    history command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-auto-completion" class="md-nav__link">
+    The auto-completion
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-and-identification" class="md-nav__link">
+    Display and identification
+  </a>
+  
+    <nav class="md-nav" aria-label="Display and identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clear-command" class="md-nav__link">
+    clear command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echo-command" class="md-nav__link">
+    echo command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-command" class="md-nav__link">
+    date command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-who-and-whoami-commands" class="md-nav__link">
+    id, who and whoami commands
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-tree" class="md-nav__link">
+    File tree
+  </a>
+  
+    <nav class="md-nav" aria-label="File tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pwd-command" class="md-nav__link">
+    pwd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cd-command" class="md-nav__link">
+    cd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ls-command" class="md-nav__link">
+    ls command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-command" class="md-nav__link">
+    mkdir command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#touch-command" class="md-nav__link">
+    touch command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmdir-command" class="md-nav__link">
+    rmdir command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-command" class="md-nav__link">
+    rm command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv-command" class="md-nav__link">
+    mv command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-command" class="md-nav__link">
+    cp command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualization" class="md-nav__link">
+    Visualization
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-command" class="md-nav__link">
+    file command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-command" class="md-nav__link">
+    more command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#less-command" class="md-nav__link">
+    less command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat-command" class="md-nav__link">
+    cat command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tac-command" class="md-nav__link">
+    tac command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head-command" class="md-nav__link">
+    head command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tail-command" class="md-nav__link">
+    tail command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-command" class="md-nav__link">
+    sort command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wc-command" class="md-nav__link">
+    wc command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search" class="md-nav__link">
+    Search
+  </a>
+  
+    <nav class="md-nav" aria-label="Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find-command" class="md-nav__link">
+    find command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-exec-option-of-the-find-command" class="md-nav__link">
+    -exec option of the find command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whereis-command" class="md-nav__link">
+    whereis command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep-command" class="md-nav__link">
+    grep command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-characters-wildcards" class="md-nav__link">
+    Meta-characters (wildcards)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redirects-and-pipes" class="md-nav__link">
+    Redirects and pipes
+  </a>
+  
+    <nav class="md-nav" aria-label="Redirects and pipes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-input-and-output" class="md-nav__link">
+    Standard input and output
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-redirection" class="md-nav__link">
+    Input redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-redirection" class="md-nav__link">
+    Output redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-redirection" class="md-nav__link">
+    Examples of redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipes" class="md-nav__link">
+    Pipes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-points" class="md-nav__link">
+    Special points
+  </a>
+  
+    <nav class="md-nav" aria-label="Special points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tee-command" class="md-nav__link">
+    tee command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias-and-unalias-commands" class="md-nav__link">
+    alias and unalias commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aliases-and-useful-functions" class="md-nav__link">
+    Aliases and useful functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-character" class="md-nav__link">
+    The character ;
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-knowledge" class="md-nav__link">
+    Check your Knowledge
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="commands-for-linux-users">Commands for Linux users<a class="headerlink" href="#commands-for-linux-users" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will learn how to work with Linux with the commands.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter, future Linux administrators will learn how to:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> <strong>move</strong> in the system tree; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> <strong>create</strong> a text file, <strong>display</strong> its contents and <strong>modify</strong> it; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> use the most useful Linux commands.</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>user commands</strong>, <strong>linux</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /></p>
+<p><strong>Reading time</strong>: 40 minutes</p>
+<hr />
+<h2 id="generalities">Generalities<a class="headerlink" href="#generalities" title="Permanent link">&para;</a></h2>
+<p>Current Linux systems have graphical utilities dedicated to the work of an administrator. However, it is important to be able to use the interface in command line mode for several reasons:</p>
+<ul>
+<li>The majority of system commands are common to all Linux distributions, which is not the case for graphical tools.</li>
+<li>It can happen that the system does not start correctly but that a backup command interpreter remains accessible.</li>
+<li>Remote administration is done on the command line with an SSH terminal.</li>
+<li>In order to preserve server resources, the graphical interface is either not installed or launched on demand.</li>
+<li>Administration is done by scripts.</li>
+</ul>
+<p>Learning these commands allows the administrator to connect to a Linux terminal, to manage its resources, its files, to identify the station, the terminal, and the connected users, etc.</p>
+<h3 id="the-users">The users<a class="headerlink" href="#the-users" title="Permanent link">&para;</a></h3>
+<p>The user of a Linux system is defined in the <code>/etc/passwd</code> file, by:</p>
+<ul>
+<li>a <strong>login name</strong>, more commonly called "login", containing no spaces;</li>
+<li>a numeric identifier : <strong>UID</strong> (User Identifier);</li>
+<li>a group identifier : <strong>GID</strong> (Group Identifier);</li>
+<li>a <strong>command interpreter</strong>, a shell, which can be different from one user to another;</li>
+<li>a <strong>connection directory</strong>, the <strong>home directory</strong>.</li>
+</ul>
+<p>In other files by:</p>
+<ul>
+<li>a <strong>password</strong>, which will be encrypted before being stored (<code>/etc/shadow</code>);</li>
+<li>a <strong>command prompt</strong>, or <strong>prompt</strong> login, which will be symbolized by a <code>#</code> for administrators and a <code>$</code> for other users (<code>/etc/profile</code>).</li>
+</ul>
+<p>Depending on the security policy implemented on the system, the password will have to contain a certain number of characters and meet certain complexity requirements.</p>
+<p>Among the existing command interpreters, the <strong>Bourne-Again Shell</strong> (<code>/bin/bash</code>) is the one most frequently used. It is assigned by default to new users. For various reasons, advanced Linux users can choose alternative shells from among the Korn Shell (<code>ksh</code>), the C Shell (<code>csh</code>), etc.</p>
+<p>The user's login directory is by convention stored in the <code>/home</code> directory of the workstation. It will contain the user's personal data and the configuration files of his applications. By default, at login, the login directory is selected as the current directory.</p>
+<p>A workstation type installation (with graphical interface) starts this interface on terminal 1. Linux being multi-user, it is possible to connect several users several times, on different <strong>physical terminals</strong> (TTY) or <strong>virtual terminals</strong> (PTS). Virtual terminals are available within a graphical environment. A user switches from one physical terminal to another using <kbd>Alt</kbd> + <kbd>Fx</kbd> from the command line or using <kbd>CTRL</kbd> + <kbd>Alt</kbd> + <kbd>Fx</kbd>.</p>
+<h3 id="the-shell">The shell<a class="headerlink" href="#the-shell" title="Permanent link">&para;</a></h3>
+<p>Once the user is connected to a console, the shell displays the command <strong>prompt</strong>. It then behaves like an infinite loop, with each statement entered:</p>
+<ul>
+<li>displaying the command prompt;</li>
+<li>reading the command ;</li>
+<li>syntax analysis ;</li>
+<li>substitution of special characters ;</li>
+<li>execute the command;</li>
+<li>display the command prompt;</li>
+<li>etc.</li>
+</ul>
+<p>The key sequence <kbd>CTRL</kbd> + <kbd>C</kbd> is used to interrupt a running command.</p>
+<p>The use of a command generally follows this sequence:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">command</span> <span class="o">[</span>option<span class="o">(</span>s<span class="o">)]</span> <span class="o">[</span>arguments<span class="o">(</span>s<span class="o">)]</span>
+</code></pre></div>
+<p>The name of the command is <strong>often in lower case</strong>.</p>
+<p>A space separates each item.</p>
+<p>Short <strong>options</strong> begin with a dash (<code>-l</code>), while <strong>long options</strong> begin with two dashes (<code>--list</code>).
+A double dash (<code>--</code>) indicates the end of the option list.</p>
+<p>It is possible to group some short options together:</p>
+<div class="highlight"><pre><span></span><code>$ ls -l -i -a
+</code></pre></div>
+<p>is equivalent to:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia
+</code></pre></div>
+<p>There can of course be several arguments after an option:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia /etc /home /var
+</code></pre></div>
+<p>In the literature, the term "option" is equivalent to the term "parameter," which is more commonly used in programming. The optional side of an option or argument is symbolized by enclosing it in square brackets <code>[</code> and <code>]</code>. When more than one option is possible, a vertical bar called a "pipe" separates them <code>[a|e|i]</code>.</p>
+<h2 id="general-commands">General commands<a class="headerlink" href="#general-commands" title="Permanent link">&para;</a></h2>
+<h3 id="apropos-whatis-et-man-commands"><code>apropos</code>, <code>whatis</code> et <code>man</code> commands<a class="headerlink" href="#apropos-whatis-et-man-commands" title="Permanent link">&para;</a></h3>
+<p>It is impossible for an administrator at any level to know all the commands and options in detail. A manual is usually available for all installed commands.</p>
+<h4 id="apropos-command"><code>apropos</code> command<a class="headerlink" href="#apropos-command" title="Permanent link">&para;</a></h4>
+<p>The command <code>apropos</code> allows you to search by keyword within these manual pages:</p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Observations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s</code>, <code>--sections list</code> or <code>--section list</code></td>
+<td>Limited to manual sections.</td>
+</tr>
+<tr>
+<td><code>-a</code> or <code>--and</code></td>
+<td>Displays only the item matching all the provided keywords.</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ apropos clear
+clear (1)            - clear the terminal screen
+clear_console (1)    - clear the console
+clearenv (3)         - clear the environment
+clearerr (3)         - check and reset stream status
+clearerr_unlocked (3) - nonlocking stdio functions
+feclearexcept (3)    - floating-point rounding and exception handling
+fwup_clear_status (3) - library to support management of system firmware updates
+klogctl (3)          - read and/or clear kernel message ring buffer; set console_loglevel
+sgt-samegame (6)     - Block-clearing puzzle
+syslog (2)           - read and/or clear kernel message ring buffer; set console_loglevel
+timerclear (3)       - timeval operations
+XClearArea (3)       - clear area or window
+XClearWindow (3)     - clear area or window
+XSelectionClearEvent (3) - SelectionClear event structure
+</code></pre></div>
+<p>To find the command that will allow changing the password of an account:</p>
+<div class="highlight"><pre><span></span><code>$ apropos --exact password  -a change
+chage <span class="o">(</span><span class="m">1</span><span class="o">)</span>            - change user password expiry information
+passwd <span class="o">(</span><span class="m">1</span><span class="o">)</span>           - change user password
+</code></pre></div>
+<h4 id="whatis-command"><code>whatis</code> command<a class="headerlink" href="#whatis-command" title="Permanent link">&para;</a></h4>
+<p>The <code>whatis</code> command displays the description of the command passed as argument:</p>
+<div class="highlight"><pre><span></span><code>whatis clear
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ whatis clear
+clear (1)            - clear the terminal screen
+</code></pre></div>
+<h4 id="man-command"><code>man</code> command<a class="headerlink" href="#man-command" title="Permanent link">&para;</a></h4>
+<p>Once found by <code>apropos</code> or <code>whatis</code>, the manual is read by <code>man</code> ("Man is your friend").
+This set of manuals is divided into 8 sections, grouping information by topic, the default section being 1:</p>
+<ol>
+<li>User Commands;</li>
+<li>System Calls;</li>
+<li>C library functions;</li>
+<li>Peripherals and special files;</li>
+<li>File formats ;</li>
+<li>Games;</li>
+<li>Miscellaneous;</li>
+<li>System administration tools and daemons.
+   Information about each section can be accessed by typing <code>man x intro</code>, where <code>x</code> is the section number.</li>
+</ol>
+<p>The command :</p>
+<div class="highlight"><pre><span></span><code>man passwd
+</code></pre></div>
+<p>will tell the administrator about the passwd command, its options, etc. While a :</p>
+<div class="highlight"><pre><span></span><code>$ man <span class="m">5</span> passwd
+</code></pre></div>
+<p>will inform him about the files related to the command.</p>
+<p>Not all pages of the manual are translated from English. However, they are generally very accurate and provide all the information needed. The syntax used and the division may confuse the beginner administrator, but with practice, he will quickly find the information he is looking for.</p>
+<p>The navigation in the manual is done with the arrows <kbd>↑</kbd> and <kbd>↓</kbd>. The manual is exited by pressing the <kbd>q</kbd> key.</p>
+<h3 id="shutdown-command"><code>shutdown</code> command<a class="headerlink" href="#shutdown-command" title="Permanent link">&para;</a></h3>
+<p>The <code>shutdown</code> command allows you to <strong>electrically shut down</strong> a Linux server, either immediately or after a certain period of time.</p>
+<div class="highlight"><pre><span></span><code>shutdown <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="nb">time</span> <span class="o">[</span>message<span class="o">]</span>
+</code></pre></div>
+<p>The shutdown time should be specified in the format <code>hh:mm</code> for a precise time, or <code>+mm</code> for a delay in minutes.</p>
+<p>To force an immediate stop, the word <code>now</code> will replace the time. In this case, the optional message is not sent to other users of the system.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root<span class="o">]</span><span class="c1"># shutdown -h 0:30 &quot;Server shutdown at 0:30&quot;</span>
+<span class="o">[</span>root<span class="o">]</span><span class="c1"># shutdown -r +5</span>
+</code></pre></div>
+<p>Options :</p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-h</code></td>
+<td>Shutdown the system electrically</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Restarts the system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="history-command"><code>history</code> command<a class="headerlink" href="#history-command" title="Permanent link">&para;</a></h3>
+<p>The <code>history</code> command displays the history of commands that have been entered by the user.
+The commands are stored in the <code>.bash_history</code> file in the user's login directory.</p>
+<p>Example of a history command</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">history</span>
+<span class="m">147</span> man ls
+<span class="m">148</span> man <span class="nb">history</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-w</code></td>
+<td>The <code>-w</code> option will copy the history of the current session to it.</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td>The <code>-c</code> option will delete the history of the current session (but not the contents of the <code>.bash_history</code> file).</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Manipulating history:</li>
+</ul>
+<p>To manipulate the history, the following commands entered from the command prompt will:</p>
+<table>
+<thead>
+<tr>
+<th>Keys</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><kdb>!!</kdb></td>
+<td>Recall the last command placed.</td>
+</tr>
+<tr>
+<td><kdb>!n</kdb></td>
+<td>Recall the command by its number in the list.</td>
+</tr>
+<tr>
+<td><kdb>!string</kdb></td>
+<td>Recall the most recent command beginning with the string.</td>
+</tr>
+<tr>
+<td><kdb>↑</kdb></td>
+<td>Recall the most recent command beginning with the string.</td>
+</tr>
+<tr>
+<td><kdb>↓</kdb></td>
+<td>Recall the most recent command beginning with the string.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-auto-completion">The auto-completion<a class="headerlink" href="#the-auto-completion" title="Permanent link">&para;</a></h3>
+<p>Auto-completion is also a great help.</p>
+<ul>
+<li>It allows you to complete commands, entered paths, or file names.</li>
+<li>A press of the <kbd>TAB</kbd> key completes the entry in the case of a single solution.</li>
+<li>Otherwise, a second press will be required to obtain the list of possibilities.</li>
+</ul>
+<p>If a double press of the <kbd>TAB</kbd> key causes no reaction from the system, then there is no solution to the current completion.</p>
+<h2 id="display-and-identification">Display and identification<a class="headerlink" href="#display-and-identification" title="Permanent link">&para;</a></h2>
+<h3 id="clear-command"><code>clear</code> command<a class="headerlink" href="#clear-command" title="Permanent link">&para;</a></h3>
+<p>The <code>clear</code> command clears the contents of the terminal screen. In fact, to be more precise, it shifts the display so that the command prompt is at the top of the screen on the first line.</p>
+<p>In a terminal, the display will be permanently hidden, whereas in a graphical interface, a scrollbar will allow you to go back in the history of the virtual terminal.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><kbd>CTRL</kbd> + <kbd>L</kbd> will have the same effect as the <code>clear</code> command</p>
+</div>
+<h3 id="echo-command"><code>echo</code> command<a class="headerlink" href="#echo-command" title="Permanent link">&para;</a></h3>
+<p>The <code>echo</code> command is used to display a string of characters.</p>
+<p>This command is most commonly used in administration scripts to inform the user during execution.</p>
+<p>The <code>-n</code> option will not return to the line after displaying the text (which is the default behavior of the command).</p>
+<p>For various reasons, the script developer may need to use special sequences (starting with a <code>\</code> character). In this case, the <code>-e</code> option will be stipulated, allowing interpretation of the sequences.</p>
+<p>Among the frequently used sequences, we can mention :</p>
+<table>
+<thead>
+<tr>
+<th>Sequence</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\a</code></td>
+<td>Send a sonor bip</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>Back</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>Adds a line break</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>Adds a horizontal tab</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>Adds vertical tab</td>
+</tr>
+</tbody>
+</table>
+<h3 id="date-command"><code>date</code> command<a class="headerlink" href="#date-command" title="Permanent link">&para;</a></h3>
+<p>The <code>date</code> command displays the date and time. The command has the following syntax:</p>
+<div class="highlight"><pre><span></span><code>date <span class="o">[</span>-d AAAAMMJJ<span class="o">]</span> <span class="o">[</span>format<span class="o">]</span>
+</code></pre></div>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>$ date
+Mon May <span class="m">24</span> <span class="m">16</span>:46:53 CEST <span class="m">2021</span>
+$ date -d <span class="m">20210517</span> +%j
+<span class="m">137</span>
+</code></pre></div>
+<p>In this last example, the <code>-d</code> option displays a given date. The <code>+%j</code> option formats this date to show only the day of the year.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The format of a date can change depending on the value of the language defined in the environment variable <code>$LANG</code>.</p>
+</div>
+<p>The date display can follow the following formats:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+%A</code></td>
+<td>Full Name of Day</td>
+</tr>
+<tr>
+<td><code>+%B</code></td>
+<td>Full Name of Month</td>
+</tr>
+<tr>
+<td><code>+%c</code></td>
+<td>Full Date Display</td>
+</tr>
+<tr>
+<td><code>+%d</code></td>
+<td>Day number</td>
+</tr>
+<tr>
+<td><code>+%F</code></td>
+<td>Date in <code>YYYY-MM-DD</code> format</td>
+</tr>
+<tr>
+<td><code>+%G</code></td>
+<td>Year</td>
+</tr>
+<tr>
+<td><code>+%H</code></td>
+<td>Time of day</td>
+</tr>
+<tr>
+<td><code>+%j</code></td>
+<td>Day of the year</td>
+</tr>
+<tr>
+<td><code>+%m</code></td>
+<td>Month number</td>
+</tr>
+<tr>
+<td><code>+%M</code></td>
+<td>Minute</td>
+</tr>
+<tr>
+<td><code>+%R</code></td>
+<td>Time in <code>hh:mm</code> format</td>
+</tr>
+<tr>
+<td><code>+%s</code></td>
+<td>Seconds since January 1, 1970</td>
+</tr>
+<tr>
+<td><code>+%T</code></td>
+<td>Time in <code>hh:mm:ss</code> format</td>
+</tr>
+<tr>
+<td><code>+%u</code></td>
+<td>Day of the week (<code>1</code> for Monday)</td>
+</tr>
+<tr>
+<td><code>+%V</code></td>
+<td>Week number (<code>+%V</code>)</td>
+</tr>
+<tr>
+<td><code>+%x</code></td>
+<td>Date in format <code>DD/MM/YYYY</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>date</code> command also allows you to change the system date and time. In this case, the <code>-s</code> option will be used.</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root<span class="o">]</span><span class="c1"># date -s &quot;2021-05-24 10:19&quot;</span>
+</code></pre></div>
+<p>The format to be used following the <code>-s</code> option is this:</p>
+<div class="highlight"><pre><span></span><code>date -s <span class="s2">&quot;[AA]AA-MM-JJ hh:mm:[ss]&quot;</span>
+</code></pre></div>
+<h3 id="id-who-and-whoami-commands"><code>id</code>, <code>who</code> and <code>whoami</code> commands<a class="headerlink" href="#id-who-and-whoami-commands" title="Permanent link">&para;</a></h3>
+<p>The <code>id</code> command displays the name of the current user and its groups or those of a user, if the user's login is given as an argument.</p>
+<div class="highlight"><pre><span></span><code>$ id rockstar
+<span class="nv">uid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>rockstar<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>rockstar<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>rockstar<span class="o">)</span>,10<span class="o">(</span>wheel<span class="o">)</span>
+</code></pre></div>
+<p>The <code>-g</code>, <code>-G</code>, <code>-n</code> and <code>-u</code> options display the main group GID, subgroup GIDs, names instead of numeric identifiers, and the user's UID respectively.</p>
+<p>The <code>whoami</code> command displays the login of the current user.</p>
+<p>The <code>who</code> command alone displays the names of logged in users:</p>
+<div class="highlight"><pre><span></span><code>$ who
+rockstar tty1   <span class="m">2021</span>-05-24 <span class="m">10</span>:30
+root     pts/0  <span class="m">2021</span>-05-24 <span class="m">10</span>:31
+</code></pre></div>
+<p>Since Linux is multi-user, it is likely that multiple sessions are open on the same station, either physically or over the network. It is interesting to know which users are logged in, if only to communicate with them by sending messages.</p>
+<ul>
+<li>tty: represents a terminal.</li>
+<li>pts/: represents a virtual console in a graphical environment with the number after representing the instance of the virtual console (0, 1, 2...)</li>
+</ul>
+<p>The <code>-r</code> option also displays the execution level (see chapter "startup").</p>
+<h2 id="file-tree">File tree<a class="headerlink" href="#file-tree" title="Permanent link">&para;</a></h2>
+<p>In Linux, the file tree is an inverted tree, called a <strong>single hierarchical tree</strong>, whose root is the directory <code>/</code>.</p>
+<p>The <strong>current directory</strong> is the directory where the user is located.</p>
+<p>The <strong>connection directory</strong> is the working directory associated with the user. The login directories are, by default, stored in the <code>/home</code> directory.</p>
+<p>When the user logs in, the current directory is the login directory.</p>
+<p>An <strong>absolute path</strong> references a file from the root by traversing the entire tree to the file level:</p>
+<ul>
+<li><code>/home/groupA/alice/file</code></li>
+</ul>
+<p>The <strong>relative path</strong> references that same file by traversing the entire tree from the current directory:</p>
+<ul>
+<li><code>../alice/file</code></li>
+</ul>
+<p>In the above example, the "<code>..</code>" refers to the parent directory of the current directory.</p>
+<p>A directory, even if it is empty, will necessarily contain at least <strong>two references</strong> :</p>
+<ul>
+<li><code>.</code>: reference to itself.</li>
+<li><code>..</code>: reference to the parent directory of the current directory.</li>
+</ul>
+<p>A relative path can thus start with <code>./</code> or <code>../</code>. When the relative path refers to a subdirectory or file in the current directory, then the <code>./</code> is often omitted. Mentioning the first <code>./</code> in the tree will only really be required to run an executable file.</p>
+<p>Errors in paths can cause many problems: creating folders or files in the wrong places, unintentional deletions, etc. It is therefore strongly recommended to use auto-completion when entering paths.</p>
+<p><img alt="our example tree" src="../../../../books/admin_guide/images/commands-pathabsolute.png" /></p>
+<p>In the above example, we are looking to give the location of the file <code>myfile</code> from the directory of bob.</p>
+<ul>
+<li>By an <strong>absolute path</strong>, the current directory does not matter. We start at the root, and work our way down to the directories <code>home</code>, <code>groupA</code>, <code>alice</code> and finally the file <code>myfile</code>: <code>/home/groupA/alice/myfile</code>.</li>
+<li>By a <strong>relative path</strong>, our starting point being the current directory <code>bob</code>, we go up one level through <code>..</code> (i.e., into the <code>groupA</code> directory), then down into the alice directory, and finally the <code>myfile</code> file: <code>../alice/myfile</code>.</li>
+</ul>
+<h3 id="pwd-command"><code>pwd</code> command<a class="headerlink" href="#pwd-command" title="Permanent link">&para;</a></h3>
+<p>The <code>pwd</code> (Print Working Directory) command displays the absolute path of the current directory.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">pwd</span>
+/home/rockstar
+</code></pre></div>
+<p>To move around using a relative path, you must know its position in the tree.</p>
+<p>Depending on the command interpreter, the command prompt may also display the name of the current directory.</p>
+<h3 id="cd-command"><code>cd</code> command<a class="headerlink" href="#cd-command" title="Permanent link">&para;</a></h3>
+<p>The <code>cd</code> (Change Directory) command allows you to change the current directory, in other words, to move through the tree.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /tmp
+$ <span class="nb">pwd</span>
+/tmp
+$ <span class="nb">cd</span> ../
+$ <span class="nb">pwd</span>
+/
+$ <span class="nb">cd</span>
+$ <span class="nb">pwd</span>
+/home/rockstar
+</code></pre></div>
+<p>As you can see in the last example above, the command <code>cd</code> with no arguments moves the current directory to the <code>home directory</code>.</p>
+<h3 id="ls-command"><code>ls</code> command<a class="headerlink" href="#ls-command" title="Permanent link">&para;</a></h3>
+<p>The <code>ls</code> command displays the contents of a directory</p>
+<div class="highlight"><pre><span></span><code>ls <span class="o">[</span>-a<span class="o">]</span> <span class="o">[</span>-i<span class="o">]</span> <span class="o">[</span>-l<span class="o">]</span> <span class="o">[</span>directory1<span class="o">]</span> <span class="o">[</span>directory2<span class="o">]</span> <span class="o">[</span>…<span class="o">]</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ ls /home
+.    ..    rockstar
+</code></pre></div>
+<p>The main options of the <code>ls</code> command are :</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td>Displays all files, even hidden ones. Hidden files in Linux are those beginning with <code>.</code>.</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Displays inode numbers.</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>The <code>-l</code> command displays a vertical list of files with additional information formatted in columns.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>ls</code> command, however, has a lot of options (see <code>man</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code></td>
+<td>Displays information about a directory instead of listing its contents.</td>
+</tr>
+<tr>
+<td><code>-g</code></td>
+<td>Displays UID and GID rather than owner names.</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td>Displays file sizes in the most appropriate format (byte, kilobyte, megabyte, gigabyte, ...). <code>h</code> stands for Human Readable.</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>Displays the size in bytes (unless <code>k</code> option).</td>
+</tr>
+<tr>
+<td><code>-A</code></td>
+<td>Displays all files in the directory except <code>.</code> and <code>.</code>.</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td>Displays the contents of subdirectories recursively.</td>
+</tr>
+<tr>
+<td><code>-F</code></td>
+<td>Displays the type of files. Prints a <code>/</code> for a directory, <code>*</code> for executables, <code>@</code> for a symbolic link, and nothing for a text file.</td>
+</tr>
+<tr>
+<td><code>-X</code></td>
+<td>Sort files according to their extensions.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Description of columns:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ ls -lia /home
+<span class="m">78489</span> drwx------ <span class="m">4</span> rockstar rockstar <span class="m">4096</span> <span class="m">25</span> oct. <span class="m">08</span>:10 rockstar
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>78489</code></td>
+<td>Inode Number.</td>
+</tr>
+<tr>
+<td><code>drwx------</code></td>
+<td>File type (<code>d</code>) and rights (<code>rwx------</code>).</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Number of subdirectories (<code>.</code> and <code>..</code> included). For a file of type physical link: number of physical links.</td>
+</tr>
+<tr>
+<td><code>rockstar</code></td>
+<td>For a physical link file: number of physical links.</td>
+</tr>
+<tr>
+<td><code>rockstar</code></td>
+<td>For a file of type physical link: number of physical links.</td>
+</tr>
+<tr>
+<td><code>4096</code></td>
+<td>For a physical link type file: number of physical links.</td>
+</tr>
+<tr>
+<td><code>25 oct. 08:10</code></td>
+<td>Last modified date.</td>
+</tr>
+<tr>
+<td><code>rockstar</code></td>
+<td>The name of the file (or directory).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Aliases</strong> are frequently positioned in common distributions.</p>
+<p>This is the case of the alias <code>ll</code>:</p>
+<div class="highlight"><pre><span></span><code>alias ll=&#39;ls -l --color=auto&#39;
+</code></pre></div>
+</div>
+<p>The <code>ls</code> command has many options and here are some advanced examples of uses:</p>
+<ul>
+<li>List the files in <code>/etc</code> in order of last modification:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ ls -ltr /etc
+total <span class="m">1332</span>
+-rw-r--r--.  <span class="m">1</span> root root    <span class="m">662</span> <span class="m">29</span> may   <span class="m">2021</span> logrotate.conf
+-rw-r--r--.  <span class="m">1</span> root root    <span class="m">272</span> <span class="m">17</span> may.   <span class="m">2021</span> mailcap
+-rw-------.  <span class="m">1</span> root root    <span class="m">122</span> <span class="m">12</span> may.  <span class="m">2021</span> securetty
+...
+-rw-r--r--.  <span class="m">2</span> root root     <span class="m">85</span> <span class="m">18</span> may.  <span class="m">17</span>:04 resolv.conf
+-rw-r--r--.  <span class="m">1</span> root root     <span class="m">44</span> <span class="m">18</span> may.  <span class="m">17</span>:04 adjtime
+-rw-r--r--.  <span class="m">1</span> root root    <span class="m">283</span> <span class="m">18</span> may.  <span class="m">17</span>:05 mtab
+</code></pre></div>
+<ul>
+<li>List <code>/var</code> files larger than 1 megabyte but less than 1 gigabyte:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ ls -Rlh /var <span class="p">|</span> grep <span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>M
+...
+-rw-r--r--. <span class="m">1</span> apache apache <span class="m">1</span>,2M <span class="m">10</span> may.  <span class="m">13</span>:02 XB RiyazBdIt.ttf
+-rw-r--r--. <span class="m">1</span> apache apache <span class="m">1</span>,2M <span class="m">10</span> may.  <span class="m">13</span>:02 XB RiyazBd.ttf
+-rw-r--r--. <span class="m">1</span> apache apache <span class="m">1</span>,1M <span class="m">10</span> may.  <span class="m">13</span>:02 XB RiyazIt.ttf
+...
+</code></pre></div>
+<ul>
+<li>Show the rights on a folder:</li>
+</ul>
+<p>To find out the rights to a folder, in our example <code>/etc</code>, the following command would not be appropriate:</p>
+<div class="highlight"><pre><span></span><code>$ ls -l /etc
+total <span class="m">1332</span>
+-rw-r--r--.  <span class="m">1</span> root root     <span class="m">44</span> <span class="m">18</span> nov.  <span class="m">17</span>:04 adjtime
+-rw-r--r--.  <span class="m">1</span> root root   <span class="m">1512</span> <span class="m">12</span> janv.  <span class="m">2010</span> aliases
+-rw-r--r--.  <span class="m">1</span> root root  <span class="m">12288</span> <span class="m">17</span> nov.  <span class="m">17</span>:41 aliases.db
+drwxr-xr-x.  <span class="m">2</span> root root   <span class="m">4096</span> <span class="m">17</span> nov.  <span class="m">17</span>:48 alternatives
+...
+</code></pre></div>
+<p>since the command lists by default the contents of the folder and not the container.</p>
+<p>To do this, use the <code>-d</code> option:</p>
+<div class="highlight"><pre><span></span><code>$ ls -ld /etc
+drwxr-xr-x. <span class="m">69</span> root root <span class="m">4096</span> <span class="m">18</span> nov.  <span class="m">17</span>:05 /etc
+</code></pre></div>
+<ul>
+<li>List files by size:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ ls -lhS
+</code></pre></div>
+<ul>
+<li>Display the modification date in "timestamp" format:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ ls -l --time-style<span class="o">=</span><span class="s2">&quot;+%Y-%m-%d %m-%d %H:%M&quot;</span> /
+total <span class="m">12378</span>
+dr-xr-xr-x. <span class="m">2</span> root root <span class="m">4096</span> <span class="m">2014</span>-11-23 <span class="m">11</span>-23 <span class="m">03</span>:13 bin
+dr-xr-xr-x. <span class="m">5</span> root root <span class="m">1024</span> <span class="m">2014</span>-11-23 <span class="m">11</span>-23 <span class="m">05</span>:29 boot
+</code></pre></div>
+<ul>
+<li>Add the <em>trailing slash</em> to the end of folders:</li>
+</ul>
+<p>By default, the <code>ls</code> command does not display the last slash of a folder.
+In some cases, like for scripts for example, it is useful to display them:</p>
+<div class="highlight"><pre><span></span><code>$ ls -dF /etc
+/etc/
+</code></pre></div>
+<ul>
+<li>Hide some extensions:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ ls /etc --hide<span class="o">=</span>*.conf
+</code></pre></div>
+<h3 id="mkdir-command"><code>mkdir</code> command<a class="headerlink" href="#mkdir-command" title="Permanent link">&para;</a></h3>
+<p>The <code>mkdir</code> command creates a directory or directory tree.</p>
+<div class="highlight"><pre><span></span><code>mkdir <span class="o">[</span>-p<span class="o">]</span> directory <span class="o">[</span>directory<span class="o">]</span> <span class="o">[</span>...<span class="o">]</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ mkdir /home/rockstar/work
+</code></pre></div>
+<p>The "rockstar" directory must exist to create the "work" directory.
+Otherwise, the <code>-p</code> option should be used. The <code>-p</code> option creates the parent directories if they do not exist.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>It is not recommended to use Linux command names as directory or file names.</p>
+</div>
+<h3 id="touch-command"><code>touch</code> command<a class="headerlink" href="#touch-command" title="Permanent link">&para;</a></h3>
+<p>The <code>touch</code> command changes the timestamp of a file or creates an empty file if the file does not exist.</p>
+<div class="highlight"><pre><span></span><code>touch <span class="o">[</span>-t date<span class="o">]</span> file
+</code></pre></div>
+<p>Example :</p>
+<div class="highlight"><pre><span></span><code>$ touch /home/rockstar/myfile
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t date</code></td>
+<td>Changes the date of last modification of the file with the specified date.</td>
+</tr>
+</tbody>
+</table>
+<p>Date format: <code>[AAAA]MMJJhhmm[ss]</code></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>touch</code> command is primarily used to create an empty file, but it can be useful for incremental or differential backups for example. Indeed, the only effect of executing a <code>touch</code> on a file will be to force it to be saved during the next backup.</p>
+</div>
+<h3 id="rmdir-command"><code>rmdir</code> command<a class="headerlink" href="#rmdir-command" title="Permanent link">&para;</a></h3>
+<p>The <code>rmdir</code> command deletes an empty directory.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ rmdir /home/rockstar/work
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td>Removes the parent directory or directories provided if they are empty.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To delete both a non-empty directory and its contents, use the <code>rm</code> command.</p>
+</div>
+<h3 id="rm-command"><code>rm</code> command<a class="headerlink" href="#rm-command" title="Permanent link">&para;</a></h3>
+<p>The <code>rm</code> command deletes a file or directory.</p>
+<div class="highlight"><pre><span></span><code>rm <span class="o">[</span>-f<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> file <span class="o">[</span>file<span class="o">]</span> <span class="o">[</span>...<span class="o">]</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Any deletion of a file or directory is final.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>Do not ask for confirmation of deletion.</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Requires confirmation of deletion.</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Recursively deletes subdirectories.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>rm</code> command itself does not ask for confirmation when deleting files. However, with a RedHat/Rocky distribution, <code>rm</code> does ask for confirmation of deletion because the <code>rm</code> command is an <code>alias</code> of the <code>rm -i</code> command. Don't be surprised if on another distribution, like Debian for example, you don't get a confirmation request.</p>
+</div>
+<p>Deleting a folder with the <code>rm</code> command, whether the folder is empty or not, will require the <code>-r</code> option to be added.</p>
+<p>The end of the options is signaled to the shell by a double dash <code>--</code>.</p>
+<p>In the example:</p>
+<div class="highlight"><pre><span></span><code>$ &gt;-hard-hard <span class="c1"># To create an empty file called -hard-hard</span>
+hard-hard
+<span class="o">[</span>CTRL+C<span class="o">]</span> To interrupt the creation of the file
+$ rm -f -- -hard-hard
+</code></pre></div>
+<p>The hard-hard file name starts with a <code>-</code>. Without the use of the <code>--</code> the shell would have interpreted the <code>-d</code> in <code>-hard-hard</code> as an option.</p>
+<h3 id="mv-command"><code>mv</code> command<a class="headerlink" href="#mv-command" title="Permanent link">&para;</a></h3>
+<p>The <code>mv</code> command moves and renames a file.</p>
+<div class="highlight"><pre><span></span><code>mv file <span class="o">[</span>file ...<span class="o">]</span> destination
+</code></pre></div>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>$ mv /home/rockstar/file1 /home/rockstar/file2
+$ mv /home/rockstar/file1 /home/rockstar/file2 /tmp
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>Don't ask for confirmation if overwriting the destination file.</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Request confirmation if overwriting destination file (default).</td>
+</tr>
+</tbody>
+</table>
+<p>A few concrete cases will help you understand the difficulties that can arise:</p>
+<div class="highlight"><pre><span></span><code>$ mv /home/rockstar/file1 /home/rockstar/file2
+</code></pre></div>
+<p>Renames <code>file1</code> to <code>file2</code>, if <code>file2</code> already exists, it will be replaced by <code>file1</code>.</p>
+<div class="highlight"><pre><span></span><code>$ mv /home/rockstar/file1 /home/rockstar/file2 /tmp
+</code></pre></div>
+<p>Moves <code>file1</code> and <code>file2</code> into the <code>/tmp</code> directory.</p>
+<div class="highlight"><pre><span></span><code>$ mv file1 /repexist/file2
+</code></pre></div>
+<p>Moves <code>file1</code> into <code>repexist</code> and renames it <code>file2</code>.</p>
+<div class="highlight"><pre><span></span><code>$ mv file1 file2
+</code></pre></div>
+<p><code>file1</code> is renamed to <code>file2</code>.</p>
+<div class="highlight"><pre><span></span><code>$ mv file1 /repexist
+</code></pre></div>
+<p>If the destination directory exists, <code>file1</code> is moved to <code>/repexist</code>.</p>
+<div class="highlight"><pre><span></span><code>$ mv file1 /wrongrep
+</code></pre></div>
+<p>If the destination directory does not exist, <code>file1</code> is renamed to <code>wrongrep</code> in the root directory.</p>
+<h3 id="cp-command"><code>cp</code> command<a class="headerlink" href="#cp-command" title="Permanent link">&para;</a></h3>
+<p>The <code>cp</code> command copies a file.</p>
+<div class="highlight"><pre><span></span><code>cp file <span class="o">[</span>file ...<span class="o">]</span> destination
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ cp -r /home/rockstar /tmp
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td>Request confirmation if overwriting (default).</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>Do not ask for confirmation if overwriting the destination file.</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Keeps the owner, permissions and timestamp of the copied file.</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Copies a directory with its files and subdirectories.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>cp file1 /repexist/file2
+</code></pre></div>
+<p><code>file1</code> is copied to <code>/repexist</code> under the name <code>file2</code>.</p>
+<div class="highlight"><pre><span></span><code>$ cp file1 file2
+</code></pre></div>
+<p><code>file1</code> is copied as <code>file2</code> to this directory.</p>
+<div class="highlight"><pre><span></span><code>$ cp file1 /repexist
+</code></pre></div>
+<p>If the destination directory exists, <code>file1</code> is copied to <code>/repexist</code>.</p>
+<div class="highlight"><pre><span></span><code>$ cp file1 /wrongrep
+</code></pre></div>
+<p>If the destination directory does not exist, <code>file1</code> is copied under the name <code>wrongrep</code> to the root directory.</p>
+<h2 id="visualization">Visualization<a class="headerlink" href="#visualization" title="Permanent link">&para;</a></h2>
+<h3 id="file-command"><code>file</code> command<a class="headerlink" href="#file-command" title="Permanent link">&para;</a></h3>
+<p>The <code>file</code> command displays the type of a file.</p>
+<div class="highlight"><pre><span></span><code>file file1 <span class="o">[</span>files<span class="o">]</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ file /etc/passwd /etc
+/etc/passwd:    ASCII text
+/etc:        directory
+</code></pre></div>
+<h3 id="more-command"><code>more</code> command<a class="headerlink" href="#more-command" title="Permanent link">&para;</a></h3>
+<p>The <code>more</code> command displays the contents of one or more files screen by screen.</p>
+<div class="highlight"><pre><span></span><code>more file1 <span class="o">[</span>files<span class="o">]</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ more /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+...
+</code></pre></div>
+<p>Using the <kbd>ENTER</kbd> key, the move is line by line. Using the <kbd>SPACE</kbd> key, the move is page by page. <code>/text</code> allows you to search for the occurrence in the file.</p>
+<h3 id="less-command"><code>less</code> command<a class="headerlink" href="#less-command" title="Permanent link">&para;</a></h3>
+<p>The <code>less</code> command displays the contents of one or more files. The <code>less</code> command is interactive and has its own commands for use.</p>
+<div class="highlight"><pre><span></span><code>less file1 <span class="o">[</span>files<span class="o">]</span>
+</code></pre></div>
+<p>The commands specific to <code>less</code> are:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h</code></td>
+<td>Help.</td>
+</tr>
+<tr>
+<td><code>Arrows</code></td>
+<td>Move up, down a line, or to the right or left..</td>
+</tr>
+<tr>
+<td><code>Enter</code></td>
+<td>Move down one line.</td>
+</tr>
+<tr>
+<td><code>Space</code></td>
+<td>Move down one page.</td>
+</tr>
+<tr>
+<td><code>PgUp</code> and <code>PgDn</code></td>
+<td>Move up or down one page.</td>
+</tr>
+<tr>
+<td><code>Begin</code> and <code>End</code></td>
+<td>Move to the beginning or end of a file.</td>
+</tr>
+<tr>
+<td><code>/texte</code></td>
+<td>Search for text.</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>Quit the <code>less</code> command.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cat-command"><code>cat</code> command<a class="headerlink" href="#cat-command" title="Permanent link">&para;</a></h3>
+<p>The <code>cat</code> command concatenates the contents of multiple files and displays the result on the standard output.</p>
+<div class="highlight"><pre><span></span><code>cat file1 <span class="o">[</span>files<span class="o">]</span>
+</code></pre></div>
+<p>Example 1 - Displaying the contents of a file to the standard output :</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/passwd
+</code></pre></div>
+<p>Example 2 - Displaying the contents of multiple files to standard output:</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/passwd /etc/group
+</code></pre></div>
+<p>Example 3 - Displaying the contents of several files in the file <code>usersAndGroups.txt</code> :</p>
+<div class="highlight"><pre><span></span><code>$ cat /etc/passwd /etc/group &gt; usersAndGroups.txt
+</code></pre></div>
+<p>Example 4 - Displaying the line numbering :</p>
+<div class="highlight"><pre><span></span><code>$ cat -n /etc/profile
+     <span class="m">1</span>    <span class="c1"># /etc/profile: system-wide .profile file for the Bourne shell (sh(1))</span>
+     <span class="m">2</span>    <span class="c1"># and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).</span>
+     <span class="m">3</span>
+     <span class="m">4</span>    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;`id -u`&quot;</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+     <span class="m">5</span>      <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>
+     <span class="m">6</span>    <span class="k">else</span>
+…
+</code></pre></div>
+<p>Example 5 - Shows the numbering of non-empty lines:</p>
+<div class="highlight"><pre><span></span><code>$ cat -b /etc/profile
+     <span class="m">1</span>    <span class="c1"># /etc/profile: system-wide .profile file for the Bourne shell (sh(1))</span>
+     <span class="m">2</span>    <span class="c1"># and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).</span>
+
+     <span class="m">3</span>    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;`id -u`&quot;</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+     <span class="m">4</span>      <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span>
+     <span class="m">5</span>    <span class="k">else</span>
+…
+</code></pre></div>
+<h3 id="tac-command"><code>tac</code> command<a class="headerlink" href="#tac-command" title="Permanent link">&para;</a></h3>
+<p>The <code>tac</code> command does almost the opposite of the <code>cat</code> command. It displays the contents of a file starting from the end (which is particularly interesting for reading logs!).</p>
+<p>Example: Display a log file by displaying the last line first:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root<span class="o">]</span><span class="c1"># tac /var/log/messages | less</span>
+</code></pre></div>
+<h3 id="head-command"><code>head</code> command<a class="headerlink" href="#head-command" title="Permanent link">&para;</a></h3>
+<p>The <code>head</code> command displays the beginning of a file.</p>
+<div class="highlight"><pre><span></span><code>head <span class="o">[</span>-n x<span class="o">]</span> file
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n x</code></td>
+<td>Display the first <code>x</code> lines of the file</td>
+</tr>
+</tbody>
+</table>
+<p>By default (without the <code>-n</code> option), the <code>head</code> command will display the first 10 lines of the file.</p>
+<h3 id="tail-command"><code>tail</code> command<a class="headerlink" href="#tail-command" title="Permanent link">&para;</a></h3>
+<p>The <code>tail</code> command displays the end of a file.</p>
+<div class="highlight"><pre><span></span><code>tail <span class="o">[</span>-f<span class="o">]</span> <span class="o">[</span>-n x<span class="o">]</span> file
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n x</code></td>
+<td>Displays the last <code>x</code> lines of the file</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>Displays changes to the file in real time</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>tail -n <span class="m">3</span> /etc/passwd
+sshd:x:74:74:Privilege-separeted sshd:/var/empty /sshd:/sbin/nologin
+tcpdump::x:72:72::/:/sbin/nologin
+user1:x:500:500:grp1:/home/user1:/bin/bash
+</code></pre></div>
+<p>With the <code>-f</code> option, the <code>tail</code> command does not give back and runs until the user interrupts it with the sequence <kbd>CTRL</kbd> + <kbd>C</kbd>. This option is very frequently used to track log files (the logs) in real time.</p>
+<p>Without the <code>-n</code> option, the tail command displays the last 10 lines of the file.</p>
+<h3 id="sort-command"><code>sort</code> command<a class="headerlink" href="#sort-command" title="Permanent link">&para;</a></h3>
+<p>The <code>sort</code> command sorts the lines of a file.</p>
+<p>It allows you to order the result of a command or the content of a file in a given order, numerically, alphabetically, by size (KB, MB, GB) or in reverse order.</p>
+<div class="highlight"><pre><span></span><code>sort <span class="o">[</span>-kx<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-o file<span class="o">]</span> <span class="o">[</span>-ty<span class="o">]</span> file
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sort -k3 -t: -n /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+adm:x:3:4:adm:/var/adm/:/sbin/nologin
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-kx</code></td>
+<td>Specifies the <code>x</code> column to sort on</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Requests a numeric sort</td>
+</tr>
+<tr>
+<td><code>-o file</code></td>
+<td>Saves the sort to the specified file</td>
+</tr>
+<tr>
+<td><code>-ty</code></td>
+<td>Specifies the field separator character <code>y</code>.</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Reverse the order of the result</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>sort</code> command sorts the file only on the screen. The file is not modified by the sorting. To save the sort, use the <code>-o</code> option or an output redirection <code>&gt;</code>.</p>
+<p>By default, the numbers are sorted according to their character. Thus, "110" will be before "20", which will itself be before "3". The <code>-n</code> option must be specified so that the numeric character blocks are sorted by their value.</p>
+<p>The <code>sort</code> command reverses the order of the results, with the <code>-r</code> option:</p>
+<div class="highlight"><pre><span></span><code>$ sort -k3 -t: -n -r /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+adm:x:3:4:adm:/var/adm/:/sbin/nologin
+</code></pre></div>
+<p>In this example, the <code>sort</code> command will sort the contents of the <code>/etc/passwd</code> file this time from largest uid to smallest.</p>
+<p>Some advanced examples of using the <code>sort</code> command:</p>
+<ul>
+<li>Shuffling values</li>
+</ul>
+<p>The <code>sort</code> command also allows you to shuffle values with the <code>-R</code> option:</p>
+<div class="highlight"><pre><span></span><code>$ sort -R /etc/passwd
+</code></pre></div>
+<ul>
+<li>Sorting IP addresses</li>
+</ul>
+<p>A system administrator is quickly confronted with the processing of IP addresses from the logs of his services such as SMTP, VSFTP or Apache. These addresses are typically extracted with the <code>cut</code> command.</p>
+<p>Here is an example with the file <code>dns-client.txt</code> :</p>
+<div class="highlight"><pre><span></span><code>192.168.1.10
+192.168.1.200
+5.1.150.146
+208.128.150.98
+208.128.150.99
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ sort -nr dns-client.txt
+<span class="m">208</span>.128.150.99
+<span class="m">208</span>.128.150.98
+<span class="m">192</span>.168.1.200
+<span class="m">192</span>.168.1.10
+<span class="m">5</span>.1.150.146
+</code></pre></div>
+<ul>
+<li>Sorting file by sizes</li>
+</ul>
+<p>The <code>sort</code> command knows how to recognize file sizes, from commands like <code>ls</code> with the <code>-h</code> option.</p>
+<p>Here is an example with the file <code>size.txt</code> :</p>
+<div class="highlight"><pre><span></span><code>1,7G
+18M
+69K
+2,4M
+1,2M
+4,2G
+6M
+124M
+12,4M
+4G
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ sort -hr size.txt
+<span class="m">4</span>,2G
+4G
+<span class="m">1</span>,7G
+124M
+18M
+<span class="m">12</span>,4M
+6M
+<span class="m">2</span>,4M
+<span class="m">1</span>,2M
+69K
+</code></pre></div>
+<h3 id="wc-command"><code>wc</code> command<a class="headerlink" href="#wc-command" title="Permanent link">&para;</a></h3>
+<p>The <code>wc</code> command counts the number of lines, words and/or bytes in a file.</p>
+<div class="highlight"><pre><span></span><code>wc <span class="o">[</span>-l<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span> <span class="o">[</span>-w<span class="o">]</span> file <span class="o">[</span>files<span class="o">]</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code></td>
+<td>Count the number of bytes.</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>Count the number of characters.</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Counts the number of lines.</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>Counts the number of words.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="search">Search<a class="headerlink" href="#search" title="Permanent link">&para;</a></h2>
+<h3 id="find-command"><code>find</code> command<a class="headerlink" href="#find-command" title="Permanent link">&para;</a></h3>
+<p>The <code>find</code> command searches for files or directories location.</p>
+<div class="highlight"><pre><span></span><code>find directory <span class="o">[</span>-name name<span class="o">]</span> <span class="o">[</span>-type type<span class="o">]</span> <span class="o">[</span>-user login<span class="o">]</span> <span class="o">[</span>-date date<span class="o">]</span>
+</code></pre></div>
+<p>Since there are so many options to the <code>find</code> command, it is best to refer to the <code>man</code>.</p>
+<p>If the search directory is not specified, the <code>find</code> command will search from the current directory.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-perm permissions</code></td>
+<td>Search for files by their permissions.</td>
+</tr>
+<tr>
+<td><code>-size size</code></td>
+<td>Search for files by size.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-exec-option-of-the-find-command"><code>-exec</code> option of the <code>find</code> command<a class="headerlink" href="#-exec-option-of-the-find-command" title="Permanent link">&para;</a></h3>
+<p>It is possible to use the <code>-exec</code> option of the <code>find</code> command to execute a command on each result line:</p>
+<div class="highlight"><pre><span></span><code>$ find /tmp -name *.txt -exec rm -f <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div>
+<p>The previous command searches for all files in the <code>/tmp</code> directory named <code>*.txt</code> and deletes them.</p>
+<div class="admonition tip">
+<p class="admonition-title">Understand the <code>-exec</code> option</p>
+<p>In the example above, the <code>find</code> command will construct a string representing the command to be executed.</p>
+<p>If the <code>find</code> command finds three files named <code>log1.txt</code>, <code>log2.txt</code>, and <code>log3.txt</code>, then the <code>find</code> command will construct the string by replacing in the string <code>rm -f {} \;</code> the braces with one of the results of the search, and do this as many times as there are results.</p>
+<p>This will give us :</p>
+<div class="highlight"><pre><span></span><code>rm -f /tmp/log1.txt ; rm -f /tmp/log2.txt ; rm -f /tmp/log3.txt ;
+</code></pre></div>
+<p>The <code>;</code> character is a special shell character that must be protected by a <code>\</code> to prevent it from being interpreted too early by the <code>find</code> command (and not in the <code>-exec</code>).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code>$ find /tmp -name *.txt -delete</code> does the same thing.</p>
+</div>
+<h3 id="whereis-command"><code>whereis</code> command<a class="headerlink" href="#whereis-command" title="Permanent link">&para;</a></h3>
+<p>The <code>whereis</code> command searches for files related to a command.</p>
+<div class="highlight"><pre><span></span><code>whereis <span class="o">[</span>-b<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span> <span class="nb">command</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ whereis -b ls
+ls: /bin/ls
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-b</code></td>
+<td>Search only the binary file.</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>Searches only for man pages.</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>Searches only for source files.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="grep-command"><code>grep</code> command<a class="headerlink" href="#grep-command" title="Permanent link">&para;</a></h3>
+<p>The <code>grep</code> command searches for a string in a file.</p>
+<div class="highlight"><pre><span></span><code>grep <span class="o">[</span>-w<span class="o">]</span> <span class="o">[</span>-i<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span> <span class="s2">&quot;string&quot;</span> file
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ grep -w <span class="s2">&quot;root:&quot;</span> /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td>Ignore the case of the searched string.</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>Excludes lines containing the string.</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>Search for the exact word.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>grep</code> command returns the complete line containing the string you are looking for.
+* The <code>^</code> special character is used to search for a string at the beginning of a line.
+* The special character <code>$</code> searches for a string at the end of a line.</p>
+<div class="highlight"><pre><span></span><code>$ grep -w <span class="s2">&quot;^root&quot;</span> /etc/passwd
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command is very powerful and it is highly recommended to consult its manual. It has many derivatives.</p>
+</div>
+<p>It is possible to search for a string in a file tree with the <code>-R</code> option.</p>
+<div class="highlight"><pre><span></span><code>grep -R <span class="s2">&quot;Virtual&quot;</span> /etc/httpd
+</code></pre></div>
+<h3 id="meta-characters-wildcards">Meta-characters (wildcards)<a class="headerlink" href="#meta-characters-wildcards" title="Permanent link">&para;</a></h3>
+<p>Meta-characters replace one or more characters (or even an absence of characters) during a search. These meta-characters are also known as wildcards. They can be combined. The <code>*</code> character replaces a string composed of any characters. The <code>*</code> character can also represent an absence of character.</p>
+<div class="highlight"><pre><span></span><code>$ find /home -name <span class="s2">&quot;test*&quot;</span>
+/home/rockstar/test
+/home/rockstar/test1
+/home/rockstar/test11
+/home/rockstar/tests
+/home/rockstar/test362
+</code></pre></div>
+<p>Meta-characters allow more complex searches by replacing all or part of a word. Simply replace the unknowns with these special characters.</p>
+<p>The character <code>?</code> replaces a single character, whatever it is.</p>
+<div class="highlight"><pre><span></span><code>$ find /home -name <span class="s2">&quot;test?&quot;</span>
+/home/rockstar/test1
+/home/rockstar/tests
+</code></pre></div>
+<p>The square brackets <code>[</code> are used to specify the values that a single character can take.</p>
+<div class="highlight"><pre><span></span><code>$ find /home -name <span class="s2">&quot;test[123]*&quot;</span>
+/home/rockstar/test1
+/home/rockstar/test11
+/home/rockstar/test362
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Always surround words containing meta-characters with <code>"</code> to prevent them from being replaced by the names of files that meet the criteria.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not confuse shell meta-characters with regular expression meta-characters. The <code>grep</code> command uses regular expression meta-characters.</p>
+</div>
+<h2 id="redirects-and-pipes">Redirects and pipes<a class="headerlink" href="#redirects-and-pipes" title="Permanent link">&para;</a></h2>
+<h3 id="standard-input-and-output">Standard input and output<a class="headerlink" href="#standard-input-and-output" title="Permanent link">&para;</a></h3>
+<p>On UNIX and Linux systems, there are three standard streams. They allow programs, via the <code>stdio.h</code> library, to input or output information.</p>
+<p>These streams are called X channel or X file descriptor.</p>
+<p>By default:
+* the keyboard is the input device for channel 0, called <strong>stdin</strong> ;
+* the screen is the output device for channels 1 and 2, called <strong>stdout</strong> and <strong>stderr</strong>.</p>
+<p><img alt="standards channels" src="../../../../books/admin_guide/images/input-output.png" /></p>
+<p><strong>stderr</strong> receives the error streams returned by a command. The other streams are directed to <strong>stdout</strong>.</p>
+<p>These streams point to peripheral files, but since everything is a file in UNIX/Linux, I/O streams can easily be diverted to other files. This principle is the strength of the shell.</p>
+<h3 id="input-redirection">Input redirection<a class="headerlink" href="#input-redirection" title="Permanent link">&para;</a></h3>
+<p>It is possible to redirect the input stream from another file with the character <code>&lt;</code> or <code>&lt;&lt;</code>. The command will read the file instead of the keyboard:</p>
+<div class="highlight"><pre><span></span><code>$ ftp -in serverftp &lt;&lt; ftp-commands.txt
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only commands that require keyboard input will be able to handle input redirection.</p>
+</div>
+<p>Input redirection can also be used to simulate user interactivity. The command will read the input stream until it encounters the defined keyword after the input redirection.</p>
+<p>This feature is used to script interactive commands:</p>
+<div class="highlight"><pre><span></span><code>$ ftp -in serverftp <span class="s">&lt;&lt; END</span>
+<span class="s">user alice password</span>
+<span class="s">put file</span>
+<span class="s">bye</span>
+<span class="s">END</span>
+</code></pre></div>
+<p>The keyword <code>END</code> can be replaced by any word.</p>
+<div class="highlight"><pre><span></span><code>$ ftp -in serverftp <span class="s">&lt;&lt; STOP</span>
+<span class="s">user alice password</span>
+<span class="s">put file</span>
+<span class="s">bye</span>
+<span class="s">STOP</span>
+</code></pre></div>
+<p>The shell exits the <code>ftp</code> command when it receives a line containing only the keyword.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The ending keyword, here <code>END</code> or <code>STOP</code>, must be the only word on the line and must be at the beginning of the line.</p>
+</div>
+<p>The standard input redirection is rarely used because most commands accept a filename as an argument.</p>
+<p>The command <code>wc</code> could be used like this:</p>
+<div class="highlight"><pre><span></span><code>$ wc -l .bash_profile
+<span class="m">27</span> .bash_profile <span class="c1"># the number of lines is followed by the file name</span>
+$ wc -l &lt; .bash_profile
+<span class="m">27</span> <span class="c1"># returns only the number of lines</span>
+</code></pre></div>
+<h3 id="output-redirection">Output redirection<a class="headerlink" href="#output-redirection" title="Permanent link">&para;</a></h3>
+<p>Standard output can be redirected to other files using the <code>&gt;</code> or <code>&gt;&gt;</code> characters.</p>
+<p>The simple <code>&gt;</code> redirection overwrites the contents of the output file:</p>
+<div class="highlight"><pre><span></span><code>$ date +%F &gt; date_file
+</code></pre></div>
+<p>while the double redirection <code>&gt;&gt;</code> adds (concatenates) to the content of the output file.</p>
+<div class="highlight"><pre><span></span><code>$ date +%F &gt;&gt; date_file
+</code></pre></div>
+<p>In both cases, the file is automatically created when it does not exist.</p>
+<p>The standard error output can also be redirected to another file. This time it will be necessary to specify the channel number (which can be omitted for channels 0 and 1):</p>
+<div class="highlight"><pre><span></span><code>$ ls -R / <span class="m">2</span>&gt; errors_file
+$ ls -R / <span class="m">2</span>&gt;&gt; errors_file
+</code></pre></div>
+<h3 id="examples-of-redirection">Examples of redirection<a class="headerlink" href="#examples-of-redirection" title="Permanent link">&para;</a></h3>
+<p>Redirection of 2 outputs to 2 files :</p>
+<div class="highlight"><pre><span></span><code>$ ls -R / &gt;&gt; ok_file <span class="m">2</span>&gt;&gt; nok_file
+</code></pre></div>
+<p>Redirection of the 2 outputs to a single file:</p>
+<div class="highlight"><pre><span></span><code>$ ls -R / &gt;&gt; log_file <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div>
+<p>Redirection of <em>stderr</em> to a "bottomless pit" (<code>/dev/null</code>) :</p>
+<div class="highlight"><pre><span></span><code>$ ls -R / <span class="m">2</span>&gt;&gt; /dev/null
+</code></pre></div>
+<p>When both output streams are redirected, no information is displayed on the screen. To use both the output redirection and to keep the display, you will have to use the command <code>tee</code>.</p>
+<h3 id="pipes">Pipes<a class="headerlink" href="#pipes" title="Permanent link">&para;</a></h3>
+<p>A <strong>pipe</strong> is a mechanism allowing you to link the standard output of a first command to the standard input of a second command.</p>
+<p>This communication is uni directional and is done with the <code>|</code> symbol. The pipe symbol <code>|</code> is obtained by pressing the  <kbd>SHIFT</kbd> + <kbd>|</kbd> simultaneously.</p>
+<p><img alt="pipe" src="../../../../books/admin_guide/images/pipe.png" /></p>
+<p>All data sent by the control on the left of the pipe through the standard output channel is sent to the standard input channel of the control on the right.</p>
+<p>The commands particularly used after a pipe are filters.</p>
+<ul>
+<li>Examples:</li>
+</ul>
+<p>Display only the beginning:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia / <span class="p">|</span> head
+</code></pre></div>
+<p>Display only the end:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia / <span class="p">|</span> tail
+</code></pre></div>
+<p>Sort the result:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia / <span class="p">|</span> sort
+</code></pre></div>
+<p>Count the number of words / characters:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia / <span class="p">|</span> wc
+</code></pre></div>
+<p>Search for a string in the result:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia / <span class="p">|</span> grep fichier
+</code></pre></div>
+<h2 id="special-points">Special points<a class="headerlink" href="#special-points" title="Permanent link">&para;</a></h2>
+<h3 id="tee-command"><code>tee</code> command<a class="headerlink" href="#tee-command" title="Permanent link">&para;</a></h3>
+<p>The <code>tee</code> command is used to redirect the standard output of a command to a file while maintaining the screen display.</p>
+<p>It is combined with the <code>|</code> pipe to receive as input the output of the command to be redirected:</p>
+<div class="highlight"><pre><span></span><code>$ ls -lia / <span class="p">|</span> tee fic
+$ cat fic
+</code></pre></div>
+<p>The <code>-a</code> option adds to the file instead of overwriting it.</p>
+<h3 id="alias-and-unalias-commands"><code>alias</code> and <code>unalias</code> commands<a class="headerlink" href="#alias-and-unalias-commands" title="Permanent link">&para;</a></h3>
+<p>Using <strong>alias</strong> is a way to ask the shell to remember a particular command with its options and give it a name.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>$ ll
+</code></pre></div>
+<p>will replace the command :</p>
+<div class="highlight"><pre><span></span><code>$ ls -l
+</code></pre></div>
+<p>The <code>alias</code> command lists the aliases for the current session. Aliases are set by default on Linux distributions. Here, the aliases for a Rocky server :</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">alias</span>
+<span class="nb">alias</span> l.<span class="o">=</span><span class="s1">&#39;ls -d .* --color=auto&#39;</span>
+<span class="nb">alias</span> <span class="nv">ll</span><span class="o">=</span><span class="s1">&#39;ls -l --color=auto&#39;</span>
+<span class="nb">alias</span> <span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls --color=auto&#39;</span>
+<span class="nb">alias</span> <span class="nv">vi</span><span class="o">=</span><span class="s1">&#39;vim&#39;</span>
+<span class="nb">alias</span> <span class="nv">which</span><span class="o">=</span><span class="s1">&#39;alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde&#39;</span>
+</code></pre></div>
+<p>The aliases are only defined temporarily, for the time of the user session.</p>
+<p>For permanent use, they must be created in the :</p>
+<ul>
+<li><code>.bashrc</code> file in the user's login directory;</li>
+<li><code>/etc/profile.d/alias.sh</code> file for all users.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Special care must be taken when using aliases which can be potentially dangerous! For example, an alias set up without the administrator's knowledge :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">alias</span> <span class="nv">cd</span><span class="o">=</span><span class="s1">&#39;rm -Rf&#39;</span>
+</code></pre></div>
+</div>
+<p>The <code>unalias</code> command allows you to delete aliases.</p>
+<p>To delete a single alias:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">unalias</span> ll
+</code></pre></div>
+<p>To delete all aliases:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">unalias</span> -a
+</code></pre></div>
+<p>To disable an alias temporarily, the combination is <code>\&lt;alias name&gt;</code>.</p>
+<p>For example if we do:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">type</span> ls
+</code></pre></div>
+<p>it might return the following:</p>
+<div class="highlight"><pre><span></span><code>ls is an <span class="nb">alias</span> to « ls -rt »
+</code></pre></div>
+<p>Now that this is known, we can see the results of using the alias or disabling it one time with the <code>\</code> by executing the following:</p>
+<div class="highlight"><pre><span></span><code>$ ls file*   <span class="c1"># order by time</span>
+file3.txt  file2.txt  file1.txt
+$ <span class="se">\l</span>s file*  <span class="c1"># order by name</span>
+file1.txt  file2.txt  file3.txt
+</code></pre></div>
+<h3 id="aliases-and-useful-functions">Aliases and useful functions<a class="headerlink" href="#aliases-and-useful-functions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>grep</code> alias
+Colorize the result of the <code>grep</code> command:
+<code>alias grep='grep --color=auto'</code></p>
+</li>
+<li>
+<p><code>mcd</code> function
+It is common to create a folder and then move around in it:
+<code>mcd() { mkdir -p "$1"; cd "$1"; }</code></p>
+</li>
+<li>
+<p><code>cls</code> function
+Move to a folder and list its contents:
+<code>cls() { cd "$1"; ls; }</code></p>
+</li>
+<li>
+<p><code>backup</code> function
+Create a backup copy of a file:
+<code>backup() { cp "$1"{,.bak}; }</code></p>
+</li>
+<li>
+<p><code>extract</code> function
+Extract any type of archive:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>extract <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[</span> -f <span class="nv">$1</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="k">case</span> <span class="nv">$1</span> <span class="k">in</span>
+      *.tar.bz2<span class="o">)</span> tar xjf <span class="nv">$1</span> <span class="p">;;</span>
+      *.tar.gz<span class="o">)</span> tar xzf <span class="nv">$1</span> <span class="p">;;</span>
+      *.bz2<span class="o">)</span> bunzip2 <span class="nv">$1</span> <span class="p">;;</span>
+      *.rar<span class="o">)</span> unrar e <span class="nv">$1</span> <span class="p">;;</span>
+      *.gz<span class="o">)</span> gunzip <span class="nv">$1</span> <span class="p">;;</span>
+      *.tar<span class="o">)</span> tar xf <span class="nv">$1</span> <span class="p">;;</span>
+      *.tbz2<span class="o">)</span> tar xjf <span class="nv">$1</span> <span class="p">;;</span>
+      *.tgz<span class="o">)</span> tar xzf <span class="nv">$1</span> <span class="p">;;</span>
+      *.zip<span class="o">)</span> unzip <span class="nv">$1</span> <span class="p">;;</span>
+      *.Z<span class="o">)</span> uncompress <span class="nv">$1</span> <span class="p">;;</span>
+      *.7z<span class="o">)</span> 7z x <span class="nv">$1</span> <span class="p">;;</span>
+      *<span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;&#39;</span><span class="nv">$1</span><span class="s2">&#39; cannot be extracted via extract()&quot;</span> <span class="p">;;</span>
+    <span class="k">esac</span>
+  <span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;&#39;</span><span class="nv">$1</span><span class="s2">&#39; is not a valid file&quot;</span>
+  <span class="k">fi</span>
+<span class="o">}</span>
+</code></pre></div>
+<ul>
+<li>If <code>alias cmount</code> returns the following:
+<code>alias cmount="mount | column -t"</code></li>
+</ul>
+<p>Then we can use cmount to show all of the system mounts in columns like this:</p>
+<p><code>[root]# cmount</code></p>
+<p>which would return our mounted filesystem in the following format:</p>
+<div class="highlight"><pre><span></span><code>/dev/simfs  on  /                                          <span class="nb">type</span>  simfs        <span class="o">(</span>rw,relatime,usrquota,grpquota<span class="o">)</span>
+proc        on  /proc                                      <span class="nb">type</span>  proc         <span class="o">(</span>rw,relatime<span class="o">)</span>
+sysfs       on  /sys                                       <span class="nb">type</span>  sysfs        <span class="o">(</span>rw,relatime<span class="o">)</span>
+none        on  /dev                                       <span class="nb">type</span>  devtmpfs     <span class="o">(</span>rw,relatime,mode<span class="o">=</span><span class="m">755</span><span class="o">)</span>
+none        on  /dev/pts                                   <span class="nb">type</span>  devpts       <span class="o">(</span>rw,relatime,mode<span class="o">=</span><span class="m">600</span>,ptmxmode<span class="o">=</span><span class="m">000</span><span class="o">)</span>
+none        on  /dev/shm                                   <span class="nb">type</span>  tmpfs        <span class="o">(</span>rw,relatime<span class="o">)</span>
+none        on  /proc/sys/fs/binfmt_misc                   <span class="nb">type</span>  binfmt_misc  <span class="o">(</span>rw,relatime<span class="o">)</span>
+</code></pre></div>
+<h3 id="the-character">The character <code>;</code><a class="headerlink" href="#the-character" title="Permanent link">&para;</a></h3>
+<p>The <code>;</code> character strings the commands.</p>
+<p>The commands will all run sequentially in the order of input once the user presses <kbd>ENTER</kdb>.</p>
+<div class="highlight"><pre><span></span><code>$ ls /<span class="p">;</span> <span class="nb">cd</span> /home<span class="p">;</span> ls -lia<span class="p">;</span> <span class="nb">cd</span> /
+</code></pre></div>
+<h2 id="check-your-knowledge">Check your Knowledge<a class="headerlink" href="#check-your-knowledge" title="Permanent link">&para;</a></h2>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> What defines a user under Linux? (7 answers)</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> What characterizes a long option for an order?</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Which commands allow you to search for help on a command:</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <code>google</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>chuck --norris</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>info</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>apropos</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>whatis</code>   </li>
+</ul>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Which command allows you to view a user's history?</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Which command allows you to search for text in a file?</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <code>find</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>grep</code>   </li>
+</ul>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Which command allows you to search for a file?</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <code>find</code>    </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>grep</code>   </li>
+</ul>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> Which command redirects the error stream of a command to a new <code>errors.log</code> file:</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> <code>ls -R / 2&gt; errors.log</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>ls -R / 2&gt;&gt; errors.log</code>   </li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>ls -R / 2&gt; errors.log 2&gt;&amp;1</code>   </li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Sidfot">
+      
+        
+        <a href="../01-presentation/" class="md-footer__link md-footer__link--prev" aria-label="Föregående: Introduction to the Linux operating system" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Föregående
+              </span>
+              Introduction to the Linux operating system
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../04-advanced-commands/" class="md-footer__link md-footer__link--next" aria-label="Nästa: Advanced Commands for Linux users" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Nästa
+              </span>
+              Advanced Commands for Linux users
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Kopiera till urklipp", "clipboard.copied": "Kopierat till urklipp", "search.config.lang": "sv", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "S\u00f6k", "search.result.placeholder": "Skriv s\u00f6kord", "search.result.none": "Inga s\u00f6kresultat", "search.result.one": "1 s\u00f6kresultat", "search.result.other": "# s\u00f6kresultat", "search.result.more.one": "1 till p\u00e5 denna sidan", "search.result.more.other": "# till p\u00e5 denna sidan", "search.result.term.missing": "Saknas", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

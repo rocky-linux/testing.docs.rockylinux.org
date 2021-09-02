@@ -1,0 +1,3314 @@
+
+<!doctype html>
+<html lang="de" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.3/de/books/admin_guide/09-backups/">
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>Backups and restorations - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#backups-and-restorations" class="md-skip">
+          Zum Inhalt
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Backups and restorations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Sprache wechseln">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../sv/" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Suche" placeholder="Suche" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Suche">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Zurücksetzen" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Suche wird initialisiert
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Quellcode" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      Inhaltsverzeichnis
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Quellcode" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Inhaltsverzeichnis
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky package debranding How-To
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Package signing and testing'
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Adding a public mirror to Rocky's mirror manager
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Enabling iptables Firewall
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        Installing Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        SSH Public and Private Key
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Backups and restorations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Backups and restorations
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Inhaltsverzeichnis
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    Generalities
+  </a>
+  
+    <nav class="md-nav" aria-label="Generalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-process" class="md-nav__link">
+    The process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-methods" class="md-nav__link">
+    Backup methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#periodicity" class="md-nav__link">
+    Periodicity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoration-methods" class="md-nav__link">
+    Restoration methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tools" class="md-nav__link">
+    The tools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    Naming convention
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contents-of-a-backup" class="md-nav__link">
+    Contents of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-modes" class="md-nav__link">
+    Storage modes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tape-archiver-tar" class="md-nav__link">
+    Tape ArchiveR - tar
+  </a>
+  
+    <nav class="md-nav" aria-label="Tape ArchiveR - tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoration-guidelines" class="md-nav__link">
+    Restoration guidelines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backing-up-with-tar" class="md-nav__link">
+    Backing up with tar
+  </a>
+  
+    <nav class="md-nav" aria-label="Backing up with tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimate-the-size-of-a-backup" class="md-nav__link">
+    Estimate the size of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention-for-a-tar-backup" class="md-nav__link">
+    Naming convention for a tar backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup" class="md-nav__link">
+    Create a backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup-in-relative-mode" class="md-nav__link">
+    Create a backup in relative mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup-in-absolute-mode" class="md-nav__link">
+    Create a backup in absolute mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-compressed-backup-with-gzip" class="md-nav__link">
+    Creating a compressed backup with gzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-compressed-backup-with-bzip" class="md-nav__link">
+    Creating a compressed backup with bzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-compress-gzip-bzip2-lzip-and-xz" class="md-nav__link">
+    Compression compress, gzip, bzip2, lzip and xz
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-file-or-directory-to-an-existing-backup" class="md-nav__link">
+    Add a file or directory to an existing backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-contents-of-a-backup" class="md-nav__link">
+    List the contents of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-integrity-of-a-backup" class="md-nav__link">
+    Check the integrity of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-untar-a-backup" class="md-nav__link">
+    Extract (untar) a backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Extract (untar) a backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extract-only-a-file-from-a-tar-backup" class="md-nav__link">
+    Extract only a file from a tar backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-a-folder-from-a-backup-tar" class="md-nav__link">
+    Extract a folder from a backup tar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-a-group-of-files-from-a-tar-backup-using-regular-expressions-regex" class="md-nav__link">
+    Extract a group of files from a tar backup using regular expressions (regex)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-input-output-cpio" class="md-nav__link">
+    CoPy Input Output - cpio
+  </a>
+  
+    <nav class="md-nav" aria-label="CoPy Input Output - cpio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup-with-cpio-command" class="md-nav__link">
+    Create a backup with cpio command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-of-backup" class="md-nav__link">
+    Type of backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Type of backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-with-relative-path" class="md-nav__link">
+    Backup with relative path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-with-absolute-path" class="md-nav__link">
+    Backup with absolute path
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-to-a-backup" class="md-nav__link">
+    Add to a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-a-backup" class="md-nav__link">
+    Compressing a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-the-contents-of-a-backup" class="md-nav__link">
+    Read the contents of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-a-backup" class="md-nav__link">
+    Restore a backup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compression-decompression-utilities" class="md-nav__link">
+    Compression - decompression utilities
+  </a>
+  
+    <nav class="md-nav" aria-label="Compression - decompression utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compressing-with-gzip" class="md-nav__link">
+    Compressing with gzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-with-bunzip2" class="md-nav__link">
+    Compressing with bunzip2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompressing-with-gunzip" class="md-nav__link">
+    Decompressing with gunzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompressing-with-bunzip2" class="md-nav__link">
+    Decompressing with bunzip2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        German Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        German Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Inhaltsverzeichnis
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    Generalities
+  </a>
+  
+    <nav class="md-nav" aria-label="Generalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-process" class="md-nav__link">
+    The process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-methods" class="md-nav__link">
+    Backup methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#periodicity" class="md-nav__link">
+    Periodicity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restoration-methods" class="md-nav__link">
+    Restoration methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tools" class="md-nav__link">
+    The tools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    Naming convention
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contents-of-a-backup" class="md-nav__link">
+    Contents of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-modes" class="md-nav__link">
+    Storage modes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tape-archiver-tar" class="md-nav__link">
+    Tape ArchiveR - tar
+  </a>
+  
+    <nav class="md-nav" aria-label="Tape ArchiveR - tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoration-guidelines" class="md-nav__link">
+    Restoration guidelines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backing-up-with-tar" class="md-nav__link">
+    Backing up with tar
+  </a>
+  
+    <nav class="md-nav" aria-label="Backing up with tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimate-the-size-of-a-backup" class="md-nav__link">
+    Estimate the size of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention-for-a-tar-backup" class="md-nav__link">
+    Naming convention for a tar backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup" class="md-nav__link">
+    Create a backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup-in-relative-mode" class="md-nav__link">
+    Create a backup in relative mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup-in-absolute-mode" class="md-nav__link">
+    Create a backup in absolute mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-compressed-backup-with-gzip" class="md-nav__link">
+    Creating a compressed backup with gzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-compressed-backup-with-bzip" class="md-nav__link">
+    Creating a compressed backup with bzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-compress-gzip-bzip2-lzip-and-xz" class="md-nav__link">
+    Compression compress, gzip, bzip2, lzip and xz
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-file-or-directory-to-an-existing-backup" class="md-nav__link">
+    Add a file or directory to an existing backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-contents-of-a-backup" class="md-nav__link">
+    List the contents of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-integrity-of-a-backup" class="md-nav__link">
+    Check the integrity of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-untar-a-backup" class="md-nav__link">
+    Extract (untar) a backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Extract (untar) a backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extract-only-a-file-from-a-tar-backup" class="md-nav__link">
+    Extract only a file from a tar backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-a-folder-from-a-backup-tar" class="md-nav__link">
+    Extract a folder from a backup tar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-a-group-of-files-from-a-tar-backup-using-regular-expressions-regex" class="md-nav__link">
+    Extract a group of files from a tar backup using regular expressions (regex)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-input-output-cpio" class="md-nav__link">
+    CoPy Input Output - cpio
+  </a>
+  
+    <nav class="md-nav" aria-label="CoPy Input Output - cpio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-backup-with-cpio-command" class="md-nav__link">
+    Create a backup with cpio command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-of-backup" class="md-nav__link">
+    Type of backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Type of backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-with-relative-path" class="md-nav__link">
+    Backup with relative path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-with-absolute-path" class="md-nav__link">
+    Backup with absolute path
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-to-a-backup" class="md-nav__link">
+    Add to a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-a-backup" class="md-nav__link">
+    Compressing a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-the-contents-of-a-backup" class="md-nav__link">
+    Read the contents of a backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-a-backup" class="md-nav__link">
+    Restore a backup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compression-decompression-utilities" class="md-nav__link">
+    Compression - decompression utilities
+  </a>
+  
+    <nav class="md-nav" aria-label="Compression - decompression utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compressing-with-gzip" class="md-nav__link">
+    Compressing with gzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-with-bunzip2" class="md-nav__link">
+    Compressing with bunzip2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompressing-with-gunzip" class="md-nav__link">
+    Decompressing with gunzip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompressing-with-bunzip2" class="md-nav__link">
+    Decompressing with bunzip2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="backups-and-restorations">Backups and restorations<a class="headerlink" href="#backups-and-restorations" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will learn how to backup and restore your data with Linux.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter, future Linux administrators will learn how to:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> use the <code>tar</code> and <code>cpio</code> command to make a backup; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> check their backups and restore data; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> compress or decompress their backups.</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>backup</strong>, <strong>restore</strong>, <strong>compression</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" />    </p>
+<p><strong>Reading time</strong>: 40 minutes</p>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Throughout this chapter the command structures use "device" to specify both a target location for backup, and the source location when restoring. The device can be either external media or a local file. You should get a feel for this as the chapter unfolds, but you can always refer back to this note for clarification if you need to.</p>
+</div>
+<p>The backup will answer a need to conserve and restore data in a sure and effective way.</p>
+<p>The backup allows you to protect yourself from the following:</p>
+<ul>
+<li><strong>Destruction</strong>: voluntary or involuntary. Human or technical. Virus, ...</li>
+<li><strong>Deletion</strong>: voluntary or involuntary. Human or technical. Virus, ...</li>
+<li><strong>Integrity</strong> : data becomes unusable.</li>
+</ul>
+<p>No system is infallible, no human is infallible, so to avoid losing data, it must be backed up to be able to restore after a problem.</p>
+<p>The backup media should be kept in another room (or building) than the server so that a disaster does not destroy the server and the backups.</p>
+<p>In addition, the administrator must regularly check that the media are still readable.</p>
+<h2 id="generalities">Generalities<a class="headerlink" href="#generalities" title="Permanent link">&para;</a></h2>
+<p>There are two principles, the <strong>backup</strong> and the <strong>archive</strong>.</p>
+<ul>
+<li>The archive destroys the information source after the operation.</li>
+<li>The backup preserves the source of information after the operation.</li>
+</ul>
+<p>These operations consist of saving information in a file, on a peripheral or a supported media (tapes, disks, ...).</p>
+<h3 id="the-process">The process<a class="headerlink" href="#the-process" title="Permanent link">&para;</a></h3>
+<p>Backups require a lot of discipline and rigor from the system administrator. It is necessary to ask the following questions:</p>
+<ul>
+<li>What is the appropriate medium?</li>
+<li>What should be backed up?</li>
+<li>How many copies?</li>
+<li>How long will the backup take?</li>
+<li>Method?</li>
+<li>How often?</li>
+<li>Automatic or manual?</li>
+<li>Where to store it?</li>
+<li>How long will it be kept?</li>
+</ul>
+<h3 id="backup-methods">Backup methods<a class="headerlink" href="#backup-methods" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Complete</strong>: one or more <strong>filesystems</strong> are backed up (kernel, data, utilities, ...).</li>
+<li><strong>Partial</strong>: one or more <strong>files</strong> are backed up (configurations, directories, ...).</li>
+<li><strong>Differential</strong>: only files modified since the last <strong>complete</strong> backup are backed up.</li>
+<li><strong>Incremental</strong>: only files modified since the last backup are backed up.</li>
+</ul>
+<h3 id="periodicity">Periodicity<a class="headerlink" href="#periodicity" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Pre-current</strong> : at a given time (before a system update, ...).</li>
+<li><strong>Periodic</strong>: Daily, weekly, monthly, ...</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Before a system change, it can be useful to make a backup. However, there is no point in backing up data every day that is only changed every month.</p>
+</div>
+<h3 id="restoration-methods">Restoration methods<a class="headerlink" href="#restoration-methods" title="Permanent link">&para;</a></h3>
+<p>Depending on the utilities available, it will be possible to perform several types of restorations.</p>
+<ul>
+<li><strong>Complete restoration</strong>: trees, ...</li>
+<li><strong>Selective restoration</strong>: part of tree, files, ...</li>
+</ul>
+<p>It is possible to restore a whole backup but it is also possible to restore only a part of it. However, when restoring a directory, the files created after the backup are not deleted.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To recover a directory as it was at the time of the backup, it is necessary to completely delete its contents before launching the restoration.</p>
+</div>
+<h3 id="the-tools">The tools<a class="headerlink" href="#the-tools" title="Permanent link">&para;</a></h3>
+<p>There are many utilities to make backups.</p>
+<ul>
+<li><strong>editor tools</strong> ;</li>
+<li><strong>graphical tools</strong>;</li>
+<li><strong>command line tools</strong>: <code>tar</code>, <code>cpio</code>, <code>pax</code>, <code>dd</code>, <code>dump</code>, ...</li>
+</ul>
+<p>The commands we will use here are <code>tar</code> and <code>cpio</code>.</p>
+<ul>
+<li><code>tar</code>:</li>
+<li>easy to use ;</li>
+<li>allows adding files to an existing backup.</li>
+<li><code>cpio</code> :</li>
+<li>retains owners;</li>
+<li>retains groups, dates and rights;</li>
+<li>skips damaged files;</li>
+<li>complete file system.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These commands save in a proprietary and standardized format.</p>
+</div>
+<h3 id="naming-convention">Naming convention<a class="headerlink" href="#naming-convention" title="Permanent link">&para;</a></h3>
+<p>The use of a naming convention makes it possible to quickly target the contents of a backup file and thus avoid hazardous restorations.</p>
+<ul>
+<li>name of the directory;</li>
+<li>utility used;</li>
+<li>options used;</li>
+<li>date.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The name of the backup must be an explicit name.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The notion of extension under Linux does not exist. In other words, our use of extensions here is for the human operator. If the systems administrator sees a <code>.tar.gz</code> or <code>.tgz</code> file extension, for instance, then he knows how to deal with the file.</p>
+</div>
+<h3 id="contents-of-a-backup">Contents of a backup<a class="headerlink" href="#contents-of-a-backup" title="Permanent link">&para;</a></h3>
+<p>A backup generally contains the following elements:</p>
+<ul>
+<li>the file;</li>
+<li>the name;</li>
+<li>the owner;</li>
+<li>the size;</li>
+<li>the permissions</li>
+<li>access date.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>inode</code> number is missing.</p>
+</div>
+<h3 id="storage-modes">Storage modes<a class="headerlink" href="#storage-modes" title="Permanent link">&para;</a></h3>
+<p>There are two different storage modes:</p>
+<ul>
+<li>file on disk;</li>
+<li>device.</li>
+</ul>
+<h2 id="tape-archiver-tar">Tape ArchiveR - <code>tar</code><a class="headerlink" href="#tape-archiver-tar" title="Permanent link">&para;</a></h2>
+<p>The <code>tar</code> command allows saving on several successive media (multi-volume options).</p>
+<p>It is possible to extract all or part of a backup.</p>
+<p><code>tar</code> implicitly backs up in relative mode even if the path of the information to be backed up is mentioned in absolute mode. However, backups and restores in absolute mode are possible.</p>
+<h3 id="restoration-guidelines">Restoration guidelines<a class="headerlink" href="#restoration-guidelines" title="Permanent link">&para;</a></h3>
+<p>The right questions to ask are:</p>
+<ul>
+<li>what: partial or complete;</li>
+<li>where: the place where the data will be restored;</li>
+<li>how: absolute or relative.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before a restoration, it is important to take time to think about and determine the most appropriate method to avoid mistakes.</p>
+</div>
+<p>Restorations are usually performed after a problem has occurred that needs to be resolved quickly. A poor restoration can, in some cases, make the situation worse.</p>
+<h3 id="backing-up-with-tar">Backing up with <code>tar</code><a class="headerlink" href="#backing-up-with-tar" title="Permanent link">&para;</a></h3>
+<p>The default utility for creating backups on UNIX systems is the <code>tar</code> command. These backups can be compressed by <code>bzip2</code>, <code>xz</code>, <code>lzip</code>, <code>lzma</code>, <code>lzop</code>, <code>gzip</code>, <code>compress</code> or <code>zstd</code>.</p>
+<p><code>tar</code> allows you to extract a single file or a directory from a backup, view its contents or validate its integrity.</p>
+<h4 id="estimate-the-size-of-a-backup">Estimate the size of a backup<a class="headerlink" href="#estimate-the-size-of-a-backup" title="Permanent link">&para;</a></h4>
+<p>The following command estimates the size in kilobytes of a possible <em>tar</em> file:</p>
+<div class="highlight"><pre><span></span><code>$ tar cf - /directory/to/backup/ | wc -c
+20480
+$ tar czf - /directory/to/backup/ | wc -c
+508
+$ tar cjf - /directory/to/backup/ | wc -c
+428
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Beware, the presence of "-" in the command line disturbs <code>zsh</code>. Switch to <code>bash</code>!</p>
+</div>
+<h4 id="naming-convention-for-a-tar-backup">Naming convention for a <code>tar</code> backup<a class="headerlink" href="#naming-convention-for-a-tar-backup" title="Permanent link">&para;</a></h4>
+<p>Here is an example of a naming convention for a <code>tar</code> backup, knowing that the date is to be added to the name.</p>
+<table>
+<thead>
+<tr>
+<th>keys</th>
+<th>Files</th>
+<th>Suffix</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cvf</code></td>
+<td><code>home</code></td>
+<td><code>home.tar</code></td>
+<td><code>/home</code> in relative mode, uncompressed form</td>
+</tr>
+<tr>
+<td><code>cvfP</code></td>
+<td><code>/etc</code></td>
+<td><code>etc.A.tar</code></td>
+<td><code>/etc</code> in absolute mode, no compression</td>
+</tr>
+<tr>
+<td><code>cvfz</code></td>
+<td><code>usr</code></td>
+<td><code>usr.tar.gz</code></td>
+<td><code>/usr</code> in relative mode, <em>gzip</em> compression</td>
+</tr>
+<tr>
+<td><code>cvfj</code></td>
+<td><code>usr</code></td>
+<td><code>usr.tar.bz2</code></td>
+<td><code>/usr</code> in relative mode, <em>bzip2</em> compression</td>
+</tr>
+<tr>
+<td><code>cvfPz</code></td>
+<td><code>/home</code></td>
+<td><code>home.A.tar.gz</code></td>
+<td><code>home</code> in absolute mode, <em>gzip</em> compression</td>
+</tr>
+<tr>
+<td><code>cvfPj</code></td>
+<td><code>/home</code></td>
+<td><code>home.A.tar.bz2</code></td>
+<td><code>home</code> in absolute mode, <em>bzip2</em> compression</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="create-a-backup">Create a backup<a class="headerlink" href="#create-a-backup" title="Permanent link">&para;</a></h4>
+<h5 id="create-a-backup-in-relative-mode">Create a backup in relative mode<a class="headerlink" href="#create-a-backup-in-relative-mode" title="Permanent link">&para;</a></h5>
+<p>Creating a non-compressed backup in relative mode is done with the <code>cvf</code> keys:</p>
+<div class="highlight"><pre><span></span><code>tar c[vf] [device] [file(s)]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# tar cvf /backups/home.133.tar /home/
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c</code></td>
+<td>Creates a backup.</td>
+</tr>
+<tr>
+<td><code>v</code></td>
+<td>Displays the name of the processed files.</td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td>Allows you to specify the name of the backup (medium).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The hyphen (<code>-</code>) in front of the <code>tar</code> keys is not necessary!</p>
+</div>
+<h5 id="create-a-backup-in-absolute-mode">Create a backup in absolute mode<a class="headerlink" href="#create-a-backup-in-absolute-mode" title="Permanent link">&para;</a></h5>
+<p>Creating a non-compressed backup explicitly in absolute mode is done with the <code>cvfP</code> keys:</p>
+<div class="highlight"><pre><span></span><code>$ tar c[vf]P [device] [file(s)]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>[root]# tar cvfP /backups/home.133.P.tar /home/
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>P</code></td>
+<td>Create a backup in absolute mode.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>With the <code>P</code> key, the path of the files to be backed up must be entered as <strong>absolute</strong>. If the two conditions (key <code>P</code> and path <strong>absolute</strong>) are not indicated, the backup is in relative mode.</p>
+</div>
+<h5 id="creating-a-compressed-backup-with-gzip">Creating a compressed backup with <code>gzip</code><a class="headerlink" href="#creating-a-compressed-backup-with-gzip" title="Permanent link">&para;</a></h5>
+<p>Creating a compressed backup with <code>gzip</code> is done with the <code>cvfz</code> keys:</p>
+<div class="highlight"><pre><span></span><code>$ tar cvzf backup.tar.gz dirname/
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>z</code></td>
+<td>Compresses the backup in <em>gzip</em>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>.tgz</code> extension is an equivalent extension to <code>.tar.gz</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keeping the <code>cvf</code> (<code>tvf</code> or <code>xvf</code>) keys unchanged for all backup operations and simply adding the compression key to the end of the keys makes the command easier to understand (e.g. <code>cvfz</code> or <code>cvfj</code>, etc.).</p>
+</div>
+<h5 id="creating-a-compressed-backup-with-bzip">Creating a compressed backup with <code>bzip</code><a class="headerlink" href="#creating-a-compressed-backup-with-bzip" title="Permanent link">&para;</a></h5>
+<p>Creating a compressed backup with <code>bzip</code> is done with the keys <code>cvfj</code>:</p>
+<div class="highlight"><pre><span></span><code>$ tar cvfj backup.tar.bz2 dirname/
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>j</code></td>
+<td>Compresses the backup in <em>bzip2</em>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>.tbz</code> and <code>.tb2</code> extensions are equivalent to <code>.tar.bz2</code> extensions.</p>
+</div>
+<h5 id="compression-compress-gzip-bzip2-lzip-and-xz">Compression <code>compress</code>, <code>gzip</code>, <code>bzip2</code>, <code>lzip</code> and <code>xz</code><a class="headerlink" href="#compression-compress-gzip-bzip2-lzip-and-xz" title="Permanent link">&para;</a></h5>
+<p>Compression, and consequently decompression, will have an impact on resource consumption (time and CPU usage).</p>
+<p>Here is a ranking of the compression of a set of text files, from least to most efficient:</p>
+<ul>
+<li>compress (<code>.tar.Z</code>)</li>
+<li>gzip (<code>.tar.gz</code>)</li>
+<li>bzip2 (<code>.tar.bz2</code>)</li>
+<li>lzip (<code>.tar.lz</code>)</li>
+<li>xz (<code>.tar.xz</code>)</li>
+</ul>
+<h4 id="add-a-file-or-directory-to-an-existing-backup">Add a file or directory to an existing backup<a class="headerlink" href="#add-a-file-or-directory-to-an-existing-backup" title="Permanent link">&para;</a></h4>
+<p>It is possible to add one or more items to an existing backup.</p>
+<div class="highlight"><pre><span></span><code>tar {r|A}[key(s)] [device] [file(s)]
+</code></pre></div>
+<p>To add <code>/etc/passwd</code> to the backup <code>/backups/home.133.tar</code>:</p>
+<div class="highlight"><pre><span></span><code>[root]# tar rvf /backups/home.133.tar /etc/passwd
+</code></pre></div>
+<p>Adding a directory is similar. Here add <code>dirtoadd</code> to <code>backup_name.tar</code>:</p>
+<div class="highlight"><pre><span></span><code>$ tar rvf backup_name.tar dirtoadd
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r</code></td>
+<td>Adds one or more files at the end of a direct access media backup (hard disk).</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>Adds one or more files at the end of a backup on sequential access media (tape).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not possible to add files or folders to a compressed backup.</p>
+<div class="highlight"><pre><span></span><code>$ tar rvfz backup.tgz filetoadd
+tar: Cannot update compressed archives
+Try `tar --help&#39; or `tar --usage&#39; for more information.
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the backup was performed in relative mode, add files in relative mode. If the backup was done in absolute mode, add files in absolute mode.</p>
+<p>Mixing modes can cause problems when restoring.</p>
+</div>
+<h4 id="list-the-contents-of-a-backup">List the contents of a backup<a class="headerlink" href="#list-the-contents-of-a-backup" title="Permanent link">&para;</a></h4>
+<p>Viewing the contents of a backup without extracting it is possible.</p>
+<div class="highlight"><pre><span></span><code>tar t[key(s)] [device]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>t</code></td>
+<td>Displays the content of a backup (compressed or not).</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>$ tar tvf backup.tar
+$ tar tvfz backup.tar.gz
+$ tar tvfj backup.tar.bz2
+</code></pre></div>
+<p>When the number of files in a backup becomes large, it is possible to <em>pipe</em> the result of the <code>tar</code> command to a <em>pager</em> (<code>more</code>, <code>less</code>, <code>most</code>, etc.):</p>
+<div class="highlight"><pre><span></span><code>$ tar tvf backup.tar | less
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To list or retrieve the contents of a backup, it is not necessary to mention the compression algorithm used when the backup was created. That is, a <code>tar tvf</code> is equivalent to <code>tar tvfj</code>, to read the contents, and a <code>tar xvf</code> is equivalent to <code>tar xvfj</code>, to extract.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Always check the contents of a backup.</p>
+</div>
+<h4 id="check-the-integrity-of-a-backup">Check the integrity of a backup<a class="headerlink" href="#check-the-integrity-of-a-backup" title="Permanent link">&para;</a></h4>
+<p>The integrity of a backup can be tested with the <code>W</code> key at the time of its creation:</p>
+<div class="highlight"><pre><span></span><code>$ tar cvfW file_name.tar dir/
+</code></pre></div>
+<p>The integrity of a backup can be tested with the key <code>d</code> after its creation:</p>
+<div class="highlight"><pre><span></span><code>$ tar vfd file_name.tar dir/
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>By adding a second <code>v</code> to the previous key, you will get the list of archived files as well as the differences between the archived files and those present in the file system.</p>
+<div class="highlight"><pre><span></span><code>$ tar vvfd  /tmp/quodlibet.tar .quodlibet/
+drwxr-x--- rockstar/rockstar     0 2021-05-21 00:11 .quodlibet/
+-rw-r--r-- rockstar/rockstar     0 2021-05-19 00:59 .quodlibet/queue
+[…]
+-rw------- rockstar/rockstar  3323 2021-05-21 00:11 .quodlibet/config
+.quodlibet/config: Mod time differs
+.quodlibet/config: Size differs
+[…]
+</code></pre></div>
+</div>
+<p>The <code>W</code> key is also used to compare the content of an archive against the filesystem:</p>
+<div class="highlight"><pre><span></span><code>$ tar tvfW file_name.tar
+Verify 1/file1
+1/file1: Mod time differs
+1/file1: Size differs
+Verify 1/file2
+Verify 1/file3
+</code></pre></div>
+<p>The verification with the <code>W</code> key cannot be done with a compressed archive. The key <code>d</code> must be used:</p>
+<div class="highlight"><pre><span></span><code>$ tar dfz file_name.tgz
+$ tar dfj file_name.tar.bz2
+</code></pre></div>
+<h4 id="extract-untar-a-backup">Extract (<em>untar</em>) a backup<a class="headerlink" href="#extract-untar-a-backup" title="Permanent link">&para;</a></h4>
+<p>Extract (<em>untar]</em>) a <code>*.tar</code> backup is done with the <code>xvf</code> keys:</p>
+<p>Extract the <code>etc/exports</code> file from the <code>/savings/etc.133.tar</code> backup into the <code>etc</code> directory of the active directory:</p>
+<div class="highlight"><pre><span></span><code>$ tar xvf /backups/etc.133.tar etc/exports
+</code></pre></div>
+<p>Extract all files from the compressed backup <code>/backups/home.133.tar.bz2</code> into the active directory:</p>
+<div class="highlight"><pre><span></span><code>[root]# tar xvfj /backups/home.133.tar.bz2
+</code></pre></div>
+<p>Extract all files from the backup <code>/backups/etc.133.P.tar</code> to their original directory:</p>
+<div class="highlight"><pre><span></span><code>$ tar xvfP /backups/etc.133.P.tar
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Go to the right place.</p>
+<p>Check the contents of the backup.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td>Extract files from the backup, compressed or not.</td>
+</tr>
+</tbody>
+</table>
+<p>Extracting a <em>tar-gzipped</em> (<code>*.tar.gz</code>) backup is done with the <code>xvfz</code> keys:</p>
+<div class="highlight"><pre><span></span><code>$ tar xvfz backup.tar.gz
+</code></pre></div>
+<p>Extracting a <em>tar-bzipped</em> (<code>*.tar.bz2</code>) backup is done with the <code>xvfj</code> keys:</p>
+<div class="highlight"><pre><span></span><code>$ tar xvfj backup.tar.bz2
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To extract or list the contents of a backup, it is not necessary to mention the compression algorithm used to create the backup. That is, a <code>tar xvf</code> is equivalent to <code>tar xvfj</code>, to extract the contents, and a <code>tar tvf</code> is equivalent to <code>tar tvfj</code>, to list.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To restore the files in their original directory (key <code>P</code> of a <code>tar xvf</code>), you must have generated the backup with the absolute path. That is, with the <code>P</code> key of a <code>tar cvf</code>.</p>
+</div>
+<h5 id="extract-only-a-file-from-a-tar-backup">Extract only a file from a <em>tar</em> backup<a class="headerlink" href="#extract-only-a-file-from-a-tar-backup" title="Permanent link">&para;</a></h5>
+<p>To extract a specific file from a <em>tar</em> backup, specify the name of that file at the end of the <code>tar xvf</code> command.</p>
+<div class="highlight"><pre><span></span><code>$ tar xvf backup.tar /path/to/file
+</code></pre></div>
+<p>The previous command extracts only the <code>/path/to/file</code> file from the <code>backup.tar</code> backup. This file will be restored to the <code>/path/to/</code> directory created, or already present, in the active directory.</p>
+<div class="highlight"><pre><span></span><code>$ tar xvfz backup.tar.gz /path/to/file
+$ tar xvfj backup.tar.bz2 /path/to/file
+</code></pre></div>
+<h5 id="extract-a-folder-from-a-backup-tar">Extract a folder from a backup <em>tar</em><a class="headerlink" href="#extract-a-folder-from-a-backup-tar" title="Permanent link">&para;</a></h5>
+<p>To extract only one directory (including its subdirectories and files) from a backup, specify the directory name at the end of the <code>tar xvf</code> command.</p>
+<div class="highlight"><pre><span></span><code>$ tar xvf backup.tar /path/to/dir/
+</code></pre></div>
+<p>To extract multiple directories, specify each of the names one after the other:</p>
+<div class="highlight"><pre><span></span><code>$ tar xvf backup.tar /path/to/dir1/ /path/to/dir2/
+$ tar xvfz backup.tar.gz /path/to/dir1/ /path/to/dir2/
+$ tar xvfj backup.tar.bz2 /path/to/dir1/ /path/to/dir2/
+</code></pre></div>
+<h5 id="extract-a-group-of-files-from-a-tar-backup-using-regular-expressions-regex">Extract a group of files from a <em>tar</em> backup using regular expressions (<em>regex</em>)<a class="headerlink" href="#extract-a-group-of-files-from-a-tar-backup-using-regular-expressions-regex" title="Permanent link">&para;</a></h5>
+<p>Specify a <em>regex</em> to extract the files matching the specified selection pattern.</p>
+<p>For example, to extract all files with the extension <code>.conf</code> :</p>
+<div class="highlight"><pre><span></span><code>$ tar xvf backup.tar --wildcards &#39;*.conf&#39;
+</code></pre></div>
+<p>keys :</p>
+<ul>
+<li><strong>--wildcards *.conf</strong> corresponds to files with the extension <code>.conf</code>.</li>
+</ul>
+<h2 id="copy-input-output-cpio"><em>CoPy Input Output</em> - <code>cpio</code><a class="headerlink" href="#copy-input-output-cpio" title="Permanent link">&para;</a></h2>
+<p>The <code>cpio</code> command allows saving on several successive media without specifying any options.</p>
+<p>It is possible to extract all or part of a backup.</p>
+<p>There is no option, unlike the <code>tar</code> command, to backup and compress at the same time.
+So it is done in two steps: backup and compression.</p>
+<p>To perform a backup with <code>cpio</code>, you have to specify a list of files to backup.</p>
+<p>This list is provided with the commands <code>find</code>, <code>ls</code> or <code>cat</code>.</p>
+<ul>
+<li><code>find</code> : browse a tree, recursive or not;</li>
+<li><code>ls</code> : list a directory, recursive or not;</li>
+<li><code>cat</code> : reads a file containing the trees or files to be saved.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>ls</code> cannot be used with <code>-l</code> (details) or <code>-R</code> (recursive).</p>
+<p>It requires a simple list of names.</p>
+</div>
+<h3 id="create-a-backup-with-cpio-command">Create a backup with <code>cpio</code> command<a class="headerlink" href="#create-a-backup-with-cpio-command" title="Permanent link">&para;</a></h3>
+<p>Syntax of the <code>cpio</code> command:</p>
+<div class="highlight"><pre><span></span><code>[files command |] cpio {-o| --create} [-options] [&lt;file-list] [&gt;device]
+</code></pre></div>
+<p>Example:</p>
+<p>With a redirection of the output of <code>cpio</code>:</p>
+<div class="highlight"><pre><span></span><code>$ find /etc | cpio -ov &gt; /backups/etc.cpio
+</code></pre></div>
+<p>Using the name of a backup media :</p>
+<div class="highlight"><pre><span></span><code>$ find /etc | cpio -ovF /backups/etc.cpio
+</code></pre></div>
+<p>The result of the <code>find</code> command is sent as input to the <code>cpio</code> command via a <em>pipe</em> (character <code>|</code>, <kbd>AltGr</kbd> + <kbd>6</kbd>).</p>
+<p>Here, the <code>find /etc</code> command returns a list of files corresponding to the contents of the <code>/etc</code> directory (recursively) to the <code>cpio</code> command, which performs the backup.</p>
+<p>Do not forget the <code>&gt;</code> sign when saving or the <code>F save_name_cpio</code>.</p>
+<p>| Options | Description                                    |
+| <code>-o</code>    | Creates a backup (<em>output</em>).                   |
+| <code>-v</code>    | Displays the name of the processed files.      |
+| <code>-F</code>    | Designates the backup to be modified (medium). |</p>
+<p>Backup to a media :</p>
+<div class="highlight"><pre><span></span><code>$ find /etc | cpio -ov &gt; /dev/rmt0
+</code></pre></div>
+<p>The support can be of several types:</p>
+<ul>
+<li>tape drive: <code>/dev/rmt0</code>  ;</li>
+<li>a partition: <code>/dev/sda5</code>, <code>/dev/hda5</code>, etc.</li>
+</ul>
+<h3 id="type-of-backup">Type of backup<a class="headerlink" href="#type-of-backup" title="Permanent link">&para;</a></h3>
+<h4 id="backup-with-relative-path">Backup with relative path<a class="headerlink" href="#backup-with-relative-path" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>$ cd /
+$ find etc | cpio -o &gt; /backups/etc.cpio
+</code></pre></div>
+<h4 id="backup-with-absolute-path">Backup with absolute path<a class="headerlink" href="#backup-with-absolute-path" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>$ find /etc | cpio -o &gt; /backups/etc.A.cpio
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the path specified in the <code>find</code> command is <strong>absolute</strong> then the backup will be performed in <strong>absolute</strong>.</p>
+<p>If the path indicated in the <code>find</code> command is <strong>relative</strong> then the backup will be done in <strong>relative</strong>.</p>
+</div>
+<h3 id="add-to-a-backup">Add to a backup<a class="headerlink" href="#add-to-a-backup" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>[files command |] cpio {-o| --create} -A [-options] [&lt;fic-list] {F|&gt;device}
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ find /etc/shadow | cpio -o -AF SystemFiles.A.cpio
+</code></pre></div>
+<p>Adding files is only possible on direct access media.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-A</code></td>
+<td>Adds one or more files to a backup on disk.</td>
+</tr>
+<tr>
+<td><code>-F</code></td>
+<td>Designates the backup to be modified.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compressing-a-backup">Compressing a backup<a class="headerlink" href="#compressing-a-backup" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Save <strong>then</strong> compress</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ find /etc | cpio  –o &gt; etc.A.cpio
+$ gzip /backups/etc.A.cpio
+$ ls /backups/etc.A.cpio*
+/backups/etc.A.cpio.gz
+</code></pre></div>
+<ul>
+<li>Save <strong>and</strong> compress</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ find /etc | cpio –o | gzip &gt; /backups/etc.A.cpio.gz
+</code></pre></div>
+<p>There is no option, unlike the <code>tar</code> command, to save and compress at the same time.
+So it is done in two steps: saving and compressing.</p>
+<p>The syntax of the first method is easier to understand and remember, because it is done in two steps.</p>
+<p>For the first method, the backup file is automatically renamed by the <code>gzip</code> utility which adds <code>.gz</code> to the end of the file name. Similarly the <code>bzip2</code> utility automatically adds <code>.bz2</code>.</p>
+<h3 id="read-the-contents-of-a-backup">Read the contents of a backup<a class="headerlink" href="#read-the-contents-of-a-backup" title="Permanent link">&para;</a></h3>
+<p>Syntax of the <code>cpio</code> command to read the contents of a <em>cpio</em> backup:</p>
+<div class="highlight"><pre><span></span><code>cpio -t [-options] [&lt;fic-list]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ cpio -tv &lt;/backups/etc.152.cpio | less
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code></td>
+<td>Reads a backup.</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>Displays file attributes.</td>
+</tr>
+</tbody>
+</table>
+<p>After making a backup, you need to read its contents to be sure that there were no errors.</p>
+<p>In the same way, before performing a restore, you must read the contents of the backup that will be used.</p>
+<h3 id="restore-a-backup">Restore a backup<a class="headerlink" href="#restore-a-backup" title="Permanent link">&para;</a></h3>
+<p>Syntax of the <code>cpio</code> command to restore a backup:</p>
+<div class="highlight"><pre><span></span><code>cpio {-i| --extract} [-E file] [-options] [&lt;device]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ cpio -iv &lt;/backups/etc.152.cpio | less
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td>Restore a complete backup.</td>
+</tr>
+<tr>
+<td><code>-E file</code></td>
+<td>Restores only the files whose name is contained in file.</td>
+</tr>
+<tr>
+<td><code>--make-directories</code> or <code>-d</code></td>
+<td>Rebuilds the missing tree structure.</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>Replaces all files even if they exist.</td>
+</tr>
+<tr>
+<td><code>--no-absolute-filenames</code></td>
+<td>Allows to restore a backup made in absolute mode in a relative way.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By default, at the time of restoration, files on the disk whose last modification date is more recent or equal to the date of the backup are not restored (in order to avoid overwriting recent information with older information).</p>
+<p>The <code>u</code> option, on the other hand, allows you to restore older versions of the files.</p>
+</div>
+<p>Examples:</p>
+<ul>
+<li>Absolute restoration of an absolute backup</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ cpio –ivF home.A.cpio
+</code></pre></div>
+<ul>
+<li>Absolute restoration on an existing tree structure</li>
+</ul>
+<p>The <code>u</code> option allows you to overwrite existing files at the location where the restore takes place.</p>
+<div class="highlight"><pre><span></span><code>$ cpio –iuvF home.A.cpio
+</code></pre></div>
+<ul>
+<li>Restore an absolute backup in relative mode</li>
+</ul>
+<p>The long option <code>no-absolute-filenames</code> allows a restoration in relative mode. Indeed the <code>/</code> at the beginning of the path will be removed.</p>
+<div class="highlight"><pre><span></span><code>$ cpio --no-absolute-filenames -divuF home.A.cpio
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The creation of directories is perhaps necessary, hence the use of the <code>d</code> option</p>
+</div>
+<ul>
+<li>Restore a relative backup</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ cpio –iv &lt;etc.cpio
+</code></pre></div>
+<ul>
+<li>Absolute restoration of a file or directory</li>
+</ul>
+<p>The restoration of a particular file or directory requires the creation of a list file that must then be deleted.</p>
+<div class="highlight"><pre><span></span><code>echo &quot;/etc/passwd&quot; &gt; tmp
+cpio –iuE tmp -F etc.A.cpio
+rm -f tmp
+</code></pre></div>
+<h2 id="compression-decompression-utilities">Compression - decompression utilities<a class="headerlink" href="#compression-decompression-utilities" title="Permanent link">&para;</a></h2>
+<p>Using compression at the time of a backup can have a number of drawbacks:</p>
+<ul>
+<li>Lengthens the backup time as well as the restore time.</li>
+<li>It makes it impossible to add files to the backup.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is therefore better to make a backup and compress it than to compress it during the backup.</p>
+</div>
+<h3 id="compressing-with-gzip">Compressing with <code>gzip</code><a class="headerlink" href="#compressing-with-gzip" title="Permanent link">&para;</a></h3>
+<p>The <code>gzip</code> command compresses data.</p>
+<p>Syntax of the <code>gzip</code> command:</p>
+<div class="highlight"><pre><span></span><code>gzip [options] [file ...]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ gzip usr.tar
+$ ls
+usr.tar.gz
+</code></pre></div>
+<p>The file receives the extension <code>.gz</code>.</p>
+<p>It keeps the same rights and the same last access and modification dates.</p>
+<h3 id="compressing-with-bunzip2">Compressing with <code>bunzip2</code><a class="headerlink" href="#compressing-with-bunzip2" title="Permanent link">&para;</a></h3>
+<p>The <code>bunzip2</code> command also compresses data.</p>
+<p>Syntax of the <code>bzip2</code> command:</p>
+<div class="highlight"><pre><span></span><code>bzip2 [options] [file ...]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ bzip2 usr.cpio
+$ ls
+usr.cpio.bz2
+</code></pre></div>
+<p>The file name is given the extension <code>.bz2</code>.</p>
+<p>Compression by <code>bzip2</code> is better than compression by <code>gzip</code> but it takes longer to execute.</p>
+<h3 id="decompressing-with-gunzip">Decompressing with <code>gunzip</code><a class="headerlink" href="#decompressing-with-gunzip" title="Permanent link">&para;</a></h3>
+<p>The <code>gunzip</code> command decompresses compressed data.</p>
+<p>Syntax of the <code>gunzip</code> command:</p>
+<div class="highlight"><pre><span></span><code>gunzip [options] [file ...]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ gunzip usr.tar.gz
+$ ls
+usr.tar
+</code></pre></div>
+<p>The file name is truncated by <code>gunzip</code> and the extension <code>.gz</code> is removed.</p>
+<p><code>gunzip</code> also decompresses files with the following extensions:</p>
+<ul>
+<li><code>.z</code> ;</li>
+<li><code>-z</code> ;</li>
+<li><code>_z</code> .</li>
+</ul>
+<h3 id="decompressing-with-bunzip2">Decompressing with <code>bunzip2</code><a class="headerlink" href="#decompressing-with-bunzip2" title="Permanent link">&para;</a></h3>
+<p>The <code>bunzip2</code> command decompresses compressed data.</p>
+<p>Syntax of the <code>bzip2</code> command:</p>
+<div class="highlight"><pre><span></span><code>bzip2 [options] [file ...]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ bunzip2 usr.cpio.bz2
+$ ls
+usr.cpio
+</code></pre></div>
+<p>The file name is truncated by <code>bunzip2</code> and the extension <code>.bz2</code> is removed.</p>
+<p><code>bunzip2</code> also decompresses the file with the following extensions:</p>
+<ul>
+<li><code>-bz</code> ;</li>
+<li><code>.tbz2</code> ;</li>
+<li><code>tbz</code> .</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Zurück zum Seitenanfang
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../08-process/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Process management" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Zurück
+              </span>
+              Process management
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../10-boot/" class="md-footer__link md-footer__link--next" aria-label="Weiter: System startup" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Weiter
+              </span>
+              System startup
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "In Zwischenablage kopieren", "clipboard.copied": "In Zwischenablage kopiert", "search.config.lang": "de", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Suche", "search.result.placeholder": "Suchbegriff eingeben", "search.result.none": "Keine Suchergebnisse", "search.result.one": "1 Suchergebnis", "search.result.other": "# Suchergebnisse", "search.result.more.one": "1 weiteres Suchergebnis auf dieser Seite", "search.result.more.other": "# weitere Suchergebnisse auf dieser Seite", "search.result.term.missing": "Es fehlt", "select.version.title": "Version ausw\u00e4hlen"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>
