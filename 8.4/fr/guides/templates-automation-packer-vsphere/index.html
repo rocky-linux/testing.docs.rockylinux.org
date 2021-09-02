@@ -1,0 +1,2557 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.4/fr/guides/templates-automation-packer-vsphere/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#automatic-template-creation-with-packer-and-deployment-with-ansible-in-a-vmware-vsphere-environment" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../sv/" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../" class="md-tabs__link">
+      Table des Matières
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../books/" class="md-tabs__link">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Table des Matières
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_debranding/" class="md-nav__link">
+        Rocky package debranding How-To
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_signing/" class="md-nav__link">
+        Package signing and testing'
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../add_mirror_manager/" class="md-nav__link">
+        Adding a public mirror to Rocky's mirror manager
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-sites-enabled/" class="md-nav__link">
+        Configuration Apache Web Server Multi-Sites'
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_network_configuration/" class="md-nav__link">
+        Configuration réseau de base
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enabling_iptables_firewall/" class="md-nav__link">
+        Enabling iptables Firewall
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rocky-8-installation/" class="md-nav__link">
+        Installer Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh_public_private_keys/" class="md-nav__link">
+        SSH Public and Private Key
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-assumptions-and-general-notes" class="md-nav__link">
+    Prerequisites, Assumptions, and General Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-adjustments" class="md-nav__link">
+    Possible adjustments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packer" class="md-nav__link">
+    Packer
+  </a>
+  
+    <nav class="md-nav" aria-label="Packer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables-section" class="md-nav__link">
+    Variables section
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioners-section" class="md-nav__link">
+    Provisioners section
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-builders-section" class="md-nav__link">
+    The builders section
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-kscfg-file" class="md-nav__link">
+    The ks.cfg file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-provisioners" class="md-nav__link">
+    The provisioners
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-creation" class="md-nav__link">
+    Template creation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-part" class="md-nav__link">
+    Deployment part
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-summary" class="md-nav__link">
+    In summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/" class="md-nav__link">
+        French Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/" class="md-nav__link">
+        French Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-assumptions-and-general-notes" class="md-nav__link">
+    Prerequisites, Assumptions, and General Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-adjustments" class="md-nav__link">
+    Possible adjustments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packer" class="md-nav__link">
+    Packer
+  </a>
+  
+    <nav class="md-nav" aria-label="Packer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables-section" class="md-nav__link">
+    Variables section
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioners-section" class="md-nav__link">
+    Provisioners section
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-builders-section" class="md-nav__link">
+    The builders section
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-kscfg-file" class="md-nav__link">
+    The ks.cfg file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-provisioners" class="md-nav__link">
+    The provisioners
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-creation" class="md-nav__link">
+    Template creation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-part" class="md-nav__link">
+    Deployment part
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-summary" class="md-nav__link">
+    In summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="automatic-template-creation-with-packer-and-deployment-with-ansible-in-a-vmware-vsphere-environment">Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment<a class="headerlink" href="#automatic-template-creation-with-packer-and-deployment-with-ansible-in-a-vmware-vsphere-environment" title="Permanent link">&para;</a></h1>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" />   </p>
+<p><strong>Reading time</strong>: 30 minutes</p>
+<h2 id="prerequisites-assumptions-and-general-notes">Prerequisites, Assumptions, and General Notes<a class="headerlink" href="#prerequisites-assumptions-and-general-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A VSphere environment available, and a user with granted access</li>
+<li>An internal web server to store files</li>
+<li>Web access to the rocky repositories</li>
+<li>An Ansible environment available</li>
+<li>It is assumed that you have some knowledge on each product mentioned. If not, dig into that documentation before you begin.</li>
+<li>Vagrant is <strong>not</strong> in use here. It was pointed out that with Vagrant, an SSH key that was not self-signed would be provided. If you want to dig into that you can do so, but it is not covered in this document.</li>
+</ul>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This document covers the VMWare template creation with Packer and how to deploy the artifact as new virtual machines with Ansible.</p>
+<h2 id="possible-adjustments">Possible adjustments<a class="headerlink" href="#possible-adjustments" title="Permanent link">&para;</a></h2>
+<p>Of course, you can adapt this how-to for other hypervisors.</p>
+<p>You can also choose not to convert the virtual machine into a template, in this case you will use Packer to deploy each new VM, which is still quite feasible (an installation starting from 0 takes less than 10 minutes without human interaction).</p>
+<h2 id="packer">Packer<a class="headerlink" href="#packer" title="Permanent link">&para;</a></h2>
+<p>Packer is a Hashicorp tool to automate the creation of a virtual machine.</p>
+<p>You can have a look at these resources for additional information:</p>
+<ul>
+<li>The <a href="https://www.packer.io/">Packer website</a></li>
+<li><a href="https://www.packer.io/docs">Packer documentation</a></li>
+<li>The builder <code>vsphere-iso</code>'s <a href="https://www.packer.io/docs/builders/vsphere/vsphere-iso">documentation</a></li>
+</ul>
+<p>You can start by downloading the binaries for you own platform with <a href="https://www.packer.io/downloads">Packer downloads</a>.</p>
+<p>You will also need an iso copy of Rocky Linux. Although I'm using the minimal ISO image here, you could choose to use the DVD image (much bigger and perhaps too big) or the boot image (much smaller and perhaps too small).
+This choice is up to you. It impacts in particular the bandwidth you will need for the installation, and thus the provisioning time. We will discuss next the impact of the default choice and how to remedy it.</p>
+<p>It is assumed that you are on Linux to perform the following tasks.</p>
+<p>As we will connect to a VMware vCenter server to send our commands via Packer, we need to store our credentials outside the configuration files that we will create next.</p>
+<p>Let's create a hidden file with our credentials in our home directory. This is a json file:</p>
+<div class="highlight"><pre><span></span><code>$ vim .vsphere-secrets.json {
+    &quot;vcenter_username&quot;: &quot;rockstar&quot;,
+    &quot;vcenter_password&quot;: &quot;mysecurepassword&quot;
+  }
+</code></pre></div>
+<p>Those credentials needs some grant access to your VSphere environment.</p>
+<p>Let's create a json file (in the future, the format of this file will change to the HCL):</p>
+<p><div class="highlight"><pre><span></span><code>{
+  &quot;variables&quot;: {
+    &quot;version&quot;: &quot;0.0.X&quot;,
+    &quot;HTTP_IP&quot;: &quot;fileserver.rockylinux.lan&quot;,
+    &quot;HTTP_PATH&quot;: &quot;/packer/rockylinux/8/ks.cfg&quot;
+  },
+  &quot;sensitive-variables&quot;: [&quot;vcenter_password&quot;],
+  &quot;provisioners&quot;: [
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;expect_disconnect&quot;: true,
+      &quot;execute_command&quot;: &quot;bash &#39;{{.Path}}&#39;&quot;,
+      &quot;script&quot;: &quot;{{template_dir}}/scripts/requirements.sh&quot;
+    }
+  ],
+  &quot;builders&quot;: [
+    {
+      &quot;type&quot;: &quot;vsphere-iso&quot;,
+      &quot;CPUs&quot;: 2,
+      &quot;CPU_hot_plug&quot;: true,
+      &quot;RAM&quot;: 2048,
+      &quot;RAM_hot_plug&quot;: true,
+      &quot;disk_controller_type&quot;: &quot;pvscsi&quot;,
+      &quot;guest_os_type&quot;: &quot;centos8_64Guest&quot;,
+      &quot;iso_paths&quot;: [
+        &quot;[datasyno-contentlibrary-mylib] contentlib-a86ad29a-a43b-4717-97e6-593b8358801b/3a381c78-b9df-45a6-82e1-3c07c8187dbe/Rocky-8.4-x86_64-minimal_72cc0cc6-9d0f-4c68-9bcd-06385a506a5d.iso&quot;
+      ],
+      &quot;network_adapters&quot;: [
+        {
+          &quot;network_card&quot;: &quot;vmxnet3&quot;,
+          &quot;network&quot;: &quot;net_infra&quot;
+        }
+      ],
+      &quot;storage&quot;: [
+        {
+          &quot;disk_size&quot;: 40000,
+          &quot;disk_thin_provisioned&quot;: true
+        }
+      ],
+      &quot;boot_command&quot;: [
+      &quot;&lt;up&gt;&lt;tab&gt; text ip=192.168.1.11::192.168.1.254:255.255.255.0:template:ens192:none nameserver=192.168.1.254 inst.ks=http://{{ user `HTTP_IP` }}/{{ user `HTTP_PATH` }}&lt;enter&gt;&lt;wait&gt;&lt;enter&gt;&quot;
+      ],
+      &quot;ssh_password&quot;: &quot;mysecurepassword&quot;,
+      &quot;ssh_username&quot;: &quot;root&quot;,
+      &quot;shutdown_command&quot;: &quot;/sbin/halt -h -p&quot;,
+      &quot;insecure_connection&quot;: &quot;true&quot;,
+      &quot;username&quot;: &quot;{{ user `vcenter_username` }}&quot;,
+      &quot;password&quot;: &quot;{{ user `vcenter_password` }}&quot;,
+      &quot;vcenter_server&quot;: &quot;vsphere.rockylinux.lan&quot;,
+      &quot;datacenter&quot;: &quot;DC_NAME&quot;,
+      &quot;datastore&quot;: &quot;DS_NAME&quot;,
+      &quot;vm_name&quot;: &quot;template-rockylinux8-{{ user `version` }}&quot;,
+      &quot;folder&quot;: &quot;Templates/RockyLinux&quot;,
+      &quot;cluster&quot;: &quot;CLUSTER_NAME&quot;,
+      &quot;host&quot;: &quot;esx1.rockylinux.lan&quot;,
+      &quot;notes&quot;: &quot;Template RockyLinux version {{ user `version` }}&quot;
+      &quot;convert_to_template&quot;: true,
+      &quot;create_snapshot&quot;: false,
+    }
+  ]
+}
+</code></pre></div>
+Next, we will describe each section of this file.</p>
+<h3 id="variables-section">Variables section<a class="headerlink" href="#variables-section" title="Permanent link">&para;</a></h3>
+<p>In a first step, we declare variables, mainly for the sake of readability:</p>
+<div class="highlight"><pre><span></span><code>&quot;variables&quot;: {
+  &quot;version&quot;: &quot;0.0.X&quot;,
+  &quot;HTTP_IP&quot;: &quot;fileserver.rockylinux.lan&quot;,
+  &quot;HTTP_PATH&quot;: &quot;/packer/rockylinux/8/ks.cfg&quot;
+},
+</code></pre></div>
+<p>We will use the variable <code>version</code> later in the template name we will create. You can easily increment this value to suit your needs.</p>
+<p>We will also need our booting virtual machine to access a ks.cfg (Kickstart) file.</p>
+<p>A Kickstart file contains the answers to the questions asked during the installation process. This file passes all its contents to Anaconda (the installation process), which allows you to fully automate the creation of the template.</p>
+<p>The author likes to store his ks.cfg file in an internal web server accessible from his template, but other possibilities exists that you may chose to use instead.</p>
+<p>For example, the ks.cfg file is accessible from the VM at this url in our lab: http://fileserver.rockylinux.lan/packer/rockylinux/8/ks.cfg. You would need to set up something similar to use this method.</p>
+<p>Since we want to keep our password private, It is declared as a sensitive variable. Example:</p>
+<div class="highlight"><pre><span></span><code>  &quot;sensitive-variables&quot;: [&quot;vcenter_password&quot;],
+</code></pre></div>
+<h3 id="provisioners-section">Provisioners section<a class="headerlink" href="#provisioners-section" title="Permanent link">&para;</a></h3>
+<p>Next part is interesting, and will be covered later by providing you the script for <code>requirements.sh</code>:</p>
+<div class="highlight"><pre><span></span><code>&quot;provisioners&quot;: [
+  {
+    &quot;type&quot;: &quot;shell&quot;,
+    &quot;expect_disconnect&quot;: true,
+    &quot;execute_command&quot;: &quot;bash &#39;{{.Path}}&#39;&quot;,
+    &quot;script&quot;: &quot;{{template_dir}}/scripts/requirements.sh&quot;
+  }
+],
+</code></pre></div>
+<p>After the installation is finished, the VM will reboot. As soon as Packer detects an IP address (thanks to the VMWare Tools), it will copy the <code>requirements.sh</code> and execute it. It's a nice feature to clean the VM after the installation process (remove SSH keys, clean the history, etc.) and install some extra package.</p>
+<h3 id="the-builders-section">The builders section<a class="headerlink" href="#the-builders-section" title="Permanent link">&para;</a></h3>
+<p>You can declare one or more builders to target something other than your VSphere environment (perhaps a Vagrant template).</p>
+<p>But here we are using the <code>vsphere-iso</code> builder:</p>
+<div class="highlight"><pre><span></span><code>&quot;builders&quot;: [
+  {
+    &quot;type&quot;: &quot;vsphere-iso&quot;,
+</code></pre></div>
+<p>This builder lets us configure the hardware we need:</p>
+<div class="highlight"><pre><span></span><code>  &quot;CPUs&quot;: 2,
+  &quot;CPU_hot_plug&quot;: true,
+  &quot;RAM&quot;: 2048,
+  &quot;RAM_hot_plug&quot;: true,
+  &quot;disk_controller_type&quot;: &quot;pvscsi&quot;,
+  &quot;guest_os_type&quot;: &quot;centos8_64Guest&quot;,
+  &quot;network_adapters&quot;: [
+    {
+      &quot;network_card&quot;: &quot;vmxnet3&quot;,
+      &quot;network&quot;: &quot;net_infra&quot;
+    }
+  ],
+  &quot;storage&quot;: [
+    {
+      &quot;disk_size&quot;: 40000,
+      &quot;disk_thin_provisioned&quot;: true
+    }
+  ],
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will never forget again to include CPU_hot_plug as it is automatic now!</p>
+</div>
+<p>You can do more cool thing with the disk, cpu, etc. You should refer to the documentation if you are interested in making other adjustments.</p>
+<p>To start the installation, you need an ISO image of Rocky Linux. Here is an example of how to use an image located in a VMWare Content Library. You can of course store the ISO elsewhere, but in the case of a VMWare Content Library, you have to get the full path to the ISO file on the server hosting the Content Library (in this case it is a Synology, so directly on the DSM explorer).</p>
+<div class="highlight"><pre><span></span><code>  &quot;iso_paths&quot;: [
+    &quot;[datasyno-contentlibrary-mylib] contentlib-a86ad29a-a43b-4717-97e6-593b8358801b/3a381c78-b9df-45a6-82e1-3c07c8187dbe/Rocky-8.4-x86_64-minimal_72cc0cc6-9d0f-4c68-9bcd-06385a506a5d.iso&quot;
+  ],
+</code></pre></div>
+<p>Then you have to provide the complete command to be entered during the installation process: configuration of the IP and transmission of the path to the Kickstart response file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example takes the most complex case: using a static IP. If you have a DHCP server available, the process will be much easier.</p>
+</div>
+<p>This is the most amusing part of the procedure: I'm sure you'll go and admire the VMWare console during the generation, just to see the automatic entry of the commands during the boot.</p>
+<div class="highlight"><pre><span></span><code>&quot;boot_command&quot;: [
+&quot;&lt;up&gt;&lt;tab&gt; text ip=192.168.1.11::192.168.1.254:255.255.255.0:template:ens192:none nameserver=192.168.1.254 inst.ks=http://{{ user `HTTP_IP` }}/{{ user `HTTP_PATH` }}&lt;enter&gt;&lt;wait&gt;&lt;enter&gt;&quot;
+],
+</code></pre></div>
+<p>After the first reboot, Packer will connect to your server by SSH. You can use the root user, or another user with sudo rights, but in any case, this user must correspond to the user that is defined in your ks.cfg file.</p>
+<div class="highlight"><pre><span></span><code>&quot;ssh_password&quot;: &quot;mysecurepassword&quot;,
+&quot;ssh_username&quot;: &quot;root&quot;,
+</code></pre></div>
+<p>At the end of the process, the VM must be stopped. It's a little bit more complicated with a non root user, but it's is well documented:</p>
+<div class="highlight"><pre><span></span><code>&quot;shutdown_command&quot;: &quot;/sbin/halt -h -p&quot;,
+</code></pre></div>
+<p>Next, we deal with the VSphere configuration. The only notable things here are the use of the variables defined at the beginning of the document in our home directory, as well as the <code>insecure_connection</code> option, because our VSphere uses a self-signed certificate (See note in Assumptions at the top of this document):</p>
+<div class="highlight"><pre><span></span><code>&quot;insecure_connection&quot;: &quot;true&quot;,
+&quot;username&quot;: &quot;{{ user `vcenter_username` }}&quot;,
+&quot;password&quot;: &quot;{{ user `vcenter_password` }}&quot;,
+&quot;vcenter_server&quot;: &quot;vsphere.rockylinux.lan&quot;,
+&quot;datacenter&quot;: &quot;DC_NAME&quot;,
+&quot;datastore&quot;: &quot;DS_NAME&quot;,
+&quot;vm_name&quot;: &quot;template-rockylinux8-{{ user `version` }}&quot;,
+&quot;folder&quot;: &quot;Templates/RockyLinux&quot;,
+&quot;cluster&quot;: &quot;CLUSTER_NAME&quot;,
+&quot;host&quot;: &quot;esx1.rockylinux.lan&quot;,
+&quot;notes&quot;: &quot;Template RockyLinux version {{ user `version` }}&quot;
+</code></pre></div>
+<p>And finally, we will ask VSphere to convert our stopped VM to a template.</p>
+<p>At this stage, you could also elect to just use the VM as is (not converting it to a template). In this case, you can decide to take a snapshot instead:</p>
+<div class="highlight"><pre><span></span><code>&quot;convert_to_template&quot;: true,
+&quot;create_snapshot&quot;: false,
+</code></pre></div>
+<h2 id="the-kscfg-file">The ks.cfg file<a class="headerlink" href="#the-kscfg-file" title="Permanent link">&para;</a></h2>
+<p>As noted above, we need to provide a Kicstart response file that will be used by Anaconda.</p>
+<p>Here's an example of that file:</p>
+<div class="highlight"><pre><span></span><code># Use CDROM installation media
+repo --name=&quot;AppStream&quot; --baseurl=&quot;http://download.rockylinux.org/pub/rocky/8.4/AppStream/x86_64/os/&quot;
+cdrom
+# Use text install
+text
+# Don&#39;t run the Setup Agent on first boot
+firstboot --disabled
+eula --agreed
+ignoredisk --only-use=sda
+# Keyboard layouts
+keyboard --vckeymap=us --xlayouts=&#39;us&#39;
+# System language
+lang en_US.UTF-8
+
+# Network information
+network --bootproto=static --device=ens192 --gateway=192.168.1.254 --ip=192.168.1.11 --nameserver=192.168.1.254,4.4.4.4 --netmask=255.255.255.0 --onboot=on --ipv6=auto --activate
+
+# Root password
+rootpw mysecurepassword
+
+# System services
+selinux --permissive
+firewall --enabled
+services --enabled=&quot;NetworkManager,sshd,chronyd&quot;
+# System timezone
+timezone Europe/Paris --isUtc
+# System booloader configuration
+bootloader --location=mbr --boot-drive=sda
+# Partition clearing information
+clearpart --all --initlabel --drives=sda
+# Disk partitionning information
+part /boot --fstype=&quot;xfs&quot; --ondisk=sda --size=512
+part pv.01 --fstype=&quot;lvmpv&quot; --ondisk=sda --grow
+volgroup vg_root --pesize=4096 pv.01
+logvol /home --fstype=&quot;xfs&quot; --size=5120 --name=lv_home --vgname=vg_root
+logvol /var --fstype=&quot;xfs&quot; --size=10240 --name=lv_var --vgname=vg_root
+logvol / --fstype=&quot;xfs&quot; --size=10240 --name=lv_root --vgname=vg_root
+logvol swap --fstype=&quot;swap&quot; --size=4092 --name=lv_swap --vgname=vg_root
+
+skipx
+
+reboot
+
+%packages --ignoremissing --excludedocs
+openssh-clients
+curl
+dnf-utils
+drpm
+net-tools
+open-vm-tools
+perl
+perl-File-Temp
+sudo
+vim
+wget
+python3
+
+# unnecessary firmware
+-aic94xx-firmware
+-atmel-firmware
+-b43-openfwwf
+-bfa-firmware
+-ipw2100-firmware
+-ipw2200-firmware
+-ivtv-firmware
+-iwl*-firmware
+-libertas-usb8388-firmware
+-ql*-firmware
+-rt61pci-firmware
+-rt73usb-firmware
+-xorg-x11-drv-ati-firmware
+-zd1211-firmware
+-cockpit
+-quota
+-alsa-*
+-fprintd-pam
+-intltool
+-microcode_ctl
+%end
+
+%addon com_redhat_kdump --disable
+%end
+
+%post
+
+# Manage Ansible access
+groupadd -g 1001 ansible
+useradd -m -g 1001 -u 1001 ansible
+mkdir /home/ansible/.ssh
+echo -e &quot;&lt;---- PAST YOUR PUBKEY HERE ----&gt;&quot; &gt;  /home/ansible/.ssh/authorized_keys
+chown -R ansible:ansible /home/ansible/.ssh
+chmod 700 /home/ansible/.ssh
+chmod 600 /home/ansible/.ssh/authorized_keys
+echo &quot;ansible ALL=(ALL:ALL) NOPASSWD:ALL&quot; &gt; /etc/sudoers.d/ansible
+chmod 440 /etc/sudoers.d/ansible
+
+systemctl enable vmtoolsd
+systemctl start vmtoolsd
+
+%end
+</code></pre></div>
+<p>As we have chosen to use the minimal iso, instead of the Boot or DVD, not all required installation packages will be available.</p>
+<p>As Packer relies on VMWare Tools to detect the end of the installation, and the <code>open-vm-tools</code> package is only available in the AppStream repos, we have to specify to the installation process that we want to use as source both the cdrom and this remote repo:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don't have access to the external repos, you can use either a mirror of the repo, a squid proxy, or the dvd.</p>
+</div>
+<div class="highlight"><pre><span></span><code># Use CDROM installation media
+repo --name=&quot;AppStream&quot; --baseurl=&quot;http://download.rockylinux.org/pub/rocky/8.4/AppStream/x86_64/os/&quot;
+cdrom
+</code></pre></div>
+<p>Let's jump to the network configuration, as once again, in this example we aren't using a DHCP server:</p>
+<div class="highlight"><pre><span></span><code># Network information
+network --bootproto=static --device=ens192 --gateway=192.168.1.254 --ip=192.168.1.11 --nameserver=192.168.1.254,4.4.4.4 --netmask=255.255.255.0 --onboot=on --ipv6=auto --activate
+</code></pre></div>
+<p>Remember we specified the user to connect via SSH with to Packer at the end of the installation. This user and password must match:</p>
+<div class="highlight"><pre><span></span><code># Root password
+rootpw mysecurepassword
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You can use an insecure password here, as long as you make sure that this password will be changed immediately after the deployment of your VM, for example with Ansible.</p>
+</div>
+<p>Here is the selected partition scheme. Much more complex things can be done. You can define a partition scheme that suits your needs, adapting it to the disk space defined in Packer, and which respects the security rules defined for your environment (dedicated partition for <code>/tmp</code>, etc.):</p>
+<div class="highlight"><pre><span></span><code># System booloader configuration
+bootloader --location=mbr --boot-drive=sda
+# Partition clearing information
+clearpart --all --initlabel --drives=sda
+# Disk partitionning information
+part /boot --fstype=&quot;xfs&quot; --ondisk=sda --size=512
+part pv.01 --fstype=&quot;lvmpv&quot; --ondisk=sda --grow
+volgroup vg_root --pesize=4096 pv.01
+logvol /home --fstype=&quot;xfs&quot; --size=5120 --name=lv_home --vgname=vg_root
+logvol /var --fstype=&quot;xfs&quot; --size=10240 --name=lv_var --vgname=vg_root
+logvol / --fstype=&quot;xfs&quot; --size=10240 --name=lv_root --vgname=vg_root
+logvol swap --fstype=&quot;swap&quot; --size=4092 --name=lv_swap --vgname=vg_root
+</code></pre></div>
+<p>The next section concerns the packages that will be installed. A "best practice" is to limit the quantity of installed packages to only those you need, which limits the attack surface, especially in a server environment.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The author likes to limit the actions to be done in the installation process and to defer installing what is needed in the post installation script of Packer. So, in this case, we install only the minimum required packages.</p>
+</div>
+<p>The <code>openssh-clients</code> package seems to be required for Packer to copy its scripts into the VM.</p>
+<p>The <code>open-vm-tools</code> is also needed by Packer to detect the end of the installation, this explains the addition of the AppStream repository. <code>perl</code> and <code>perl-File-Temp</code> will also be required by VMWare Tools during the deployment part. This is a shame because it requires a lot of other dependent packages. <code>python3</code> (3.6) will also be required in the future for Ansible to work (if you won't use Ansible or python, remove them!).</p>
+<div class="highlight"><pre><span></span><code>%packages --ignoremissing --excludedocs
+openssh-clients
+open-vm-tools
+python3
+perl
+perl-File-Temp
+curl
+dnf-utils
+drpm
+net-tools
+sudo
+vim
+wget
+</code></pre></div>
+<p>You can not only add packages but also remove them. Since we control the environment in which our hardware will work, we can remove any of the firmware that will be useless to us:</p>
+<div class="highlight"><pre><span></span><code># unnecessary firmware
+-aic94xx-firmware
+-atmel-firmware
+...
+</code></pre></div>
+<p>The next part adds some users. It's interesting in our case to create an <code>ansible</code> user, without password but with a pubkey. This allows all of our new VMs to be accessible from our Ansible server to run the post-install actions:</p>
+<div class="highlight"><pre><span></span><code># Manage Ansible access
+groupadd -g 1001 ansible
+useradd -m -g 1001 -u 1001 ansible
+mkdir /home/ansible/.ssh
+echo -e &quot;&lt;---- PAST YOUR PUBKEY HERE ----&gt;&quot; &gt;  /home/ansible/.ssh/authorized_keys
+chown -R ansible:ansible /home/ansible/.ssh
+chmod 700 /home/ansible/.ssh
+chmod 600 /home/ansible/.ssh/authorized_keys
+echo &quot;ansible ALL=(ALL:ALL) NOPASSWD:ALL&quot; &gt; /etc/sudoers.d/ansible
+chmod 440 /etc/sudoers.d/ansible
+</code></pre></div>
+<p>Now we need to enable and start <code>vmtoolsd</code> (the process that manages open-vm-tools). VSphere will detect the IP address after the reboot of the VM.</p>
+<div class="highlight"><pre><span></span><code>systemctl enable vmtoolsd
+systemctl start vmtoolsd
+</code></pre></div>
+<p>The installation process is finished and the VM will reboot.</p>
+<h2 id="the-provisioners">The provisioners<a class="headerlink" href="#the-provisioners" title="Permanent link">&para;</a></h2>
+<p>Remember, we declared in Packer a provisioner, which in our case corresponds to a <code>.sh</code> script, to be stored in a subdirectory next to our json file.</p>
+<p>There are different types of provisioners, we could also have used Ansible. You are free to explore these possibilities.</p>
+<p>This file can be completely changed, but this provides an example of what can be done with a script, in this case <code>requirements.sh</code>:</p>
+<div class="highlight"><pre><span></span><code>#!/bin/sh -eux
+
+echo &quot;Updating the system...&quot;
+dnf -y update
+
+echo &quot;Installing cloud-init...&quot;
+dnf -y install cloud-init
+
+# see https://bugs.launchpad.net/cloud-init/+bug/1712680
+# and https://kb.vmware.com/s/article/71264
+# Virtual Machine customized with cloud-init is set to DHCP after reboot
+echo &quot;manual_cache_clean: True &quot; &gt; /etc/cloud/cloud.cfg.d/99-manual.cfg
+
+echo &quot;Disable NetworkManager-wait-online.service&quot;
+systemctl disable NetworkManager-wait-online.service
+
+# cleanup current SSH keys so templated VMs get fresh key
+rm -f /etc/ssh/ssh_host_*
+
+# Avoid ~200 meg firmware package we don&#39;t need
+# this cannot be done in the KS file so we do it here
+echo &quot;Removing extra firmware packages&quot;
+dnf -y remove linux-firmware
+dnf -y autoremove
+
+echo &quot;Remove previous kernels that preserved for rollbacks&quot;
+dnf -y remove -y $(dnf repoquery --installonly --latest-limit=-1 -q)
+dnf -y clean all  --enablerepo=\*;
+
+echo &quot;truncate any logs that have built up during the install&quot;
+find /var/log -type f -exec truncate --size=0 {} \;
+
+echo &quot;remove the install log&quot;
+rm -f /root/anaconda-ks.cfg /root/original-ks.cfg
+
+echo &quot;remove the contents of /tmp and /var/tmp&quot;
+rm -rf /tmp/* /var/tmp/*
+
+echo &quot;Force a new random seed to be generated&quot;
+rm -f /var/lib/systemd/random-seed
+
+echo &quot;Wipe netplan machine-id (DUID) so machines get unique ID generated on boot&quot;
+truncate -s 0 /etc/machine-id
+
+echo &quot;Clear the history so our install commands aren&#39;t there&quot;
+rm -f /root/.wget-hsts
+export HISTSIZE=0
+</code></pre></div>
+<p>Some explanations are necessary:</p>
+<div class="highlight"><pre><span></span><code>echo &quot;Installing cloud-init...&quot;
+dnf -y install cloud-init
+
+# see https://bugs.launchpad.net/cloud-init/+bug/1712680
+# and https://kb.vmware.com/s/article/71264
+# Virtual Machine customized with cloud-init is set to DHCP after reboot
+echo &quot;manual_cache_clean: True&quot; &gt; /etc/cloud/cloud.cfg.d/99-manual.cfg
+</code></pre></div>
+<p>Since VSphere now uses cloud-init via the VMware Tools to configure the network of a centos8 guest machine, it must be installed. However, if you do nothing, the configuration will be applied on the first reboot and everything will be fine. But on the next reboot, cloud-init will not receive any new information from VSphere. In these cases, without information about what to do, cloud-init will reconfigure the VM's network interface to use DHCP, and you will loose your static configuration.</p>
+<p>As this is not the behavior we want, we need to specify to cloud-init not to delete its cache automatically, and therefore to reuse the configuration information it received during its first reboot and each reboot after that.</p>
+<p>For this, we create a file <code>/etc/cloud/cloud.cfg.d/99-manual.cfg</code> with the <code>manual_cache_clean: True</code> directive.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implies that if you need to re-apply a network configuration via VSphere's customization tool (which, in normal use, should be quite rare), you will have to delete the cloud-init cache yourself.</p>
+</div>
+<p>The rest of the script is commented and does not require more details</p>
+<p>You can check the <a href="https://github.com/chef/bento/tree/master/packer_templates">Bento project</a> to get more ideas of what can be done in this part of the automation process.</p>
+<h2 id="template-creation">Template creation<a class="headerlink" href="#template-creation" title="Permanent link">&para;</a></h2>
+<p>Now it's time to launch Packer and check that the creation process, which is completely automatic, works well.</p>
+<p>Simply enter this at the command line:</p>
+<div class="highlight"><pre><span></span><code>./packer build -var-file=~/.vsphere-secrets.json rockylinux8/template.json
+</code></pre></div>
+<p>You can quickly go to VSphere and admire the work.</p>
+<p>You will see the machine being created, started, and if you launch a console, you will see the automatic entry of commands and the installation process.</p>
+<p>At the end of the creation, you will find your template ready to use in VSphere.</p>
+<h2 id="deployment-part">Deployment part<a class="headerlink" href="#deployment-part" title="Permanent link">&para;</a></h2>
+<p>This documentation would not be complete without the automatic deployment part of the template.</p>
+<p>For this, we will use a simple Ansible playbook, which uses the <code>vmware_guest</code> module.</p>
+<p>This playbook that we provide you, must be adapted to your needs and your way of doing things.</p>
+<div class="highlight"><pre><span></span><code>---
+- name: Deploy VM from template
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - ./vars/credentials.yml
+
+  tasks:
+
+  - name: Clone the template
+    vmware_guest:
+      hostname: &quot;{{ vmware_vcenter_hostname }}&quot;
+      username: &quot;{{ vmware_username }}&quot;
+      password: &quot;{{ vmware_password }}&quot;
+      validate_certs: False
+      name: &quot;{{ vm_name }}&quot;
+      template: &quot;{{ template_name }}&quot;
+      datacenter: &quot;{{ datacenter_name }}&quot;
+      folder: &quot;{{ storage_folder }}&quot;
+      state: &quot;{{ state }}&quot;
+      cluster: &quot;{{ cluster_name | default(omit,true) }}&quot;
+      esxi_hostname: &quot;{{ esxi_hostname | default(omit,true) }}&quot;
+      wait_for_ip_address: no
+      annotation: &quot;{{ comments | default(&#39;Deployed by Ansible&#39;) }}&quot;
+      datastore: &quot;{{ datastore_name | default(omit,true) }}&quot;
+      networks:
+      - name: &quot;{{ network_name }}&quot;
+        ip: &quot;{{ network_ip }}&quot;
+        netmask: &quot;{{ network_mask }}&quot;
+        gateway: &quot;{{ network_gateway }}&quot;
+        device_type: &quot;vmxnet3&quot;
+        type: static
+      hardware:
+        memory_mb: &quot;{{ memory_mb|int * 1024 }}&quot;
+        num_cpu: &quot;{{ num_cpu }}&quot;
+        hotadd_cpu: True
+        hotadd_memory: True
+      customization:
+        domain: &quot;{{ domain }}&quot;
+        dns_servers: &quot;{{ dns_servers.split(&#39;,&#39;) }}&quot;
+      guest_id: &quot;{{ guest_id }}&quot;
+    register: deploy_vm
+</code></pre></div>
+<p>You can store sensitive data in the <code>./vars/credentials.yml</code>, which you will obviously have encrypted beforehand with <code>ansible-vault</code> (especially if you use git for your work). As everything uses a variable, you can easily make it suit your needs.</p>
+<p>If you don't use something like Rundeck or Awx, you can launch the deployment with a command line similar to this one:</p>
+<div class="highlight"><pre><span></span><code>ansible-playbook -i ./inventory/hosts  -e &#39;{&quot;comments&quot;:&quot;my comments&quot;,&quot;cluster_name&quot;:&quot;CS_NAME&quot;,&quot;esxi_hostname&quot;:&quot;ESX_NAME&quot;,&quot;state&quot;:&quot;started&quot;,&quot;storage_folder&quot;:&quot;PROD&quot;,&quot;datacenter_name&quot;:&quot;DC_NAME}&quot;,&quot;datastore_name&quot;:&quot;DS_NAME&quot;,&quot;template_name&quot;:&quot;template-rockylinux8-0.0.1&quot;,&quot;vm_name&quot;:&quot;test_vm&quot;,&quot;network_name&quot;:&quot;net_prod&quot;,&quot;network_ip&quot;:&quot;192.168.1.20&quot;,&quot;network_gateway&quot;:&quot;192.168.1.254&quot;,&quot;network_mask&quot;:&quot;255.255.255.0&quot;,&quot;memory_mb&quot;:&quot;4&quot;,&quot;num_cpu&quot;:&quot;2&quot;,&quot;domain&quot;:&quot;rockylinux.lan&quot;,&quot;dns_servers&quot;:&quot;192.168.1.254&quot;,&quot;guest_id&quot;:&quot;centos8_64Guest&quot;}&#39; ./vmware/create_vm.yml --vault-password-file /etc/ansible/vault_pass.py
+</code></pre></div>
+<p>It is at this point that you can launch the final configuration of your virtual machine using Ansible. Don't forget to change the root password, secure SSH, register the new VM in your monitoring tool and in your IT inventory, etc.</p>
+<h2 id="in-summary">In summary<a class="headerlink" href="#in-summary" title="Permanent link">&para;</a></h2>
+<p>As we have seen, there are now fully automated DevOps solutions to create and deploy VMs.</p>
+<p>At the same time, this represents an undeniable saving of time, especially in cloud or data center environments. It also facilitates a standard compliance across all of the computers in the company (servers and workstations), and an easy maintenance / evolution of templates.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pied de page">
+      
+        
+        <a href="../ssl_keys_https/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Generating SSL Keys" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              Generating SSL Keys
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../xfce_installation/" class="md-footer__link md-footer__link--next" aria-label="Suivant: XFCE Desktop Environment" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              XFCE Desktop Environment
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Copier dans le presse-papier", "clipboard.copied": "Copi\u00e9 dans le presse-papier", "search.config.lang": "fr", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Rechercher", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.term.missing": "Non trouv\u00e9", "select.version.title": "S\u00e9lectionner la version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

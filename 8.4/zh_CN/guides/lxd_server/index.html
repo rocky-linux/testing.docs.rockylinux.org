@@ -1,0 +1,3113 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.4/zh_CN/guides/lxd_server/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>Creating a full LXD Server - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-a-full-lxd-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creating a full LXD Server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../sv/" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../" class="md-tabs__link">
+      目录
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../books/" class="md-tabs__link">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        目录
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_debranding/" class="md-nav__link">
+        Rocky package debranding How-To
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_dev_start/" class="md-nav__link">
+        Package dev start
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_signing/" class="md-nav__link">
+        Package signing and testing'
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../add_mirror_manager/" class="md-nav__link">
+        Adding a public mirror to Rocky's mirror manager
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-sites-enabled/" class="md-nav__link">
+        Apache Web 服务器多站点设置
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_network_configuration/" class="md-nav__link">
+        Rocky Linux —— 网络配置
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cron_jobs_howto/" class="md-nav__link">
+        在 Rocky Linux 中使用 cron 和 crontab 自动化进程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enabling_iptables_firewall/" class="md-nav__link">
+        Enabling iptables Firewall
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Creating a full LXD Server
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Creating a full LXD Server
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-assumptions" class="md-nav__link">
+    Prerequisites And Assumptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-getting-the-environment-ready" class="md-nav__link">
+    Part 1 : Getting The Environment Ready
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 : Getting The Environment Ready">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-epel-and-openzfs-repositories" class="md-nav__link">
+    Install EPEL and OpenZFS Repositories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-snapd-dkms-and-vim" class="md-nav__link">
+    Install snapd, dkms And vim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-lxd" class="md-nav__link">
+    Install LXD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-openzfs" class="md-nav__link">
+    Install OpenZFS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-set-up" class="md-nav__link">
+     Environment Set up
+  </a>
+  
+    <nav class="md-nav" aria-label=" Environment Set up">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-limitsconf" class="md-nav__link">
+    Modifying limits.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-sysctlconf-with-90-lxdoverrideconf" class="md-nav__link">
+    Modifying sysctl.conf With 90-lxd.override.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-sysctlconf-values" class="md-nav__link">
+    Checking sysctl.conf Values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-zfs-and-setting-up-the-pool" class="md-nav__link">
+    Enabling ZFS And Setting Up The Pool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxd-initialization" class="md-nav__link">
+    LXD Initialization
+  </a>
+  
+    <nav class="md-nav" aria-label="LXD Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-user-privileges" class="md-nav__link">
+    Setting Up User Privileges
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firewall-set-up" class="md-nav__link">
+    Firewall Set Up
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-setting-up-and-managing-images" class="md-nav__link">
+    Part 2 : Setting Up And Managing Images
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 : Setting Up And Managing Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-available-images" class="md-nav__link">
+    List Available Images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-renaming-and-listing-images" class="md-nav__link">
+    Installing, Renaming, And Listing Images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxd-profiles" class="md-nav__link">
+    LXD Profiles
+  </a>
+  
+    <nav class="md-nav" aria-label="LXD Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-macvlan-profile-and-assigning-it" class="md-nav__link">
+    Creating A macvlan Profile And Assigning It
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos-macvlan" class="md-nav__link">
+     CentOS macvlan
+  </a>
+  
+    <nav class="md-nav" aria-label=" CentOS macvlan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#centos-macvlan-the-dhcp-fix" class="md-nav__link">
+    CentOS macvlan - The DHCP Fix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos-macvlan-the-static-ip-fix" class="md-nav__link">
+    CentOS macvlan - The Static IP Fix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-macvlan" class="md-nav__link">
+    Ubuntu macvlan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-container-configuration-options" class="md-nav__link">
+    Part 3 : Container Configuration Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3 : Container Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-word-about-configuration-and-some-options" class="md-nav__link">
+    A Word About Configuration And Some Options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-container-snapshots" class="md-nav__link">
+    Part 4: Container Snapshots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-the-snapshot-server" class="md-nav__link">
+    Part 5: The Snapshot Server
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5: The Snapshot Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-primary-and-snapshot-server-relationship" class="md-nav__link">
+    Setting Up The Primary and Snapshot Server Relationship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrating-our-first-snapshot" class="md-nav__link">
+    Migrating Our First Snapshot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-snapshot-server-setting-bootautostart-to-off-for-containers" class="md-nav__link">
+    The Snapshot Server - Setting boot.autostart To Off For Containers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automating-the-snapshot-process" class="md-nav__link">
+    Automating The Snapshot Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automating-the-snapshot-copy-process" class="md-nav__link">
+    Automating The Snapshot Copy Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mirroring_lsyncd/" class="md-nav__link">
+        Rocky Linux - 镜像解决方案 - lsycnd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rocky-8-installation/" class="md-nav__link">
+        安装 Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsync_ssh/" class="md-nav__link">
+        使用 rsync 保持两台计算机同步
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh_public_private_keys/" class="md-nav__link">
+        Rocky Linux - SSH 公钥和私钥
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssl_keys_https/" class="md-nav__link">
+        生成 SSL 密钥
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/01-presentation/" class="md-nav__link">
+        Linux 操作系统简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-assumptions" class="md-nav__link">
+    Prerequisites And Assumptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-getting-the-environment-ready" class="md-nav__link">
+    Part 1 : Getting The Environment Ready
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 : Getting The Environment Ready">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-epel-and-openzfs-repositories" class="md-nav__link">
+    Install EPEL and OpenZFS Repositories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-snapd-dkms-and-vim" class="md-nav__link">
+    Install snapd, dkms And vim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-lxd" class="md-nav__link">
+    Install LXD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-openzfs" class="md-nav__link">
+    Install OpenZFS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-set-up" class="md-nav__link">
+     Environment Set up
+  </a>
+  
+    <nav class="md-nav" aria-label=" Environment Set up">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-limitsconf" class="md-nav__link">
+    Modifying limits.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-sysctlconf-with-90-lxdoverrideconf" class="md-nav__link">
+    Modifying sysctl.conf With 90-lxd.override.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-sysctlconf-values" class="md-nav__link">
+    Checking sysctl.conf Values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-zfs-and-setting-up-the-pool" class="md-nav__link">
+    Enabling ZFS And Setting Up The Pool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxd-initialization" class="md-nav__link">
+    LXD Initialization
+  </a>
+  
+    <nav class="md-nav" aria-label="LXD Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-user-privileges" class="md-nav__link">
+    Setting Up User Privileges
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firewall-set-up" class="md-nav__link">
+    Firewall Set Up
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-setting-up-and-managing-images" class="md-nav__link">
+    Part 2 : Setting Up And Managing Images
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 : Setting Up And Managing Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-available-images" class="md-nav__link">
+    List Available Images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-renaming-and-listing-images" class="md-nav__link">
+    Installing, Renaming, And Listing Images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxd-profiles" class="md-nav__link">
+    LXD Profiles
+  </a>
+  
+    <nav class="md-nav" aria-label="LXD Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-macvlan-profile-and-assigning-it" class="md-nav__link">
+    Creating A macvlan Profile And Assigning It
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos-macvlan" class="md-nav__link">
+     CentOS macvlan
+  </a>
+  
+    <nav class="md-nav" aria-label=" CentOS macvlan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#centos-macvlan-the-dhcp-fix" class="md-nav__link">
+    CentOS macvlan - The DHCP Fix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos-macvlan-the-static-ip-fix" class="md-nav__link">
+    CentOS macvlan - The Static IP Fix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-macvlan" class="md-nav__link">
+    Ubuntu macvlan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-container-configuration-options" class="md-nav__link">
+    Part 3 : Container Configuration Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3 : Container Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-word-about-configuration-and-some-options" class="md-nav__link">
+    A Word About Configuration And Some Options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-container-snapshots" class="md-nav__link">
+    Part 4: Container Snapshots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-the-snapshot-server" class="md-nav__link">
+    Part 5: The Snapshot Server
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5: The Snapshot Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-primary-and-snapshot-server-relationship" class="md-nav__link">
+    Setting Up The Primary and Snapshot Server Relationship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrating-our-first-snapshot" class="md-nav__link">
+    Migrating Our First Snapshot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-snapshot-server-setting-bootautostart-to-off-for-containers" class="md-nav__link">
+    The Snapshot Server - Setting boot.autostart To Off For Containers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automating-the-snapshot-process" class="md-nav__link">
+    Automating The Snapshot Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automating-the-snapshot-copy-process" class="md-nav__link">
+    Automating The Snapshot Copy Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="creating-a-full-lxd-server">Creating a full LXD Server<a class="headerlink" href="#creating-a-full-lxd-server" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>LXD is best described on the <a href="https://linuxcontainers.org/lxd/introduction/">official website</a>, but think of it as a container system that provides the benefits of virtual servers in a container, or a container on steroids.</p>
+<p>It is very powerful, and with the right hardware and set up, can be leveraged to run a lot of server instances on a single piece of hardware. If you pair that with a snapshot server, you also have a set of containers that you can spin up almost immediately in the event that your primary server goes down.</p>
+<p>(You should not think of this as a traditional backup. You still need a regular backup system of some sort, like <a href="../rsnapshot_backup/">rsnapshot</a>.)</p>
+<p>The learning curve for LXD can be a bit steep, but this document will attempt to give you a wealth of knowledge at your fingertips, to help you deploy and use LXD on Rocky Linux.</p>
+<h2 id="prerequisites-and-assumptions">Prerequisites And Assumptions<a class="headerlink" href="#prerequisites-and-assumptions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>One Rocky Linux server, nicely configured. You should consider a separate hard drive for ZFS disk space (you have to if you are using ZFS) in a production environment. And yes, we are assuming this is a bare metal server, not a VPS.</li>
+<li>This should be considered an advanced topic, but we have tried our best to make it as easy to understand as possible for everyone. That said, knowing a few basic things about container management will take you a long way.</li>
+<li>You should be very comfortable at the command line on your machine(s), and fluent in a command line editor. (We are using <em>vi</em> throughout this example, but you can substitute in your favorite editor.)</li>
+<li>You need to be an unprivileged user for the bulk of the LXD processes. Except where noted, enter LXD commands as your unprivileged user. We are assuming that you are logged in as a user named "lxdadmin" for LXD commands. The bulk of the set up <em>is</em>, done as root until you get past the LXD initialization. We will have you create the "lxdadmin" user later in the process.</li>
+<li>For ZFS, make sure that UEFI secure boot is NOT enabled. Otherwise, you will end up having to sign the ZFS module in order to get it to load.</li>
+<li>We will, for the moment, be using CentOS-based containers, as LXC does not yet have Rocky Linux images. Stay tuned for updates, because this will likely change with time.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This has changed! Feel free to substitute in Rocky Linux containers in the examples below.</p>
+</div>
+<h2 id="part-1-getting-the-environment-ready">Part 1 : Getting The Environment Ready<a class="headerlink" href="#part-1-getting-the-environment-ready" title="Permanent link">&para;</a></h2>
+<p>Throughout "Part 1" you will need to be the root user or you will need to be able to <em>sudo</em> to root.</p>
+<h3 id="install-epel-and-openzfs-repositories"><a name="repos"></a>Install EPEL and OpenZFS Repositories<a class="headerlink" href="#install-epel-and-openzfs-repositories" title="Permanent link">&para;</a></h3>
+<p>LXD requires the EPEL (Extra Packages for Enterprise Linux) repository, which is easy to install using:</p>
+<p><code>dnf install epel-release</code></p>
+<p>Once installed, check for updates:</p>
+<p><code>dnf update</code></p>
+<p>If you're using ZFS, install the OpenZFS repository with:</p>
+<p><code>dnf install https://zfsonlinux.org/epel/zfs-release.el8_3.noarch.rpm</code></p>
+<p>We also need the GPG key, so use this command to get that:</p>
+<p><code>gpg --import --import-options show-only /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux</code></p>
+<p>If there were kernel updates during the update process above, reboot your server</p>
+<h3 id="install-snapd-dkms-and-vim">Install snapd, dkms And vim<a class="headerlink" href="#install-snapd-dkms-and-vim" title="Permanent link">&para;</a></h3>
+<p>LXD must be installed from a snap for Rocky Linux. For this reason, we need to install snapd (and a few other useful programs) with:</p>
+<p><code>dnf install snapd dkms vim</code></p>
+<p>And now enable and start snapd:</p>
+<p><code>systemctl enable snapd</code></p>
+<p>And then run:</p>
+<p><code>systemctl start snapd</code></p>
+<p>Reboot the server before continuing here.</p>
+<h3 id="install-lxd"><a name="pkginstall"></a>Install LXD<a class="headerlink" href="#install-lxd" title="Permanent link">&para;</a></h3>
+<p>Installing LXD requires the use of the snap command. At this point, we are just installing it, we are doing no set up:</p>
+<p><code>sudo snap install lxd</code></p>
+<h3 id="install-openzfs">Install OpenZFS<a class="headerlink" href="#install-openzfs" title="Permanent link">&para;</a></h3>
+<p><code>dnf install kernel-devel zfs</code></p>
+<h3 id="environment-set-up"><a name="envsetup"></a> Environment Set up<a class="headerlink" href="#environment-set-up" title="Permanent link">&para;</a></h3>
+<p>Most server kernel settings are not sufficient to run a large number of containers. If we assume from the beginning that we will be using our server in production, then we need to make these changes up front to avoid errors such as "Too many open files" from occurring.</p>
+<p>Luckily, tweaking the settings for LXD is easy with a few file modifications and a reboot.</p>
+<h4 id="modifying-limitsconf">Modifying limits.conf<a class="headerlink" href="#modifying-limitsconf" title="Permanent link">&para;</a></h4>
+<p>The first file we need to modify is the limits.conf file. This file is self-documented, so look at the explanations in the file as to what this file does. To make our modifications type:</p>
+<p><code>vi /etc/security/limits.conf</code></p>
+<p>This entire file is remarked/commented out and, at the bottom, shows the current default settings. In the blank space above the end of file marker (#End of file) we need to add our custom settings. The end of the file will look like this when you are done:</p>
+<div class="highlight"><pre><span></span><code># Modifications made for LXD
+
+*               soft    nofile           1048576
+*               hard    nofile           1048576
+root            soft    nofile           1048576
+root            hard    nofile           1048576
+*               soft    memlock          unlimited
+*               hard    memlock          unlimited
+</code></pre></div>
+<p>Save your changes and exit. (<code>SHIFT:wq!</code> for <em>vi</em>)</p>
+<h4 id="modifying-sysctlconf-with-90-lxdoverrideconf">Modifying sysctl.conf With 90-lxd.override.conf<a class="headerlink" href="#modifying-sysctlconf-with-90-lxdoverrideconf" title="Permanent link">&para;</a></h4>
+<p>With <em>systemd</em>, we can make changes to our system's overall configuration and kernel options <em>without</em> modifying the main configuration file. Instead, we'll put our settings in a separate file that will simply override the particular settings we need.</p>
+<p>To make these kernel changes, we are going to create a file called <em>90-lxd-override.conf</em> in /etc/sysctl.d. To do this type:</p>
+<p><code>vi /etc/sysctl.d/90-lxd-override.conf</code></p>
+<p>Place the following content in that file. Note that if you are wondering what we are doing here, the file content below is self-documenting:</p>
+<div class="highlight"><pre><span></span><code>## The following changes have been made for LXD ##
+
+# fs.inotify.max_queued_events specifies an upper limit on the number of events that can be queued to the corresponding inotify instance
+ - (default is 16384)
+
+fs.inotify.max_queued_events = 1048576
+
+# fs.inotify.max_user_instances This specifies an upper limit on the number of inotify instances that can be created per real user ID -
+(default value is 128)
+
+fs.inotify.max_user_instances = 1048576
+
+# fs.inotify.max_user_watches specifies an upper limit on the number of watches that can be created per real user ID - (default is 8192)
+
+fs.inotify.max_user_watches = 1048576
+
+# vm.max_map_count contains the maximum number of memory map areas a process may have. Memory map areas are used as a side-effect of cal
+ling malloc, directly by mmap and mprotect, and also when loading shared libraries - (default is 65530)
+
+vm.max_map_count = 262144
+
+# kernel.dmesg_restrict denies container access to the messages in the kernel ring buffer. Please note that this also will deny access t
+o non-root users on the host system - (default is 0)
+
+kernel.dmesg_restrict = 1
+
+# This is the maximum number of entries in ARP table (IPv4). You should increase this if you create over 1024 containers.
+
+net.ipv4.neigh.default.gc_thresh3 = 8192
+
+# This is the maximum number of entries in ARP table (IPv6). You should increase this if you plan to create over 1024 containers.Not nee
+ded if not using IPv6, but...
+
+net.ipv6.neigh.default.gc_thresh3 = 8192
+
+# This is a limit on the size of eBPF JIT allocations which is usually set to PAGE_SIZE * 40000.
+
+net.core.bpf_jit_limit = 3000000000
+
+# This is the maximum number of keys a non-root user can use, should be higher than the number of containers
+
+kernel.keys.maxkeys = 2000
+
+# This is the maximum size of the keyring non-root users can use
+
+kernel.keys.maxbytes = 2000000
+
+# This is the maximum number of concurrent async I/O operations. You might need to increase it further if you have a lot of workloads th
+at use the AIO subsystem (e.g. MySQL)
+
+fs.aio-max-nr = 524288
+</code></pre></div>
+<p>At this point you should reboot the server.</p>
+<h4 id="checking-sysctlconf-values">Checking <em>sysctl.conf</em> Values<a class="headerlink" href="#checking-sysctlconf-values" title="Permanent link">&para;</a></h4>
+<p>Once the reboot has been completed, log back in as to the server. We need to spot check that our override file has actually done the job.</p>
+<p>This is easy to do. There's no need to check every setting unless you want to, but checking a few will verify that the settings have been changed. This is done with the <em>sysctl</em> command:</p>
+<p><code>sysctl net.core.bpf_jit_limit</code></p>
+<p>Which should show you:</p>
+<p><code>net.core.bpf_jit_limit = 3000000000</code></p>
+<p>Do the same with a few other settings in the override file (above) to verify that changes have been made.</p>
+<h3 id="enabling-zfs-and-setting-up-the-pool"><a name="zfssetup"></a>Enabling ZFS And Setting Up The Pool<a class="headerlink" href="#enabling-zfs-and-setting-up-the-pool" title="Permanent link">&para;</a></h3>
+<p>If you have UEFI secure boot turned off, this should be fairly easy.  First, load the ZFS module with modprobe:</p>
+<p><code>/sbin/modprobe zfs</code></p>
+<p>This should not return an error, it should simply return to the command prompt when done. If you get an error, stop now and begin troubleshooting. Again, make sure that secure boot is off as that will be the most likely culprit.</p>
+<p>Next we need to take a look at the disks on our system, determine what has the OS loaded on it, and what is available to use for the ZFS pool. We will do this with <em>lsblk</em>:</p>
+<p><code>lsblk</code></p>
+<p>Which should return something like this (your system will be different!):</p>
+<div class="highlight"><pre><span></span><code>AME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+loop0    7:0    0  32.3M  1 loop /var/lib/snapd/snap/snapd/11588
+loop1    7:1    0  55.5M  1 loop /var/lib/snapd/snap/core18/1997
+loop2    7:2    0  68.8M  1 loop /var/lib/snapd/snap/lxd/20037
+sda      8:0    0 119.2G  0 disk
+├─sda1   8:1    0   600M  0 part /boot/efi
+├─sda2   8:2    0     1G  0 part /boot
+├─sda3   8:3    0  11.9G  0 part [SWAP]
+├─sda4   8:4    0     2G  0 part /home
+└─sda5   8:5    0 103.7G  0 part /
+sdb      8:16   0 119.2G  0 disk
+├─sdb1   8:17   0 119.2G  0 part
+└─sdb9   8:25   0     8M  0 part
+sdc      8:32   0 149.1G  0 disk
+└─sdc1   8:33   0 149.1G  0 part
+</code></pre></div>
+<p>In this listing, we can see that <em>/dev/sda</em> is in use by the operating system, so we are going to use <em>/dev/sdb</em> for our zpool. Note that if you have multiple free hard drives, you may wish to consider using raidz (a software raid specifically for ZFS).</p>
+<p>That falls outside the scope of this document, but should definitely be a consideration for production, as it offers better performance and redundancy. For now, let's create our pool on the single device we have identified:</p>
+<p><code>zpool create storage /dev/sdb</code></p>
+<p>What this says is to create a pool called "storage" that is ZFS on the device <em>/dev/sdb</em>.</p>
+<p>Once the pool is created, it's a good idea to reboot the server again at this point.</p>
+<h3 id="lxd-initialization"><a name="lxdinit"></a>LXD Initialization<a class="headerlink" href="#lxd-initialization" title="Permanent link">&para;</a></h3>
+<p>Now that the environment is all set up, we are ready to initialize LXD. This is an automated script that asks a series of questions to get your LXD instance up and running:</p>
+<p><code>lxd init</code></p>
+<p>Here are the questions and our answers for the script, with a little explanation where warranted:</p>
+<p><code>Would you like to use LXD clustering? (yes/no) [default=no]:</code></p>
+<p>If you are interested in clustering, do some additional research on that <a href="https://lxd.readthedocs.io/en/latest/clustering/">here</a></p>
+<p><code>Do you want to configure a new storage pool? (yes/no) [default=yes]:</code></p>
+<p>This may seem counter-intuitive, since we have already created our ZFS pool, but it will be resolved in a later question. Accept the default.</p>
+<p><code>Name of the new storage pool [default=default]: storage</code></p>
+<p>You could leave this as default if you wanted to, but we have chosen to use the same name we gave our ZFS pool.</p>
+<p><code>Name of the storage backend to use (btrfs, dir, lvm, zfs, ceph) [default=zfs]:</code></p>
+<p>Obviously we want to accept the default.</p>
+<p><code>Create a new ZFS pool? (yes/no) [default=yes]: no</code></p>
+<p>Here's where the earlier question about creating a storage pool is resolved.</p>
+<p><code>Name of the existing ZFS pool or dataset: storage</code></p>
+<p><code>Would you like to connect to a MAAS server? (yes/no) [default=no]:</code></p>
+<p>Metal As A Service (MAAS) is outside the scope of this document.</p>
+<p><code>Would you like to create a new local network bridge? (yes/no) [default=yes]:</code></p>
+<p><code>What should the new bridge be called? [default=lxdbr0]:</code></p>
+<p><code>What IPv4 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]:</code></p>
+<p><code>What IPv6 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]: none</code></p>
+<p>If you want to use IPv6 on your LXD containers, you can turn on this option. That is up to you.</p>
+<p><code>Would you like the LXD server to be available over the network? (yes/no) [default=no]: yes</code></p>
+<p>This is necessary to snapshot the server, so answer "yes" here.</p>
+<p><code>Address to bind LXD to (not including port) [default=all]:</code></p>
+<p><code>Port to bind LXD to [default=8443]:</code></p>
+<p><code>Trust password for new clients:</code></p>
+<p><code>Again:</code></p>
+<p>This trust password is how you will connect to the snapshot server or back from the snapshot server, so set this with something that makes sense in your environment. Save this entry to a secure location, such as a password manager.</p>
+<p><code>Would you like stale cached images to be updated automatically? (yes/no) [default=yes]</code></p>
+<p><code>Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]:</code></p>
+<h4 id="setting-up-user-privileges">Setting Up User Privileges<a class="headerlink" href="#setting-up-user-privileges" title="Permanent link">&para;</a></h4>
+<p>Before we continue on, we need to create our "lxdadmin" user and make sure that it has the privileges it needs. We need the "lxdadmin" user to be able to <em>sudo</em> to root and we need it to be a member of the lxd group. To add the user and make sure it is a member of both groups do:</p>
+<p><code>useradd -G wheel,lxd lxdadmin</code></p>
+<p>Then set the password:</p>
+<p><code>passwd lxdadmin</code></p>
+<p>As with the other passwords, save this to a secure location.</p>
+<h3 id="firewall-set-up"><a name="firewallsetup"></a>Firewall Set Up<a class="headerlink" href="#firewall-set-up" title="Permanent link">&para;</a></h3>
+<p>Before continuing, you will want a firewall set up on your server. This example is using <em>iptables</em> and <a href="../enabling_iptables_firewall/">this procedure</a> to disable <em>firewalld</em>. If you prefer to use <em>firewalld</em>, simply substitute in <em>firewalld</em> rules.</p>
+<p>Create your firewall.conf script:</p>
+<p><code>vi /etc/firewall.conf</code></p>
+<p>We are assuming an LXD server on a LAN network of 192.168.1.0/24 below. Note, too, that we are accepting all traffic from our bridged interface. This is important if you want your containers to get IP addresses from the bridge.</p>
+<p>This firewall script makes no other assumptions about the network services needed. There is an SSH rule to allow our LAN network IP's to SSH into the server. You can very easily have many more rules needed here, depending on your environment. Later, we will be adding a rule for bi-directional traffic between our production server and the snapshot server.</p>
+<div class="highlight"><pre><span></span><code>#!/bin/sh
+#
+#IPTABLES=/usr/sbin/iptables
+
+#  Unless specified, the defaults for OUTPUT is ACCEPT
+#    The default for FORWARD and INPUT is DROP
+#
+echo &quot;   clearing any existing rules and setting default policy..&quot;
+iptables -F INPUT
+iptables -P INPUT DROP
+iptables -A INPUT -i lxdbr0 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp -s 192.168.1.0/24 --dport 22 -j ACCEPT
+# dns rules
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp -j REJECT --reject-with tcp-reset
+iptables -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+
+/usr/sbin/service iptables save
+</code></pre></div>
+<p>This completes Part 1. You can either continue on to Part 2, or return to the <a href="#menu">menu</a>. If you are working on the snapshot server, you can head down to <a href="#part5">Part 5</a> now.</p>
+<h2 id="part-2-setting-up-and-managing-images"><a name="part2"></a>Part 2 : Setting Up And Managing Images<a class="headerlink" href="#part-2-setting-up-and-managing-images" title="Permanent link">&para;</a></h2>
+<p>Throughout Part 2, and from here on out unless otherwise noted, you will be running commands as your unprivileged user. ("lxdadmin" if you are following along with this document).</p>
+<h3 id="list-available-images"><a name="listimages"></a>List Available Images<a class="headerlink" href="#list-available-images" title="Permanent link">&para;</a></h3>
+<p>Once you have your server environment set up, you'll probably be itching to get started with a container. There are a <em>lot</em> of container OS possibilities. To get a feel for how many possibilities, enter this command:</p>
+<p><code>lxc image list images: | more</code></p>
+<p>Hit the space bar to page through the list. This list of containers and virtual machines continues to grow. For now, we are sticking with containers.</p>
+<p>The last thing you want to do is to page through looking for a container image to install, particularly if you know the image that you want to create. Let's modify the command above to show only CentOS Linux install options:</p>
+<p><code>lxc image list images: | grep centos/8</code></p>
+<p>This brings up a much more manageable list:</p>
+<div class="highlight"><pre><span></span><code>| centos/8 (3 more)                    | 98b4dbef0c29 | yes    | Centos 8 amd64 (20210427_07:08)              | x86_64       | VIRTUAL-MACHINE | 517.44MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8 (3 more)                    | 0427669ebee4 | yes    | Centos 8 amd64 (20210427_07:08)              | x86_64       | CONTAINER       | 125.58MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream (3 more)             | 961170f8934f | yes    | Centos 8-Stream amd64 (20210427_07:08)       | x86_64       | VIRTUAL-MACHINE | 586.44MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream (3 more)             | e507fdc8935a | yes    | Centos 8-Stream amd64 (20210427_07:08)       | x86_64       | CONTAINER       | 130.33MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream/arm64 (1 more)       | e5bf98409ac6 | yes    | Centos 8-Stream arm64 (20210427_10:33)       | aarch64      | CONTAINER       | 126.56MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream/cloud (1 more)       | 5751ca14bf8f | yes    | Centos 8-Stream amd64 (20210427_07:08)       | x86_64       | CONTAINER       | 144.75MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream/cloud (1 more)       | ccf0bb20b0ca | yes    | Centos 8-Stream amd64 (20210427_07:08)       | x86_64       | VIRTUAL-MACHINE | 593.31MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream/cloud/arm64          | db3d915d12fd | yes    | Centos 8-Stream arm64 (20210427_07:08)       | aarch64      | CONTAINER       | 140.60MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream/cloud/ppc64el        | 11aa2ab878b2 | yes    | Centos 8-Stream ppc64el (20210427_07:08)     | ppc64le      | CONTAINER       | 149.45MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8-Stream/ppc64el (1 more)     | a27665203e47 | yes    | Centos 8-Stream ppc64el (20210427_07:08)     | ppc64le      | CONTAINER       | 134.52MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8/arm64 (1 more)              | d64396d47fa7 | yes    | Centos 8 arm64 (20210427_07:08)              | aarch64      | CONTAINER       | 121.83MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8/cloud (1 more)              | 84803ca6e32d | yes    | Centos 8 amd64 (20210427_07:08)              | x86_64       | CONTAINER       | 140.42MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8/cloud (1 more)              | c98196cd9eec | yes    | Centos 8 amd64 (20210427_07:08)              | x86_64       | VIRTUAL-MACHINE | 536.00MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8/cloud/arm64                 | 9d06684a9a4e | yes    | Centos 8 arm64 (20210427_10:33)              | aarch64      | CONTAINER       | 136.49MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8/cloud/ppc64el               | 18c13c448349 | yes    | Centos 8 ppc64el (20210427_07:08)            | ppc64le      | CONTAINER       | 144.66MB  | Apr 27, 2021 at 12:00am (UTC) |
+| centos/8/ppc64el (1 more)            | 130c1c83c36c | yes    | Centos 8 ppc64el (20210427_07:08)            | ppc64le      | CONTAINER       | 129.53MB  | Apr 27, 2021 at 12:00am (UTC) |
+</code></pre></div>
+<h3 id="installing-renaming-and-listing-images"><a name="lxdimageinstall"></a>Installing, Renaming, And Listing Images<a class="headerlink" href="#installing-renaming-and-listing-images" title="Permanent link">&para;</a></h3>
+<p>For the first container, we are going to choose centos/8. To install it, we <em>could</em> use:</p>
+<p><code>lxc launch images:centos/8 centos-test</code></p>
+<p>That will create a CentOS-based containter named "centos-test". You can rename a container after it has been created, but you first need to stop the container, which starts automatically when it is launched.</p>
+<p>To start the container manually, use:</p>
+<p><code>lxc start centos-test</code></p>
+<p>For the purposes of this guide, go ahead and install one more image for now:</p>
+<p><code>lxc launch images:ubuntu/20.10 ubuntu-test</code></p>
+<p>Now let's take a look at what we have so far by listing our images:</p>
+<p><code>lxc list</code></p>
+<p>which should return something like this:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+-----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4          | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+-----------------------+------+-----------+-----------+
+| centos-test | RUNNING | 10.199.182.72 (eth0)  |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 10.199.182.236 (eth0) |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+</code></pre></div>
+<h3 id="lxd-profiles"><a name="profiles"></a>LXD Profiles<a class="headerlink" href="#lxd-profiles" title="Permanent link">&para;</a></h3>
+<p>You get a default profile when you install LXD, and this profile cannot be removed or modified. That said, you can use the default profile to create new profiles to use with your containers.</p>
+<p>If you look at our container listing (above) you will notice that the IP address in each case is assigned from the bridged interface. In a production environment, you may want to use something else. This might be a DHCP assigned address from your LAN interface or even a statically assigned address from your WAN.</p>
+<p>If you configure your LXD server with two interfaces, and assign each an IP on your WAN and LAN, then it is possible to assign your containers IP addresses based on which interface the container needs to be facing.</p>
+<p>As of version 8 of Rocky Linux (and really any bug for bug copy of Red Hat Enterprise Linux, such as CentOS in our listing above) the method for assigning IP addresses statically or dynamically using the profiles below, is broken out of the gate.</p>
+<p>There are ways to get around this, but it is annoying, as the feature that is broken <em>should be</em> part of the Linux kernel. That feature is macvlan. Macvlan allows you to create multiple interfaces with different Layer 2 addresses.</p>
+<p>For now, just be aware that what we are going to suggest next has drawbacks when choosing container images based on RHEL.</p>
+<h4 id="creating-a-macvlan-profile-and-assigning-it"><a name="macvlan"></a>Creating A macvlan Profile And Assigning It<a class="headerlink" href="#creating-a-macvlan-profile-and-assigning-it" title="Permanent link">&para;</a></h4>
+<p>To create our macvlan profile, simply use this command:</p>
+<p><code>lxc profile create macvlan</code></p>
+<p>Keep in mind that if we were on a multi-interface machine and wanted more than one macvlan template based on which network we wanted to reach, we could use "lanmacvlan" or "wanmacvlan" or any other name that we wanted to use to identify the profile. In other words, using "macvlan" in our profile create statement is totally up to you.</p>
+<p>Once the profile is created, we now need to modify it to do what we want. First, we need to make sure that the server's default editor is what we want to use. If we don't do this step, the editor will be whatever the default editor is. We are choosing <em>vim</em> for our editor here:</p>
+<p><code>export EDITOR=/usr/bin/vim</code></p>
+<p>Now we want to modify the macvlan interface, but before we do, we need to know what the parent interface is for our LXD server. This will be the interface that has a LAN (in this case) assigned IP. To determine which interface that is, use:</p>
+<p><code>ip addr</code></p>
+<p>And then look for the interface with the LAN IP assignment in the 192.168.1.0/24 network:</p>
+<div class="highlight"><pre><span></span><code>2: enp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 40:16:7e:a9:94:85 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.106/24 brd 192.168.1.255 scope global dynamic noprefixroute enp3s0
+       valid_lft 4040sec preferred_lft 4040sec
+    inet6 fe80::a308:acfb:fcb3:878f/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+</code></pre></div>
+<p>So in this case, the interface would be "enp3s0".</p>
+<p>Now let's modify the profile:</p>
+<p><code>lxc profile edit macvlan</code></p>
+<p>This file will be self-documented at the top. What we need to do is modify the file as follows below the commented section:</p>
+<div class="highlight"><pre><span></span><code>config: {}
+description: &quot;&quot;
+devices:
+  eth0:
+   name: eth0
+   nictype: macvlan
+   parent: enp3s0
+   type: nic
+name: macvlan
+used_by: []
+</code></pre></div>
+<p>Obviously, you can use profiles for lots of other things, but assigning a static IP to a container, or using your own DHCP server as a source for an address are very common needs.</p>
+<p>To assign the macvlan profile to centos-test we need to do the following:</p>
+<p><code>lxc profile assign centos-test default,macvlan</code></p>
+<p>This simply says, we want the default profile, and then we want to apply the macvlan profile as well.</p>
+<h4 id="centos-macvlan"><a name="centosmacvlan"></a> CentOS macvlan<a class="headerlink" href="#centos-macvlan" title="Permanent link">&para;</a></h4>
+<p>In the CentOS implementation of Network Manager, they have managed to break the functionality of macvlan in the kernel, or at least in the kernel applied to their LXD image. This has been this way since CentOS 8 was released and no one appears to be at all concerned about a fix.</p>
+<p>Simply put, if you want to run CentOS 8 containers (or any other RHEL 1-for-1 release, such as Rocky Linux), you've got to jump through some additional hoops to get macvlan to work. macvlan is part of the kernel, so it should work without the below fixes, but it doesn't.</p>
+<h5 id="centos-macvlan-the-dhcp-fix">CentOS macvlan - The DHCP Fix<a class="headerlink" href="#centos-macvlan-the-dhcp-fix" title="Permanent link">&para;</a></h5>
+<p>Having the profile assigned, however, doesn't change the default configuration, which is set to DHCP by default.</p>
+<p>To test this, simply do the following:</p>
+<p><code>lxc stop centos-test</code></p>
+<p>And then:</p>
+<p><code>lxc start centos-test</code></p>
+<p>Now list your containers again and note that centos-test does not have an IP address anymore:</p>
+<p><code>lxc list</code></p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+-----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4          | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+-----------------------+------+-----------+-----------+
+| centos-test | RUNNING |                       |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 10.199.182.236 (eth0) |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+</code></pre></div>
+<p>To further demonstrate the problem here, we need to execute <code>dhclient</code> on the container. You can do this with:</p>
+<p><code>lxc exec centos-test dhclient</code></p>
+<p>A new listing using <code>lxc list</code> now shows the following:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+-----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4          | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+-----------------------+------+-----------+-----------+
+| centos-test | RUNNING | 192.168.1.138 (eth0)  |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 10.199.182.236 (eth0) |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+</code></pre></div>
+<p>That should have happened with a simple stop and start of the container, but it does not. Assuming that we want to use a DHCP assigned IP address every time, then we can fix this with a simple crontab entry. To do this, we need to gain shell access to the container by entering:</p>
+<p><code>lxc exec centos-test bash</code></p>
+<p>Next, lets determine the complete path to <code>dhclient</code>:</p>
+<p><code>which dhclient</code></p>
+<p>which should return:</p>
+<p><code>/usr/sbin/dhclient</code></p>
+<p>Next, let's modify root's crontab:</p>
+<p><code>crontab -e</code></p>
+<p>And add this line:</p>
+<p><code>@reboot    /usr/sbin/dhclient</code></p>
+<p>The crontab command entered above, uses <em>vi</em> so to save your changes and exit simply use:</p>
+<p><code>SHIFT:wq!</code></p>
+<p>Now exit the container and stop centos-test:</p>
+<p><code>lxc stop centos-test</code></p>
+<p>and then start it again:</p>
+<p><code>lxc start centos-test</code></p>
+<p>A new listing will reveal that the container has been assigned the DHCP address:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+-----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4          | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+-----------------------+------+-----------+-----------+
+| centos-test | RUNNING | 192.168.1.138 (eth0)  |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 10.199.182.236 (eth0) |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+</code></pre></div>
+<h5 id="centos-macvlan-the-static-ip-fix">CentOS macvlan - The Static IP Fix<a class="headerlink" href="#centos-macvlan-the-static-ip-fix" title="Permanent link">&para;</a></h5>
+<p>To statically assign an IP address, things get even more convoluted. The process of setting a static IP address on a CentOS container is through the network-scripts, which we will do now. The IP we will attempt to assign is 192.168.1.200.</p>
+<p>To do this, we need to gain shell access to the container again:</p>
+<p><code>lxc exec centos-test bash</code></p>
+<p>The next thing we need to do is to manually modify the interface labelled "eth0", and set our IP address. To modify our configuration, do the following:</p>
+<p><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code></p>
+<p>Which will return this:</p>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+BOOTPROTO=dhcp
+ONBOOT=yes
+HOSTNAME=centos-test
+TYPE=Ethernet
+MTU=
+DHCP_HOSTNAME=centos-test
+IPV6INIT=yes
+</code></pre></div>
+<p>We need to modify this file so that it looks like this:</p>
+<div class="highlight"><pre><span></span><code>DEVICE=eth0
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.1.200
+PREFIX=24
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=8.8.4.4
+HOSTNAME=centos-test
+TYPE=Ethernet
+MTU=
+DHCP_HOSTNAME=centos-test
+IPV6INIT=yes
+</code></pre></div>
+<p>This says we want to set the boot protocol to none (used for static IP assignments), set the IP address to 192.168.1.200, that this address is part of a CLASS C (PREFIX=24) address, that the gateway for this network is 192.168.1.1 and then that we want to use Google's open DNS servers for name resolution.</p>
+<p>Save your file (<code>SHIFT:wq!</code>).</p>
+<p>We also need to remove our crontab for root, as this isn't what we want for a static IP. To do this, simply <code>crontab -e</code> and remark out the @reboot line with a "#", save your changes and exit the container.</p>
+<p>Stop the container with:</p>
+<p><code>lxc stop centos-test</code></p>
+<p>and start it again:</p>
+<p><code>lxc start centos-test</code></p>
+<p>Just like our DHCP assigned address, the statically assigned address will not be assigned when we list the container:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+-----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4          | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+-----------------------+------+-----------+-----------+
+| centos-test | RUNNING |                       |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 10.199.182.236 (eth0) |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+</code></pre></div>
+<p>To fix this requires breaking Network Manager on the container. The following works-at least for now:</p>
+<p><code>lxc exec centos-test dhclient</code></p>
+<p>Then get into the container:</p>
+<p><code>lxc exec centos-test bash</code></p>
+<p>Install the old network scripts:</p>
+<p><code>dnf install network-scripts</code></p>
+<p>Nuke Network Manager:</p>
+<p><code>systemctl stop NetworkManager</code>
+<code>systemctl disable NetworkManager</code></p>
+<p>Enable the old Network service:</p>
+<p><code>systemctl enable network.service</code></p>
+<p>Exit the container and then stop and start the container again:</p>
+<p><code>lxc stop centos-test</code></p>
+<p>And then run:</p>
+<p><code>lxc start centos-test</code></p>
+<p>When the container starts, a new listing will show the correct statically assigned IP:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+-----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4          | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+-----------------------+------+-----------+-----------+
+| centos-test | RUNNING | 192.168.1.200 (eth0)  |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 10.199.182.236 (eth0) |      | CONTAINER | 0         |
++-------------+---------+-----------------------+------+-----------+-----------+
+</code></pre></div>
+<p>The issue with macvlan shown in both of these examples is directly related to containers based on Red Hat Enterprise Linux (Centos 8, Rocky Linux 8).</p>
+<h4 id="ubuntu-macvlan"><a name="ubuntumacvlan"></a>Ubuntu macvlan<a class="headerlink" href="#ubuntu-macvlan" title="Permanent link">&para;</a></h4>
+<p>Luckily, In Ubuntu's implementation of Network Manager, the macvlan stack is NOT broken, so it is much easier to deploy!</p>
+<p>First, just like with our centos-test container, we need to assign the template to our container:</p>
+<p><code>lxc profile assign ubuntu-test default,macvlan</code></p>
+<p>That should be all that is necessary to get a DHCP assigned address. To find out, stop and then start the container again:</p>
+<p><code>lxc stop ubuntu-test</code></p>
+<p>And then run:</p>
+<p><code>lxc start ubuntu-test</code></p>
+<p>Then list the containers again:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+----------------------+------+-----------+-----------+
+| centos-test | RUNNING | 192.168.1.200 (eth0) |      | CONTAINER | 0         |
++-------------+---------+----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 192.168.1.139 (eth0) |      | CONTAINER | 0         |
++-------------+---------+----------------------+------+-----------+-----------+
+</code></pre></div>
+<p>Success!</p>
+<p>Configuring the Static IP is just a little different, but not at all hard. We need to modify the .yaml file associated with the container's connection (/10-lxc.yaml). For this static IP, we will use 192.168.1.201:</p>
+<p><code>vi /etc/netplan/10-lxc.yaml</code></p>
+<p>And change what is there to the following:</p>
+<div class="highlight"><pre><span></span><code>network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses: [192.168.1.201/24]
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8,8.8.4.4]
+</code></pre></div>
+<p>Save your changes (<code>SHFT:wq!</code>) and exit the container.</p>
+<p>Now stop and start the container:</p>
+<p><code>lxc stop ubuntu-test</code></p>
+<p>And then run:</p>
+<p><code>lxc start ubuntu-test</code></p>
+<p>When you list your containers again, you should see our new static IP:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+----------------------+------+-----------+-----------+
+|    NAME     |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+----------------------+------+-----------+-----------+
+| centos-test | RUNNING | 192.168.1.200 (eth0) |      | CONTAINER | 0         |
++-------------+---------+----------------------+------+-----------+-----------+
+| ubuntu-test | RUNNING | 192.168.1.201 (eth0) |      | CONTAINER | 0         |
++-------------+---------+----------------------+------+-----------+-----------+
+</code></pre></div>
+<p>Success!</p>
+<p>In the examples used in Part 2, we have intentionally chosen a hard container to configure, and an easy one. There are obviously many more versions of Linux available in the image listing. If you have a favorite, try installing it, assigning the macvlan template, and setting IP's.</p>
+<p>This completes Part 2. You can either continue on to Part 3, or return to the <a href="#menu">menu</a>.</p>
+<h2 id="part-3-container-configuration-options">Part 3 : Container Configuration Options<a class="headerlink" href="#part-3-container-configuration-options" title="Permanent link">&para;</a></h2>
+<p>There are a wealth of options for configuring the container once you have it installed. Before we get into how to see those, however, let's take a look at the info command for a container. In this example, we will use the ubuntu-test container:</p>
+<p><code>lxc info ubuntu-test</code></p>
+<p>This shows something like the following:</p>
+<div class="highlight"><pre><span></span><code>Name: ubuntu-test
+Location: none
+Remote: unix://
+Architecture: x86_64
+Created: 2021/04/26 15:14 UTC
+Status: Running
+Type: container
+Profiles: default, macvlan
+Pid: 584710
+Ips:
+  eth0:    inet    192.168.1.201    enp3s0
+  eth0:    inet6    fe80::216:3eff:fe10:6d6d    enp3s0
+  lo:    inet    127.0.0.1
+  lo:    inet6    ::1
+Resources:
+  Processes: 13
+  Disk usage:
+    root: 85.30MB
+  CPU usage:
+    CPU usage (in seconds): 1
+  Memory usage:
+    Memory (current): 99.16MB
+    Memory (peak): 110.90MB
+  Network usage:
+    eth0:
+      Bytes received: 53.56kB
+      Bytes sent: 2.66kB
+      Packets received: 876
+      Packets sent: 36
+    lo:
+      Bytes received: 0B
+      Bytes sent: 0B
+      Packets received: 0
+      Packets sent: 0
+</code></pre></div>
+<p>There's a lot of good information there, from the profiles applied, to the memory in use, disk space in use, and more.</p>
+<h4 id="a-word-about-configuration-and-some-options"><a name="lxdconfigopt"></a>A Word About Configuration And Some Options<a class="headerlink" href="#a-word-about-configuration-and-some-options" title="Permanent link">&para;</a></h4>
+<p>By default, LXD will allocate the required system memory, disk space, CPU cores, etc., to the container. But what if we want to be more specific? That is totally possible.</p>
+<p>There are trade-offs to doing this, though. For instance, if we allocate system memory and the container doesn't actually use it all, then we have kept it from another container that might actually need it. The reverse, though, can happen. If a container is a complete pig on memory, then it can keep other containers from getting enough, thereby pinching their performance.</p>
+<p>Just keep in mind that every action you make to configure a container <em>can</em> have negative effects somewhere else.</p>
+<p>Rather than run through all of the options for configuration, use the tab auto-complete to see the options available:</p>
+<p><code>lxc config set ubuntu-test</code> and then hit TAB.</p>
+<p>This shows you all of the options for configuring a container. If you have questions about what one of the configuration options does, head up to the <a href="https://lxd.readthedocs.io/en/stable-4.0/instances/">official documentation for LXD</a> and do a search for the configuration parameter, or Google the entire string, such as "lxc config set limits.memory" and take a look at the results of the search.</p>
+<p>We will look at a few of the most used configuration options. For example, if you want to set the max amount of memory that a container can use:</p>
+<p><code>lxc config set ubunt-test limits.memory 2GB</code></p>
+<p>That says that as long as the memory is available to use, in other words there is 2GB of memory free, then the container can actually use more than 2GB if it's available. It's a soft limit, in other words.</p>
+<p><code>lxc config set ubuntu-test limits.memory.enforce 2GB</code></p>
+<p>That says that the container can never use more than 2GB of memory, whether it's currently available or not. In this case it's a hard limit.</p>
+<p><code>lxc config set ubuntu-test limits.cpu 2</code></p>
+<p>That says to limit the number of cpu cores that the container can use to 2.</p>
+<p>Remember when we set up our storage pool in the <a href="#zfssetup">Enabling zfs And Setting Up The Pool</a> above?  We named the pool "storage," but we could have named it anything. If we want to look at this, we can use this command:</p>
+<p><code>lxc storage show storage</code></p>
+<p>This shows the following:</p>
+<div class="highlight"><pre><span></span><code>config:
+  source: storage
+  volatile.initial_source: storage
+  zfs.pool_name: storage
+description: &quot;&quot;
+name: storage
+driver: zfs
+used_by:
+- /1.0/images/0cc65b6ca6ab61b7bc025e63ca299f912bf8341a546feb8c2f0fe4e83843f221
+- /1.0/images/4f0019aee1515c109746d7da9aca6fb6203b72f252e3ee3e43d50b942cdeb411
+- /1.0/images/9954953f2f5bf4047259bf20b9b4f47f64a2c92732dbc91de2be236f416c6e52
+- /1.0/instances/centos-test
+- /1.0/instances/ubuntu-test
+- /1.0/profiles/default
+status: Created
+locations:
+- none
+</code></pre></div>
+<p>This shows that all of our containers are using our zfs storage pool. When using ZFS, you can also set a disk quota on a container. Let's do this by setting a 2GB disk quota on the ubuntu-test container. You do this with:</p>
+<p><code>lxc config device override ubuntu-test root size=2GB</code></p>
+<p>As stated earlier, you should use configuration options sparingly, unless you've got a container that wants to use way more than its share of resources. LXD, for the most part, will manage the environment well on its own.</p>
+<p>There are, of course, many more options that may be of interest to some people. You should do your own research to find out if any of those are of value in your environment.</p>
+<p>This completes Part 3. You can either continue on to Part 4, or return to the <a href="#menu">menu</a>.</p>
+<h2 id="part-4-container-snapshots">Part 4: Container Snapshots<a class="headerlink" href="#part-4-container-snapshots" title="Permanent link">&para;</a></h2>
+<p>Container snapshots, along with a snapshot server (which we will get to more later), are probably the most important aspect of running a production LXD server. Snapshots ensure quick recovery, and can be used for safety when you are, say, updating the primary software that runs on a particular container. If something happens during the update that breaks that application, you simply restore the snapshot and you are back up and running with only a few seconds worth of downtime.</p>
+<p>The author used LXD containers for PowerDNS public facing servers, and the process of updating those applications became so much more worry-free, since you can snapshot the container first before continuing.</p>
+<p>You can even snapshot a container while it is running. We'll start by getting a snapshot of the ubuntu-test container by using this command:</p>
+<p><code>lxc snapshot ubuntu-test ubuntu-test-1</code></p>
+<p>Here, we are calling the snapshot "ubuntu-test-1", but it can be called anything you like. To make sure that you have the snapshot, do an "lxc info" of the container:</p>
+<p><code>lxc info ubuntu-test</code></p>
+<p>We've looked at an info screen already, so if you scroll to the bottom, you should see:</p>
+<div class="highlight"><pre><span></span><code>Snapshots:
+  ubuntu-test-1 (taken at 2021/04/29 15:57 UTC) (stateless)
+</code></pre></div>
+<p>Success! Our snapshot is in place.</p>
+<p>Now, get into the ubuntu-test container:</p>
+<p><code>lxc exec ubuntu-test bash</code></p>
+<p>And create an empty file with the <em>touch</em> command:</p>
+<p><code>touch this_file.txt</code></p>
+<p>Now exit the container.</p>
+<p>Before we restore the container as it was prior to creating the file, the safest way to restore a container, particularly if there have been a lot of changes, is to stop it first:</p>
+<p><code>lxc stop ubuntu-test</code></p>
+<p>Then restore it:</p>
+<p><code>lxc restore ubuntu-test ubuntu-test-1</code></p>
+<p>Then start the container again:</p>
+<p><code>lxc start ubuntu-test</code></p>
+<p>If you get back into the container again and look, our "this_file.txt" that we created is now gone.</p>
+<p>Once you don't need a snapshot anymore, you can delete it:</p>
+<p><code>lxc delete ubuntu-test/ubuntu-test-1</code></p>
+<p><strong>Important:</strong> You should always delete snapshots with the container running. Why? Well the <em>lxc delete</em> command also works to delete the entire container. If we had accidentally hit enter after "ubuntu-test" in the command above, AND, if the container was stopped, the container would be deleted. No warning is given, it simply does what you ask.</p>
+<p>If the container is running, however, you will get this message:</p>
+<p><code>Error: The instance is currently running, stop it first or pass --force</code></p>
+<p>So always delete snapshots with the container running.</p>
+<p>The process of creating snapshots automatically, setting expiration of the snapshot so that it goes away after a certain length of time, and auto refreshing the snapshots to the snapshot server will be covered in detail in the section dealing with the snapshot server.</p>
+<p>This completes Part 4. You can either continue on to Part 5, or return to the <a href="#menu">menu</a>.</p>
+<h2 id="part-5-the-snapshot-server">Part 5: The Snapshot Server<a class="headerlink" href="#part-5-the-snapshot-server" title="Permanent link">&para;</a></h2>
+<p>As noted at the beginning, the snapshot server for LXD should be a mirror of the production server in every way possible. The reason is that you may need to take it to production in the event of a hardware failure, and having not only backups, but a quick way to bring up production containers, keeps those systems administrator panic phone calls and text messages to a minimum. THAT is ALWAYS good!</p>
+<p>So the process of building the snapshot server is exactly like the production server. To fully emulate our production server set up, do all of <a href="#part1">Part 1</a> again, and when completed, return to this spot.</p>
+<p>You're back!! Congratulations, this must mean that you have successfully completed Part 1 for the snapshot server. That's great news!!</p>
+<h3 id="setting-up-the-primary-and-snapshot-server-relationship">Setting Up The Primary and Snapshot Server Relationship<a class="headerlink" href="#setting-up-the-primary-and-snapshot-server-relationship" title="Permanent link">&para;</a></h3>
+<p>We've got some housekeeping to do before we continue. First, if you are running in a production environment, you probably have access to a DNS server that you can use for setting up IP to name resolution.</p>
+<p>In our lab, we don't have that luxury. Perhaps you've got the same scenario running. For this reason, we are going to add both servers IP addresses and names to the /etc/hosts file on BOTH the primary and the snapshot server. You'll need to do this as your root (or <em>sudo</em>) user.</p>
+<p>In our lab, the primary LXD server is running on 192.168.1.106 and the snapshot LXD server is running on 192.168.1.141. We will SSH into both servers and add the following to the /etc/hosts file:</p>
+<p><div class="highlight"><pre><span></span><code>192.168.1.106 lxd-primary
+192.168.1.141 lxd-snapshot
+</code></pre></div>
+Next, we need to allow all traffic between the two servers. To do this, we are going to modify the /etc/firewall.conf file with the following. First, on the lxd-primary server, add this line:</p>
+<p><code>IPTABLES -A INPUT -s 192.168.1.141 -j ACCEPT</code></p>
+<p>And on the lxd-snapshot server, add this line:</p>
+<p><code>IPTABLES -A INPUT -s 192.168.1.106 -j ACCEPT</code></p>
+<p>This allows bi-directional traffic of all types to travel between the two servers.</p>
+<p>Next, as the "lxdadmin" user, we need to set the trust relationship between the two machines. This is done by executing the following on lxd-primary:</p>
+<p><code>lxc remote add lxd-snapshot</code></p>
+<p>This will display the certificate to accept, so do that, and then it will prompt for your password. This is the "trust password" that you set up when doing the <a href="#lxdinit">LXD initialization</a> step. Hopefully, you are securely keeping track of all of these passwords. Once you enter the password, you should receive this:</p>
+<p><code>Client certificate stored at server:  lxd-snapshot</code></p>
+<p>It does not hurt to have this done in reverse as well. In other words, set the trust relationship on the lxd-snapshot server so that, if needed, snapshots can be sent back to the lxd-primary server. Simply repeat the steps and substitute in "lxd-primary" for "lxd-snapshot."</p>
+<h3 id="migrating-our-first-snapshot">Migrating Our First Snapshot<a class="headerlink" href="#migrating-our-first-snapshot" title="Permanent link">&para;</a></h3>
+<p>Before we can migrate our first snapshot, we need to have any profiles created on lxd-snapshot that we have created on the lxd-primary. In our case, this is the "macvlan" profile.</p>
+<p>You'll need to create this for lxd-snapshot, so go back to <a href="#profiles">LXD Profiles</a> and create the "macvlan" profile on lxd-snapshot. If your two servers have identical parent interface names ("enp3s0" for example) then you can copy the "macvlan" profile over to lxd-snapshot without recreating it:</p>
+<p><code>lxc profile copy macvlan lxd-snapshot</code></p>
+<p>Now that we have all of the relationships and profiles set up, the next step is to actually send a snapshot from lxd-primary over to lxd-snapshot. If you've been following along exactly, you've probably deleted all of your snapshots, so let's create a new one:</p>
+<p><code>lxc snapshot centos-test centos-snap1</code></p>
+<p>If you run the "info" sub-command for lxc, you can see the new snapshot on the bottom of our listing:</p>
+<p><code>lxc info centos-test</code></p>
+<p>Which will show something like this at the bottom:</p>
+<p><code>centos-snap1 (taken at 2021/05/13 16:34 UTC) (stateless)</code></p>
+<p>OK, fingers crossed! Let's try to migrate our snapshot:</p>
+<p><code>lxc copy centos-test/centos-snap1 lxd-snapshot:centos-test</code></p>
+<p>What this command says is, that within the container centos-test, we want to send the snapshot, centos-snap1 over to lxd-snapshot and copy it as centos-test.</p>
+<p>After a short period of time has expired, the copy will be complete. Want to find out for sure?  Do an "lxc list" on the lxd-snapshot server. Which should return the following:</p>
+<div class="highlight"><pre><span></span><code>+-------------+---------+------+------+-----------+-----------+
+|    NAME     |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------------+---------+------+------+-----------+-----------+
+| centos-test | STOPPED |      |      | CONTAINER | 0         |
++-------------+---------+------+------+-----------+-----------+
+</code></pre></div>
+<p>Success! Now let's try starting it. Because we are starting it on the lxd-snapshot server, we need to stop it first on the lxd-primary server:</p>
+<p><code>lxc stop centos-test</code></p>
+<p>And on the lxd-snapshot server:</p>
+<p><code>lxc start centos-test</code></p>
+<p>Assuming all of this works without error, stop the container on lxd-snapshot and start it again on lxd-primary.</p>
+<h3 id="the-snapshot-server-setting-bootautostart-to-off-for-containers">The Snapshot Server - Setting boot.autostart To Off For Containers<a class="headerlink" href="#the-snapshot-server-setting-bootautostart-to-off-for-containers" title="Permanent link">&para;</a></h3>
+<p>The snapshots copied to lxd-snapshot will be down when they are migrated, but if you have a power event or need to reboot the snapshot server because of updates or something, you will end up with a problem as those containers will attempt to start on the snapshot server.</p>
+<p>To eliminate this, we need to set the migrated containers so that they will not start on reboot of the server. For our newly copied centos-test container, this is done with the following:</p>
+<p><code>lxc config set centos-test boot.autostart 0</code></p>
+<p>Do this for each snapshot on the lxd-snapshot server.</p>
+<h3 id="automating-the-snapshot-process">Automating The Snapshot Process<a class="headerlink" href="#automating-the-snapshot-process" title="Permanent link">&para;</a></h3>
+<p>Ok, so it's great that you can create snapshots when you need to, and sometimes you <em>do</em> need to manually create a snapshot. You might even want to manually copy it over to lxd-snapshot. BUT, once you've got things going and you've got 25 to 30 containers or more running on your lxd-primary machine, the very last thing you want to do is spend an afternoon deleting snapshots on the snapshot server, creating new snapshots and sending them over.</p>
+<p>The first thing we need to do is schedule a process to automate snapshot creation on lxd-primary. This has to be done for each container on the lxd-primary server, but once it is set up, it will take care of itself. This is done with the following syntax. Note the similarities to a crontab entry for the timestamp:</p>
+<p><code>lxc config set [container_name] snapshots.schedule "50 20 * * *"</code></p>
+<p>What this is saying is, do a snapshot of the container name every day at 8:50 PM.</p>
+<p>To apply this to our centos-test container:</p>
+<p><code>lxc config set centos-test snapshots.schedule "50 20 * * *"</code></p>
+<p>We also want to set up the name of the snapshot to be meaningful by our date. LXD uses UTC everywhere, so our best bet to keep track of things, is to set the snapshot name with a date/time stamp that is in a more understandable format:</p>
+<p><code>lxc config set centos-test snapshots.pattern "centos-test-{{ creation_date|date:'2006-01-02_15-04-05' }}"</code></p>
+<p>GREAT, but we certainly don't want a new snapshot every day without getting rid of an old one, right?  We'd fill up the drive with snapshots. So next we run:</p>
+<p><code>lxc config set centos-test snapshots.expiry 1d</code></p>
+<h3 id="automating-the-snapshot-copy-process">Automating The Snapshot Copy Process<a class="headerlink" href="#automating-the-snapshot-copy-process" title="Permanent link">&para;</a></h3>
+<p>Again, this process is performed on lxd-primary. First thing we need to do is create a script that will be run by cron in /usr/local/sbin called "refresh-containers" :</p>
+<p><code>sudo vi /usr/local/sbin/refreshcontainers.sh</code></p>
+<p>The script is pretty simple:</p>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
+# This script is for doing an lxc copy --refresh against each container, copying
+# and updating them to the snapshot server.
+
+for x in $(/var/lib/snapd/snap/bin/lxc ls -c n --format csv)
+        do echo &quot;Refreshing $x&quot;
+        /var/lib/snapd/snap/bin/lxc copy --refresh $x lxd-snapshot:$x
+        done
+</code></pre></div>
+<p>Make it executable:</p>
+<p><code>sudo chmod +x /usr/local/sbin/refreshcontainers.sh</code></p>
+<p>Change the ownership of this script to your lxdadmin user and group:</p>
+<p><code>sudo chown lxdadmin.lxdadmin /usr/local/sbin/refreshcontainers.sh</code></p>
+<p>Set up the crontab for the lxdadmin user to run this script, in this case at 10 PM:</p>
+<p><code>crontab -e</code></p>
+<p>And your entry will look like this:</p>
+<p><code>00 22 * * * /usr/local/sbin/refreshcontainers.sh &gt; /home/lxdadmin/refreshlog 2&gt;&amp;1</code></p>
+<p>Save your changes and exit.</p>
+<p>This will create a log in lxdadmin's home directory called "refreshlog" which will give you knowledge of whether your process worked or not. Very important!</p>
+<p>The automated procedure will fail sometimes. This generally happens when a particular container fails to refresh. You can manually re-run the refresh with the following command (assuming centos-test here, as our container):</p>
+<p><code>lxc copy --refresh centos-test lxd-snapshot:centos-test</code></p>
+<h2 id="conclusions">Conclusions<a class="headerlink" href="#conclusions" title="Permanent link">&para;</a></h2>
+<p>There is a great deal to installing and effectively using LXD. You can certainly install it on your laptop or workstation without all the fuss, as it makes a great developing and testing platform. If you want a more serious approach using production containers, then a primary and snapshot server approach is your best bet.</p>
+<p>Even though we've touched on a lot of features and settings, we have only scratched the surface of what you can do with LXD. The best way to learn this system, is to install it and try it out with things that you will use. If you find LXD useful, consider installing it in the fashion described in this document for the best possible leveraging of hardware for Linux containers. Rocky Linux works very well for this!</p>
+<p>You can now exit this document, or return to the <a href="#menu">menu</a>. You know, if you want.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../librenms_monitoring_server/" class="md-footer__link md-footer__link--prev" aria-label="Previous: LibreNMS Monitoring Server" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              LibreNMS Monitoring Server
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../mate_installation/" class="md-footer__link md-footer__link--next" aria-label="Next: MATE Desktop Environment" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              MATE Desktop Environment
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

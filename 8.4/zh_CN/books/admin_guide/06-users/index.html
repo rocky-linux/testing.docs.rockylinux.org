@@ -1,0 +1,3296 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.4/zh_CN/books/admin_guide/06-users/">
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>User management - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#user-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User management
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../sv/" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      目录
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        目录
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky package debranding How-To
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Package dev start
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Package signing and testing'
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Adding a public mirror to Rocky's mirror manager
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web 服务器多站点设置
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Rocky Linux —— 网络配置
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        在 Rocky Linux 中使用 cron 和 crontab 自动化进程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Enabling iptables Firewall
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Rocky Linux - 镜像解决方案 - lsycnd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        安装 Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        使用 rsync 保持两台计算机同步
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        Rocky Linux - SSH 公钥和私钥
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        生成 SSL 密钥
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-presentation/" class="md-nav__link">
+        Linux 操作系统简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          User management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        User management
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    General
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-management" class="md-nav__link">
+    Group management
+  </a>
+  
+    <nav class="md-nav" aria-label="Group management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupadd-command" class="md-nav__link">
+    groupadd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-groupmod" class="md-nav__link">
+    Command groupmod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groupdel-command" class="md-nav__link">
+    groupdel command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcgroup-file" class="md-nav__link">
+    /etc/group file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcgshadow-file" class="md-nav__link">
+    /etc/gshadow file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-management_1" class="md-nav__link">
+    User management
+  </a>
+  
+    <nav class="md-nav" aria-label="User management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useradd-command" class="md-nav__link">
+    useradd command
+  </a>
+  
+    <nav class="md-nav" aria-label="useradd command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-value-for-user-creation" class="md-nav__link">
+    Default value for user creation.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usermod-command" class="md-nav__link">
+    usermod command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userdel-command" class="md-nav__link">
+    userdel command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcpasswd-file" class="md-nav__link">
+    /etc/passwd file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcshadow-file" class="md-nav__link">
+    /etc/shadow file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-owners" class="md-nav__link">
+    File owners
+  </a>
+  
+    <nav class="md-nav" aria-label="File owners">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modification-commands" class="md-nav__link">
+    Modification commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Modification commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chown-command" class="md-nav__link">
+    chown command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chgrp-command" class="md-nav__link">
+    chgrp command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guest-management" class="md-nav__link">
+    Guest management
+  </a>
+  
+    <nav class="md-nav" aria-label="Guest management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpasswd-command" class="md-nav__link">
+    gpasswd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-command" class="md-nav__link">
+    id command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newgrp-command" class="md-nav__link">
+    newgrp command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securing" class="md-nav__link">
+    Securing
+  </a>
+  
+    <nav class="md-nav" aria-label="Securing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passwd-command" class="md-nav__link">
+    passwd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chage-command" class="md-nav__link">
+    chage command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-management" class="md-nav__link">
+    Advanced management
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcdefaultuseradd-file" class="md-nav__link">
+    /etc/default/useradd file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etclogindefs-file" class="md-nav__link">
+    /etc/login.defs file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcskel-directory" class="md-nav__link">
+    /etc/skel directory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identity-change" class="md-nav__link">
+    Identity change
+  </a>
+  
+    <nav class="md-nav" aria-label="Identity change">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#su-command" class="md-nav__link">
+    su command
+  </a>
+  
+    <nav class="md-nav" aria-label="su command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#profile-loading" class="md-nav__link">
+    Profile loading
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    General
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-management" class="md-nav__link">
+    Group management
+  </a>
+  
+    <nav class="md-nav" aria-label="Group management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupadd-command" class="md-nav__link">
+    groupadd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-groupmod" class="md-nav__link">
+    Command groupmod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groupdel-command" class="md-nav__link">
+    groupdel command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcgroup-file" class="md-nav__link">
+    /etc/group file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcgshadow-file" class="md-nav__link">
+    /etc/gshadow file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-management_1" class="md-nav__link">
+    User management
+  </a>
+  
+    <nav class="md-nav" aria-label="User management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useradd-command" class="md-nav__link">
+    useradd command
+  </a>
+  
+    <nav class="md-nav" aria-label="useradd command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-value-for-user-creation" class="md-nav__link">
+    Default value for user creation.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usermod-command" class="md-nav__link">
+    usermod command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userdel-command" class="md-nav__link">
+    userdel command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcpasswd-file" class="md-nav__link">
+    /etc/passwd file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcshadow-file" class="md-nav__link">
+    /etc/shadow file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-owners" class="md-nav__link">
+    File owners
+  </a>
+  
+    <nav class="md-nav" aria-label="File owners">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modification-commands" class="md-nav__link">
+    Modification commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Modification commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chown-command" class="md-nav__link">
+    chown command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chgrp-command" class="md-nav__link">
+    chgrp command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guest-management" class="md-nav__link">
+    Guest management
+  </a>
+  
+    <nav class="md-nav" aria-label="Guest management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpasswd-command" class="md-nav__link">
+    gpasswd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-command" class="md-nav__link">
+    id command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newgrp-command" class="md-nav__link">
+    newgrp command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securing" class="md-nav__link">
+    Securing
+  </a>
+  
+    <nav class="md-nav" aria-label="Securing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passwd-command" class="md-nav__link">
+    passwd command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chage-command" class="md-nav__link">
+    chage command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-management" class="md-nav__link">
+    Advanced management
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcdefaultuseradd-file" class="md-nav__link">
+    /etc/default/useradd file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etclogindefs-file" class="md-nav__link">
+    /etc/login.defs file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcskel-directory" class="md-nav__link">
+    /etc/skel directory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identity-change" class="md-nav__link">
+    Identity change
+  </a>
+  
+    <nav class="md-nav" aria-label="Identity change">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#su-command" class="md-nav__link">
+    su command
+  </a>
+  
+    <nav class="md-nav" aria-label="su command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#profile-loading" class="md-nav__link">
+    Profile loading
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="user-management">User management<a class="headerlink" href="#user-management" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will learn how to manage user.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter, future Linux administrators will learn how to:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> add, delete or modify a <strong>group</strong> ; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> add, delete or modify a <strong>user</strong> ; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> know the syntax of the files associated with the management of groups and users ; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> change the <em>owner</em> or the <em>group owner</em> of a file; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> <em>secure</em> user accounts; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> change identity.</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>users</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /></p>
+<p><strong>Reading time</strong>: 30 minutes</p>
+<hr />
+<h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
+<p>Each user is a member of at least one group: <strong>this is their main group</strong>.</p>
+<p>Several users can be part of the same group.</p>
+<p>Users can belong to other groups. These users are <em>invited</em> to these <strong>secondary groups</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each user has a primary group and can be invited into one or more secondary groups.</p>
+</div>
+<p>Groups and users are managed by their unique numerical identifiers <code>GID</code> and <code>UID</code>.</p>
+<p>Account and group declaration files are located in <code>/etc</code>.
+* <code>UID</code>: <em>User IDentifier</em>. Unique user ID.
+* <code>GID</code>: <em>Group IDentifier</em>. Unique group identifier.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>You should always use the administration commands instead of manually editing the files.</p>
+</div>
+<h2 id="group-management">Group management<a class="headerlink" href="#group-management" title="Permanent link">&para;</a></h2>
+<p>Modified files, added lines:</p>
+<ul>
+<li><code>/etc/group</code></li>
+<li><code>/etc/gshadow</code></li>
+</ul>
+<h3 id="groupadd-command"><code>groupadd</code> command<a class="headerlink" href="#groupadd-command" title="Permanent link">&para;</a></h3>
+<p>The <code>groupadd</code> command adds a group to the system.
+<div class="highlight"><pre><span></span><code>groupadd [-f] [-g GID] group
+</code></pre></div></p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo groupadd -g 1012 GroupeB
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-g GID</code></td>
+<td><code>GID</code> of the group to create.</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>The system chooses a <code>GID</code> if the one specified by the <code>-g</code> option already exists.</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Creates a system group with a <code>GID</code> between <code>SYS_GID_MIN</code> and <code>SYS_GID_MAX</code>. These two variables are defined in <code>/etc/login.defs</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Group naming rules:</p>
+<ul>
+<li>No accents or special characters;</li>
+<li>Different from the name of an existing user or system files.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under <strong>Debian</strong>, the administrator should use, except in scripts intended to be portable to all Linux distributions, the <code>addgroup</code> and <code>delgroup</code> commands as specified in the <code>man</code>:</p>
+<div class="highlight"><pre><span></span><code>$ man addgroup
+DESCRIPTION
+adduser and addgroup add users and groups to the system according to command line options and configuration information
+in /etc/adduser.conf. They are friendlier front ends to the low level tools like useradd, groupadd and usermod programs,
+by default choosing Debian policy conformant UID and GID values, creating a home directory with skeletal configuration,
+running a custom script, and other features.
+</code></pre></div>
+</div>
+<h3 id="command-groupmod">Command <code>groupmod</code><a class="headerlink" href="#command-groupmod" title="Permanent link">&para;</a></h3>
+<p>The <code>groupmod</code> command allows you to modify an existing group on the system.</p>
+<div class="highlight"><pre><span></span><code>groupmod [-g GID] [-n nom] group
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo groupmod -g 1016 GroupP
+$ sudo groupmod -n GroupC GroupB
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-g GID</code></td>
+<td>New <code>GID</code> of the group to modify.</td>
+</tr>
+<tr>
+<td><code>-n name</code></td>
+<td>New name.</td>
+</tr>
+</tbody>
+</table>
+<p>It is possible to change the name of a group, its <code>GID</code> or both simultaneously.</p>
+<p>After modification, the files belonging to the group have an unknown <code>GID</code>. They must be reassigned the new <code>GID</code>.</p>
+<div class="highlight"><pre><span></span><code>$ sudo find / -gid 1002 -exec chgrp 1016 {} \;
+</code></pre></div>
+<h3 id="groupdel-command"><code>groupdel</code> command<a class="headerlink" href="#groupdel-command" title="Permanent link">&para;</a></h3>
+<p>The <code>groupdel</code> command is used to delete an existing group on the system.</p>
+<div class="highlight"><pre><span></span><code>groupdel group
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo groupdel GroupC
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To be deleted, a group must no longer contain users.</p>
+</div>
+<p>Deleting the last user of an eponymous group will cause the system to delete the group.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Each group has a unique <code>GID</code>. A group can be duplicated. By convention, the <code>GID</code> of system groups range from 0 (<code>root</code>) to 999.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Since a user is necessarily part of a group, it is best to create the groups before adding the users. Therefore, a group may not have any members.</p>
+</div>
+<h3 id="etcgroup-file"><code>/etc/group</code> file<a class="headerlink" href="#etcgroup-file" title="Permanent link">&para;</a></h3>
+<p>This file contains the group information (separated by <code>:</code>).</p>
+<div class="highlight"><pre><span></span><code>$ sudo tail -1 /etc/group
+GroupP:x:516:patrick
+  (1)  (2)(3)   (4)
+</code></pre></div>
+<ul>
+<li>1: Name of the group.</li>
+<li>2: Password (<code>x</code> if defined in <code>/etc/gshadow</code>).</li>
+<li>3: GID.</li>
+<li>4: Guest members (separated by commas, does not contain core members).</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each line in the <code>/etc/group</code> file corresponds to a group. Users whose group is their main group are not listed at this level. This membership information is in fact already provided by the <code>/etc/passwd</code> file...</p>
+</div>
+<h3 id="etcgshadow-file"><code>/etc/gshadow</code> file<a class="headerlink" href="#etcgshadow-file" title="Permanent link">&para;</a></h3>
+<p>This file contains the security information about the groups (separated by <code>:</code>).</p>
+<div class="highlight"><pre><span></span><code>$ sudo grep GroupA /etc/gshadow
+GroupA:$6$2,9,v...SBn160:alain:rockstar
+   (1)      (2)            (3)      (4)
+</code></pre></div>
+<ul>
+<li>1: Name of the group.</li>
+<li>2: Encrypted password.</li>
+<li>3: Administrator of the group.</li>
+<li>4: Guest members (separated by commas, does not contain core members).</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For each line in the <code>/etc/group</code> file there must be a corresponding line in the <code>/etc/gshadow</code> file.</p>
+</div>
+<p>A <code>!</code> in the password indicates that it is locked.
+Thus no user can use the password to access the group (since group members do not need it).</p>
+<h2 id="user-management_1">User management<a class="headerlink" href="#user-management_1" title="Permanent link">&para;</a></h2>
+<h3 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link">&para;</a></h3>
+<p>A user is defined as follows in the <code>/etc/passwd</code> file:</p>
+<ul>
+<li>1: Login;</li>
+<li>2: Password;</li>
+<li>3: UID;</li>
+<li>4: GID of the main group;</li>
+<li>5: Comments;</li>
+<li>6: Home directory;</li>
+<li>7: Shell (<code>/bin/bash</code>, <code>/bin/nologin</code>, ...).</li>
+</ul>
+<p>There are three types of users:</p>
+<ul>
+<li><strong>root</strong>: the system administrator ;</li>
+<li><strong>system users</strong>: Used by the system to manage application access rights ;</li>
+<li><strong>regular user</strong>: Other account to log in to the system.</li>
+</ul>
+<p>Modified files, added lines:</p>
+<ul>
+<li><code>/etc/passwd</code></li>
+<li><code>/etc/shadow</code></li>
+</ul>
+<h3 id="useradd-command"><code>useradd</code> command<a class="headerlink" href="#useradd-command" title="Permanent link">&para;</a></h3>
+<p>The <code>useradd</code> command is used to add a user.</p>
+<div class="highlight"><pre><span></span><code>useradd [-u UID] [-g GID] [-d directory] [-s shell] login
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo useradd -u 1000 -g 1013 -d /home/GroupC/carine carine
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-u UID</code></td>
+<td><code>UID</code> of the user to create.</td>
+</tr>
+<tr>
+<td><code>-g GID</code></td>
+<td><code>GID</code> of the main group.</td>
+</tr>
+<tr>
+<td><code>-d directory</code></td>
+<td>Home directory.</td>
+</tr>
+<tr>
+<td><code>-s shell</code></td>
+<td>Shell.</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td>Add a comment.</td>
+</tr>
+<tr>
+<td><code>-U</code></td>
+<td>Adds the user to a group with the same name created simultaneously.</td>
+</tr>
+<tr>
+<td><code>-M</code></td>
+<td>Does not create the connection directory.</td>
+</tr>
+</tbody>
+</table>
+<p>At creation, the account has no password and is locked.</p>
+<p>A password must be assigned to unlock the account.</p>
+<p>Account naming rules:</p>
+<ul>
+<li>No accents, capital letters or special characters;</li>
+<li>Different from the name of an existing group or system file;</li>
+<li>Set the options <code>-u</code>, <code>-g</code>, <code>-d</code> and <code>-s</code> at creation.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The home directory tree must be created except for the last directory.</p>
+</div>
+<p>The last directory is created by the <code>useradd</code> command, which takes the opportunity to copy the files from <code>/etc/skel</code> into it.</p>
+<p><strong>A user can belong to several groups in addition to their main group.</strong></p>
+<p>For secondary groups, the <code>-G</code> option must be used.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo useradd -u 1000 -g GroupA -G GroupP,GroupC albert
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under <strong>Debian</strong>, you will have to specify the <code>-m</code> option to force the creation of the login directory or set the <code>CREATE_HOME</code> variable in the <code>/etc/login.defs</code> file. In all cases, the administrator should use the <code>adduser</code> and <code>deluser</code> commands as specified in the <code>man</code>, except in scripts intended to be portable to all Linux distributions:</p>
+<div class="highlight"><pre><span></span><code>$ man useradd
+DESCRIPTION
+    **useradd** is a low level utility for adding users. On Debian, administrators should usually use **adduser(8)**
+     instead.
+</code></pre></div>
+</div>
+<h4 id="default-value-for-user-creation">Default value for user creation.<a class="headerlink" href="#default-value-for-user-creation" title="Permanent link">&para;</a></h4>
+<p>Modification of the file <code>/etc/default/useradd</code>.</p>
+<div class="highlight"><pre><span></span><code>useradd -D [-b directory] [-g group] [-s shell]
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo useradd -D -g 1000 -b /home -s /bin/bash
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-D</code></td>
+<td>Sets the default values for user creation.</td>
+</tr>
+<tr>
+<td><code>-b directory</code></td>
+<td>Sets the default login directory.</td>
+</tr>
+<tr>
+<td><code>-g group</code></td>
+<td>Sets the default group.</td>
+</tr>
+<tr>
+<td><code>-s shell</code></td>
+<td>Sets the default shell.</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>The number of days after the password expires before the account is disabled.</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td>The date the account will be disabled.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usermod-command"><code>usermod</code> command<a class="headerlink" href="#usermod-command" title="Permanent link">&para;</a></h3>
+<p>The <code>usermod</code> command allows to modify a user.</p>
+<div class="highlight"><pre><span></span><code>usermod [-u UID] [-g GID] [-d directory] [-m] login
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -u 1044 carine
+</code></pre></div>
+<p>Options identical to the <code>useradd</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-m</code></td>
+<td>Associated with the <code>-d</code> option, moves the contents of the old login directory to the new one.</td>
+</tr>
+<tr>
+<td><code>-l login</code></td>
+<td>New name.</td>
+</tr>
+<tr>
+<td><code>-e AAAA-MM-JJ</code></td>
+<td>Account expiration date.</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>Locks the account.</td>
+</tr>
+<tr>
+<td><code>-U</code></td>
+<td>Unlocks the account.</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Prevents the user from being deleted from a subgroup when added to another subgroup.</td>
+</tr>
+<tr>
+<td><code>-G</code></td>
+<td>Specifies multiple subgroups when adding.</td>
+</tr>
+</tbody>
+</table>
+<p>With the <code>usermod</code> command, locking an account results in the addition of <code>!</code> before the password in the <code>/etc/shadow</code> file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To be modified, a user must be disconnected and have no running processes.</p>
+</div>
+<p>After changing the identifier, the files belonging to the user have an unknown <code>UID</code>. It must be reassigned the new <code>UID</code>.</p>
+<div class="highlight"><pre><span></span><code>$ sudo find / -uid 1000 -exec chown 1044: {} \;
+</code></pre></div>
+<p>Where <code>1000</code> is the old <code>UID</code> and <code>1044</code> is the new one.</p>
+<p>It is possible to invite a user into one or more subgroups with the options <em>-a</em> and <em>-G</em>.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -aG GroupP,GroupC albert
+</code></pre></div>
+<p>The <code>usermod</code> command acts as a modification and not as an addition.</p>
+<p>For a user invited to a group by this command and already positioned as a guest in other secondary groups, it will be necessary to indicate in the group management command all the groups to which he belongs otherwise he will disappear from them.</p>
+<p>The <em>-a</em> option changes this behavior.</p>
+<p>Examples:</p>
+<ul>
+<li>Invite <code>albert</code> in the group <code>GroupP</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -G GroupP albert
+</code></pre></div>
+<ul>
+<li>Invites <code>albert</code> into the <code>GroupG</code> group, but removes him from the <code>GroupP</code> guest list.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -G GroupG albert
+</code></pre></div>
+<ul>
+<li>So either :</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -G GroupP,GroupG albert
+</code></pre></div>
+<ul>
+<li>Or :</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -aG GroupG albert
+</code></pre></div>
+<h3 id="userdel-command"><code>userdel</code> command<a class="headerlink" href="#userdel-command" title="Permanent link">&para;</a></h3>
+<p>The <code>userdel</code> command allows you to delete a user's account.</p>
+<div class="highlight"><pre><span></span><code>$ sudo userdel -r carine
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-r</code></td>
+<td>Deletes the connection directory and the contained files.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To be deleted, a user must be logged out and have no running processes.</p>
+</div>
+<p><code>userdel</code> removes the user's line from the <code>/etc/passwd</code> and <code>/etc/gshadow</code> files.</p>
+<h3 id="etcpasswd-file"><code>/etc/passwd</code> file<a class="headerlink" href="#etcpasswd-file" title="Permanent link">&para;</a></h3>
+<p>This file contains user information (separated by <code>:</code>).</p>
+<div class="highlight"><pre><span></span><code>$ sudo head -1 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+(1)(2)(3)(4)(5)  (6)    (7)
+</code></pre></div>
+<ul>
+<li>1: Login.   </li>
+<li>2: Password (<code>x</code> if defined in <code>/etc/shadow</code>).   </li>
+<li>3: UID.   </li>
+<li>4: GID of the main group.   </li>
+<li>5: Comment.   </li>
+<li>6: Home directory.   </li>
+<li>7: Shell.</li>
+</ul>
+<h3 id="etcshadow-file"><code>/etc/shadow</code> file<a class="headerlink" href="#etcshadow-file" title="Permanent link">&para;</a></h3>
+<p>This file contains the users' security information (separated by <code>:</code>).
+<div class="highlight"><pre><span></span><code>$ sudo tail -1 /etc/shadow
+root:$6$...:15399:0:99999:7:::
+ (1)    (2)  (3) (4) (5) (6)(7,8,9)
+</code></pre></div></p>
+<ul>
+<li>1: Login.   </li>
+<li>2: Encrypted password.   </li>
+<li>3: Date of last change.   </li>
+<li>4: Minimum lifetime of the password.   </li>
+<li>5: Maximum lifetime of the password.   </li>
+<li>6: Number of days before warning.   </li>
+<li>7: Time to deactivate account after expiration.   </li>
+<li>8: Account expiration time.   </li>
+<li>9: Reserved for future use.   </li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>For each line in the <code>/etc/passwd</code> file there must be a corresponding line in the <code>/etc/shadow</code> file.</p>
+</div>
+<h2 id="file-owners">File owners<a class="headerlink" href="#file-owners" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>All files necessarily belong to one user and one group.</p>
+</div>
+<p>The main group of the user creating the file is, by default, the group that owns the file.</p>
+<h3 id="modification-commands">Modification commands<a class="headerlink" href="#modification-commands" title="Permanent link">&para;</a></h3>
+<h4 id="chown-command"><code>chown</code> command<a class="headerlink" href="#chown-command" title="Permanent link">&para;</a></h4>
+<p>The <code>chown</code> command allows you to change the owners of a file.
+<div class="highlight"><pre><span></span><code>chown [-R] [-v] login[:group] file
+</code></pre></div></p>
+<p>Examples:
+<div class="highlight"><pre><span></span><code>$ sudo chown root myfile
+$ sudo chown albert:GroupA myfile
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-R</code></td>
+<td>Changes the owners of the directory and its contents.</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>Displays the executed changes.</td>
+</tr>
+</tbody>
+</table>
+<p>To change only the owner user:</p>
+<div class="highlight"><pre><span></span><code>$ sudo chown albert file
+</code></pre></div>
+<p>To modify only the owner group:</p>
+<div class="highlight"><pre><span></span><code>$ sudo chown :GroupA file
+</code></pre></div>
+<p>Changing the user and owner group:</p>
+<div class="highlight"><pre><span></span><code>$ sudo chown albert:GroupA file
+</code></pre></div>
+<p>In the following example the group assigned will be the main group of the specified user.</p>
+<div class="highlight"><pre><span></span><code>$ sudo chown albert: file
+</code></pre></div>
+<h3 id="chgrp-command"><code>chgrp</code> command<a class="headerlink" href="#chgrp-command" title="Permanent link">&para;</a></h3>
+<p>The <code>chgrp</code> command allows you to change the owner group of a file.</p>
+<div class="highlight"><pre><span></span><code>chgrp [-R] [-v] group file
+</code></pre></div>
+<p>Example:
+<div class="highlight"><pre><span></span><code>$ sudo chgrp group1 file
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-R</code></td>
+<td>Modifies the owner groups of the directory and its contents (recursion).</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>Displays the executed changes.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to apply to a file an owner and an owner group by taking as reference those of another file:</p>
+</div>
+<div class="highlight"><pre><span></span><code>chown [options] --reference=RRFILE FILE
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>chown --reference=/etc/groups /etc/passwd
+</code></pre></div>
+<h2 id="guest-management">Guest management<a class="headerlink" href="#guest-management" title="Permanent link">&para;</a></h2>
+<h3 id="gpasswd-command"><code>gpasswd</code> command<a class="headerlink" href="#gpasswd-command" title="Permanent link">&para;</a></h3>
+<p>The command <code>gpasswd</code> allows to manage a group.</p>
+<div class="highlight"><pre><span></span><code>gpasswd [-a login] [-A login] [-d login] [-M login] group
+</code></pre></div>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>$ sudo gpasswd -A alain GroupA
+[alain]$ gpasswd -a patrick GroupA
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a login</code></td>
+<td>Adds the user to the group.</td>
+</tr>
+<tr>
+<td><code>-A login</code></td>
+<td>Sets the group administrator.</td>
+</tr>
+<tr>
+<td><code>-d login</code></td>
+<td>Remove the user from the group.</td>
+</tr>
+<tr>
+<td><code>-M login</code></td>
+<td>Defines the complete list of guests.</td>
+</tr>
+</tbody>
+</table>
+<p>The command <code>gpasswd -M</code> acts as a modification, not an addition.
+<div class="highlight"><pre><span></span><code># gpasswd GroupeA
+New Password :
+Re-enter new password :
+</code></pre></div></p>
+<h3 id="id-command"><code>id</code> command<a class="headerlink" href="#id-command" title="Permanent link">&para;</a></h3>
+<p>The <code>id</code> command displays the group names of a user.
+<div class="highlight"><pre><span></span><code>id login
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code>$ sudo id alain
+uid=1000(alain) gid=1000(GroupA) groupes=1000(GroupA),1016(GroupP)
+</code></pre></div></p>
+<h3 id="newgrp-command"><code>newgrp</code> command<a class="headerlink" href="#newgrp-command" title="Permanent link">&para;</a></h3>
+<p>The <code>newgrp</code> command allows you to temporarily use a secondary group for file creation.
+<div class="highlight"><pre><span></span><code>newgrp [secondarygroups]
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code>[alain]$ newgrp GroupB
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After using this command, the files will be created with the <code>GID</code> of its subgroup.</p>
+</div>
+<p>The command <code>newgrp</code> without parameters reassigns the main group.</p>
+<h2 id="securing">Securing<a class="headerlink" href="#securing" title="Permanent link">&para;</a></h2>
+<h3 id="passwd-command"><code>passwd</code> command<a class="headerlink" href="#passwd-command" title="Permanent link">&para;</a></h3>
+<p>The <code>passwd</code> command is used to manage a password.
+<div class="highlight"><pre><span></span><code>passwd [-d] [-l] [-S] [-u] [login]
+</code></pre></div>
+Examples:
+<div class="highlight"><pre><span></span><code>$ sudo passwd -l albert
+$ sudo passwd -n 60 -x 90 -w 80 -i 10 patrick
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code></td>
+<td>Removes the password.</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Locks the account.</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td>Displays the account status.</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>Unlocks the account.</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td>Expires the password.</td>
+</tr>
+<tr>
+<td><code>-n days</code></td>
+<td>Minimum password lifetime.</td>
+</tr>
+<tr>
+<td><code>-x days</code></td>
+<td>Maximum password lifetime.</td>
+</tr>
+<tr>
+<td><code>-w days</code></td>
+<td>Warning time before expiration.</td>
+</tr>
+<tr>
+<td><code>-i days</code></td>
+<td>Delay before deactivation when the password expires.</td>
+</tr>
+</tbody>
+</table>
+<p>With the <code>passwd</code> command, locking an account is accomplished by adding <code>!!</code> before the password in the <code>/etc/shadow</code> file.</p>
+<p>Using the command <code>usermod -U</code> command only removes one of the <code>!</code>. So the account remains locked.</p>
+<p>Example:</p>
+<ul>
+<li>Alain changes his password:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[alain]$ passwd
+</code></pre></div>
+<ul>
+<li>root changes Alain's password</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ sudo passwd alain
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>passwd</code> command is available to users to change their password (the old password is requested). The administrator can change the passwords of all users without restriction.</p>
+</div>
+<p>They will have to comply with the security restrictions.</p>
+<p>When managing user accounts by shell script, it may be useful to set a default password after creating the user.</p>
+<p>This can be done by passing the password to the <code>passwd</code> command.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code>$ sudo echo &quot;azerty,1&quot; | passwd --stdin philippe
+</code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The password is entered in clear text, <code>passwd</code> takes care of encrypting it.</p>
+</div>
+<h3 id="chage-command"><code>chage</code> command<a class="headerlink" href="#chage-command" title="Permanent link">&para;</a></h3>
+<p>The <code>chage</code> command is used to manage the account strategy.
+<div class="highlight"><pre><span></span><code>chage [-d date] [-E date] [-I days] [-l] [-m days] [-M days] [-W days] [login]
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code>$ sudo chage -m 60 -M 90 -W 80 -I 10 alain
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-I days</code></td>
+<td>Delay before deactivation, password expired.</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Displays the policy details.</td>
+</tr>
+<tr>
+<td><code>-m days</code></td>
+<td>Minimum lifetime of the password.</td>
+</tr>
+<tr>
+<td><code>-M days</code></td>
+<td>Maximum lifetime of the password.</td>
+</tr>
+<tr>
+<td><code>-d AAAA-MM-JJ</code></td>
+<td>Last password change.</td>
+</tr>
+<tr>
+<td><code>-E AAAA-MM-JJ</code></td>
+<td>Account expiration date.</td>
+</tr>
+<tr>
+<td><code>-W days</code></td>
+<td>Warning time before expiration.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>chage</code> command also offers an interactive mode.</p>
+<p>The <code>-d</code> option forces the password to be changed at login.</p>
+<p>Examples:
+<div class="highlight"><pre><span></span><code>$ sudo chage philippe
+$ sudo chage -d 0 philippe
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If no user is specified, the order will concern the user who enters it.</p>
+</div>
+<p><img alt="User account management with chage" src="../../../../books/admin_guide/images/chage-timeline.png" /></p>
+<h2 id="advanced-management">Advanced management<a class="headerlink" href="#advanced-management" title="Permanent link">&para;</a></h2>
+<p>Configuration files:
+* <code>/etc/default/useradd</code>
+* <code>/etc/login.defs</code>
+* <code>/etc/skel</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Editing the <code>/etc/default/useradd</code> file is done with the <code>useradd</code> command.</p>
+<p>The other files are to be modified with a text editor.</p>
+</div>
+<h3 id="etcdefaultuseradd-file"><code>/etc/default/useradd</code> file<a class="headerlink" href="#etcdefaultuseradd-file" title="Permanent link">&para;</a></h3>
+<p>This file contains the default data settings.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When creating a user, if the options are not specified, the system uses the default values defined in <code>/etc/default/useradd</code>.</p>
+</div>
+<p>This file is modified by the command <code>useradd -D</code> (<code>useradd -D</code> entered without any other option displays the contents of the <code>/etc/default/useradd</code> file).</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GROUP</code></td>
+<td>Default group.</td>
+</tr>
+<tr>
+<td><code>HOME</code></td>
+<td>Path where the login directory for the user's name will be created.</td>
+</tr>
+<tr>
+<td><code>INACTIVE</code></td>
+<td>Number of days after the password expires before the account is disabled.</td>
+</tr>
+<tr>
+<td><code>EXPIRE</code></td>
+<td>Account expiration date.</td>
+</tr>
+<tr>
+<td><code>SHELL</code></td>
+<td>Command interpreter.</td>
+</tr>
+<tr>
+<td><code>SKEL</code></td>
+<td>Skeleton directory of the login directory.</td>
+</tr>
+<tr>
+<td><code>CREATE_MAIL_SPOOL</code></td>
+<td>Mailbox creation in <code>/var/spool/mail</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Without the <code>-g</code> option, the <code>useradd</code> command creates a group of the user's name name and places it there.</p>
+</div>
+<p>In order for the <code>useradd</code> command to retrieve the value of the <code>GROUP</code> field from the <code>/etc/default/useradd</code> file, you must specify the <code>-N</code> option.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code>$ sudo useradd -u 501 -N GroupeA
+</code></pre></div></p>
+<h3 id="etclogindefs-file"><code>/etc/login.defs</code> file<a class="headerlink" href="#etclogindefs-file" title="Permanent link">&para;</a></h3>
+<p>This file contains many default parameters useful for creating or modifying users. This information is grouped by paragraph according to their use:</p>
+<ul>
+<li>Mailboxes;</li>
+<li>Passwords ;</li>
+<li>UID and GID ;</li>
+<li>Umask ;</li>
+<li>Connections;</li>
+<li>Terminals.</li>
+</ul>
+<h3 id="etcskel-directory"><code>/etc/skel</code> directory<a class="headerlink" href="#etcskel-directory" title="Permanent link">&para;</a></h3>
+<p>When a user is created, their home directory and environment files are created.</p>
+<p>These files are automatically copied from the <code>/etc/skel</code> directory.</p>
+<ul>
+<li><code>.bash_logout</code></li>
+<li><code>.bash_profile</code></li>
+<li><code>.bashrc</code></li>
+</ul>
+<p>All files and directories placed in this directory will be copied to the user tree when they are created.</p>
+<h2 id="identity-change">Identity change<a class="headerlink" href="#identity-change" title="Permanent link">&para;</a></h2>
+<h3 id="su-command"><code>su</code> command<a class="headerlink" href="#su-command" title="Permanent link">&para;</a></h3>
+<p>The <code>su</code> command allows you to change the identity of the connected user.</p>
+<div class="highlight"><pre><span></span><code>su [-] [-c command] [login]
+</code></pre></div>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>$ sudo su - alain
+[albert]$ su -c &quot;passwd alain&quot;
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+<td>Loads the user's complete environment.</td>
+</tr>
+<tr>
+<td><code>-c</code> command</td>
+<td>Executes the command under the user's identity.</td>
+</tr>
+</tbody>
+</table>
+<p>If the login is not specified, it will be <code>root</code>.</p>
+<p>Standard users will have to type the password for the new identity.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>There are successive 'layers' created (a stack of <code>bash</code> environments). To switch from one user to another, you must first type the <code>exit</code> command to take back your identity and then the <code>su</code> command to take another identity.</p>
+</div>
+<h4 id="profile-loading">Profile loading<a class="headerlink" href="#profile-loading" title="Permanent link">&para;</a></h4>
+<p><code>root</code> endorses the identity of the user <code>alain</code> with <code>su</code>:</p>
+<div class="highlight"><pre><span></span><code>...
+/home/GroupA/alain/.bashrc
+/etc/bashrc
+...
+</code></pre></div>
+<p><code>root</code> assumes the identity of the user <code>alain</code> with <code>su -</code>:</p>
+<div class="highlight"><pre><span></span><code>...
+/home/GroupA/alain/.bash_profile
+/home/GroupA/alain/.bashrc
+/etc/bashrc
+...
+</code></pre></div>
+<p>A user can temporarily (for another command or an entire session) assume the identity of another account.</p>
+<p>If no user is specified, the command will be for <code>root</code> (<code>su -</code>).</p>
+<p>It is necessary to know the password of the user whose identity is being endorsed unless it is <code>root</code> that is executing the command.</p>
+<p>An administrator can thus work on a standard user account and use the rights of the <code>root</code> account only occasionally.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../05-vi/" class="md-footer__link md-footer__link--prev" aria-label="Previous: VI Text Editor" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              VI Text Editor
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../07-file-systems/" class="md-footer__link md-footer__link--next" aria-label="Next: File system" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              File system
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

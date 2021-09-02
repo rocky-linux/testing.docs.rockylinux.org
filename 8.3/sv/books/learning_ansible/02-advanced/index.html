@@ -1,0 +1,2666 @@
+
+<!doctype html>
+<html lang="sv" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.3/sv/books/learning_ansible/02-advanced/">
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>Ansible Intermediate - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ansible-intermediate" class="md-skip">
+          Gå till innehållet
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Sidhuvud">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ansible Intermediate
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Sök" placeholder="Sök" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Rensa" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialiserar sök
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Flikar" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../" class="md-tabs__link">
+      Table of Contents
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_debranding/" class="md-nav__link">
+        Rocky paket Hur man tar bort varumärke
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/package_signing/" class="md-nav__link">
+        Paketsignering och testning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/add_mirror_manager/" class="md-nav__link">
+        Lägg till en publik spegel till Rocky's spegelhanterare
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/enabling_iptables_firewall/" class="md-nav__link">
+        Aktivera iptables Brandvägg
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/librenms_monitoring_server/" class="md-nav__link">
+        LibreNMS Monitoring Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky-8-installation/" class="md-nav__link">
+        Installera Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssh_public_private_keys/" class="md-nav__link">
+        SSH Publika och privata nycklar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin_guide/13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ansible Intermediate
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ansible Intermediate
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-variables" class="md-nav__link">
+    The variables
+  </a>
+  
+    <nav class="md-nav" aria-label="The variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outsourcing-variables" class="md-nav__link">
+    Outsourcing variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-a-variable" class="md-nav__link">
+    Display a variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-the-return-of-a-task" class="md-nav__link">
+    Save the return of a task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercices" class="md-nav__link">
+    Exercices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loop-management" class="md-nav__link">
+    Loop management
+  </a>
+  
+    <nav class="md-nav" aria-label="Loop management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercices_1" class="md-nav__link">
+    Exercices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    Conditionals
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditionals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercices_2" class="md-nav__link">
+    Exercices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-changes-the-handlers" class="md-nav__link">
+    Managing changes: the handlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asynchronous-tasks" class="md-nav__link">
+    Asynchronous tasks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-results" class="md-nav__link">
+    Exercise results
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-variables" class="md-nav__link">
+    The variables
+  </a>
+  
+    <nav class="md-nav" aria-label="The variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outsourcing-variables" class="md-nav__link">
+    Outsourcing variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-a-variable" class="md-nav__link">
+    Display a variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-the-return-of-a-task" class="md-nav__link">
+    Save the return of a task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercices" class="md-nav__link">
+    Exercices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loop-management" class="md-nav__link">
+    Loop management
+  </a>
+  
+    <nav class="md-nav" aria-label="Loop management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercices_1" class="md-nav__link">
+    Exercices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    Conditionals
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditionals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercices_2" class="md-nav__link">
+    Exercices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-changes-the-handlers" class="md-nav__link">
+    Managing changes: the handlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asynchronous-tasks" class="md-nav__link">
+    Asynchronous tasks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-results" class="md-nav__link">
+    Exercise results
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="ansible-intermediate">Ansible Intermediate<a class="headerlink" href="#ansible-intermediate" title="Permanent link">&para;</a></h1>
+<p>In this chapter you will continue to learn how to work with Ansible.</p>
+<hr />
+<p><strong>Objectives</strong> : In this chapter you will learn how to:</p>
+<p><img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> work with variables;     <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> use loops; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> manage state changes and react to them; <br />
+<img alt="✔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2714.svg" title=":heavy_check_mark:" /> manage asynchronous tasks.</p>
+<p><img alt="🏁" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f3c1.svg" title=":checkered_flag:" /> <strong>ansible</strong>, <strong>module</strong>, <strong>playbook</strong></p>
+<p><strong>Knowledge</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" />   <br />
+<strong>Complexity</strong>: <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /> <img alt="⭐" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2b50.svg" title=":star:" /></p>
+<p><strong>Reading time</strong>: 30 minutes</p>
+<hr />
+<p>In the previous chapter, you learned how to install Ansible, use it on the command line, or how to write playbooks to promote the re-usability of your code.</p>
+<p>In this chapter, we can start to discover some more advanced notions of how to use Ansible, and discover some interesting tasks that you will use very regularly.</p>
+<h2 id="the-variables">The variables<a class="headerlink" href="#the-variables" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information can be <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html">found here</a>.</p>
+</div>
+<p>Under Ansible, there are different types of primitive variables:</p>
+<ul>
+<li>strings,</li>
+<li>integers,</li>
+<li>booleans.</li>
+</ul>
+<p>These variables can be organized as:</p>
+<ul>
+<li>dictionaries,</li>
+<li>lists.</li>
+</ul>
+<p>A variable can be defined in different places, like in a playbook, in a role or from the command line for example.</p>
+<p>For example, from a playbook:</p>
+<div class="highlight"><pre><span></span><code>---
+- hosts: apache1
+  vars:
+    port_http: 80
+    service:
+      debian: apache2
+      rhel: httpd
+</code></pre></div>
+<p>or from the command line:</p>
+<div class="highlight"><pre><span></span><code>$ ansible-playbook deploy-http.yml --extra-vars &quot;service=httpd&quot;
+</code></pre></div>
+<p>Once defined, a variable can be used by calling it between double braces:</p>
+<ul>
+<li><code>{{ port_http }}</code> for a simple value,</li>
+<li><code>{{ service['rhel'] }}</code> or <code>{{ service.rhel }}</code> for a dictionary.</li>
+</ul>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>- name: make sure apache is started
+  ansible.builtin.systemd:
+    name: &quot;{{ service[&#39;rhel&#39;] }}&quot;
+    state: started
+</code></pre></div>
+<p>Of course, it is also possible to access the global variables (the <strong>facts</strong>) of Ansible (OS type, IP addresses, VM name, etc.).</p>
+<h3 id="outsourcing-variables">Outsourcing variables<a class="headerlink" href="#outsourcing-variables" title="Permanent link">&para;</a></h3>
+<p>Variables can be included in a file external to the playbook, in which case this file must be defined in the playbook with the <code>vars_files</code> directive:</p>
+<div class="highlight"><pre><span></span><code>---
+- hosts: apache1
+  vars_files:
+    - myvariables.yml
+</code></pre></div>
+<p>The <code>myvariables.yml</code> file:</p>
+<div class="highlight"><pre><span></span><code>---
+port_http: 80
+ansible.builtin.systemd::
+  debian: apache2
+  rhel: httpd
+</code></pre></div>
+<p>It can also be added dynamically with the use of the module <code>include_vars</code>:</p>
+<div class="highlight"><pre><span></span><code>- name: Include secrets.
+  ansible.builtin.include_vars:
+    file: vault.yml
+</code></pre></div>
+<h3 id="display-a-variable">Display a variable<a class="headerlink" href="#display-a-variable" title="Permanent link">&para;</a></h3>
+<p>To display a variable, you have to activate the <code>debug</code> module as follows:</p>
+<div class="highlight"><pre><span></span><code>- ansible.builtin.debug:
+    var: &quot;{{ service[&#39;debian&#39;] }}&quot;
+</code></pre></div>
+<p>You can also use the variable inside a text:</p>
+<div class="highlight"><pre><span></span><code>- ansible.builtin.debug:
+    msg: &quot;Print a variable in a message : {{ service[&#39;debian&#39;] }}&quot;
+</code></pre></div>
+<h3 id="save-the-return-of-a-task">Save the return of a task<a class="headerlink" href="#save-the-return-of-a-task" title="Permanent link">&para;</a></h3>
+<p>To save the return of a task and to be able to access it later, you have to use the keyword <code>register</code> inside the task itself.</p>
+<p>Use of a stored variable:</p>
+<div class="highlight"><pre><span></span><code>- name: /home content
+  shell: ls /home
+  register: homes
+
+- name: Print the first directory name
+  ansible.builtin.debug:
+    var: homes.stdout_lines[0]
+
+- name: Print the first directory name
+  ansible.builtin.debug:
+    var: homes.stdout_lines[1]
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The variable <code>homes.stdout_lines</code> is a list of variables of type string, a way to organize variables that we had not yet encountered.</p>
+</div>
+<p>The strings that make up the stored variable can be accessed via the <code>stdout</code> value (which allows you to do things like <code>homes.stdout.find("core") != -1</code>), to exploit them using a loop (see <code>loop</code>), or simply by their indices as seen in the previous example.</p>
+<h3 id="exercices">Exercices<a class="headerlink" href="#exercices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Write a  playbook <code>play-vars.yml</code> that prints the distribution name of the target with its major version, using global variables.</p>
+</li>
+<li>
+<p>Write a playbook using the following dictionary to display the services that will be installed:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>service:
+  web:
+    name: apache
+    rpm: httpd
+  db:
+    name: mariadb
+    rpm: mariadb-server
+</code></pre></div>
+<p>The default type should be "web".</p>
+<ul>
+<li>
+<p>Override the <code>type</code> variable using the command line</p>
+</li>
+<li>
+<p>Externalize variables in a <code>vars.yml</code> file</p>
+</li>
+</ul>
+<h2 id="loop-management">Loop management<a class="headerlink" href="#loop-management" title="Permanent link">&para;</a></h2>
+<p>With the help of loop, you can iterate a task over a list, a hash, or dictionary for example.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information can be <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html">found here</a>.</p>
+</div>
+<p>Simple example of use, creation of 4 users:</p>
+<div class="highlight"><pre><span></span><code>- name: add users
+  user:
+    name: &quot;{{ item }}&quot;
+    state: present
+    groups: &quot;users&quot;
+  loop:
+     - antoine
+     - patrick
+     - steven
+     - xavier
+</code></pre></div>
+<p>At each iteration of the loop, the value of the list used is stored in the <code>item</code> variable, accessible in the loop code.</p>
+<p>Of course, a list can be defined in an external file:</p>
+<div class="highlight"><pre><span></span><code>users:
+  - antoine
+  - patrick
+  - steven
+  - xavier
+</code></pre></div>
+<p>and be used inside the task like this (after having include the vars file):</p>
+<div class="highlight"><pre><span></span><code>- name: add users
+  user:
+    name: &quot;{{ item }}&quot;
+    state: present
+    groups: &quot;users&quot;
+  loop: &quot;{{ users }}&quot;
+</code></pre></div>
+<p>We can use the example seen during the study of stored variables to improve it. Use of a stored variable:</p>
+<div class="highlight"><pre><span></span><code>- name: /home content
+  shell: ls /home
+  register: homes
+
+- name: Print the directories name
+  ansible.builtin.debug:
+    msg: &quot;Directory =&gt; {{ item }}&quot;
+  loop: &quot;{{ homes.stdout_lines }}&quot;
+</code></pre></div>
+<p>A dictionary can also be used in a loop.</p>
+<p>In this case, you will have to transform the dictionary into an item with what is called a <strong>jinja filter</strong> (jinja is the templating engine used by Ansible): <code>| dict2items</code>.</p>
+<p>In the loop, it becomes possible to use <code>item.key</code> which corresponds to the dictionary key, and <code>item.value</code> which corresponds to the values of the key.</p>
+<p>Let's see this through a concrete example, showing the management of the system users:</p>
+<div class="highlight"><pre><span></span><code>---
+- hosts: rocky8
+  become: true
+  become_user: root
+  vars:
+    users:
+      antoine:
+        group: users
+        state: present
+      steven:
+        group: users
+        state: absent
+
+  tasks:
+
+  - name: Manage users
+    user:
+      name: &quot;{{ item.key }}&quot;
+      group: &quot;{{ item.value.group }}&quot;
+      state: &quot;{{ item.value.state }}&quot;
+    loop: &quot;{{ users | dict2items }}&quot;
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many things can be done with the loops. You will discover the possibilities offered by loops when your use of Ansible pushes you to use them in a more complex way.</p>
+</div>
+<h3 id="exercices_1">Exercices<a class="headerlink" href="#exercices_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Display the content of the <code>service</code> variable from the previous exercise using a loop.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will have to transform your <code>service</code> variable, which is a dictionary, to a list with the help of the jinja filter <code>list</code> as this:</p>
+<div class="highlight"><pre><span></span><code>{{ service.values() | list }}
+</code></pre></div>
+</div>
+<h2 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information can be <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html">found here</a>.</p>
+</div>
+<p>The <code>when</code> statement is very useful in many cases: not performing certain actions on certain types of servers, if a file or a user does not exist, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Behind the <code>when</code> statement the variables do not need double braces (they are in fact Jinja2 expressions...).</p>
+</div>
+<div class="highlight"><pre><span></span><code>- name: &quot;Reboot only Debian servers&quot;
+  reboot:
+  when: ansible_os_family == &quot;Debian&quot;
+</code></pre></div>
+<p>Conditions can be grouped with parentheses:</p>
+<div class="highlight"><pre><span></span><code>- name: &quot;Reboot only CentOS version 6 and Debian version 7&quot;
+  reboot:
+  when: (ansible_distribution == &quot;CentOS&quot; and ansible_distribution_major_version == &quot;6&quot;) or
+        (ansible_distribution == &quot;Debian&quot; and ansible_distribution_major_version == &quot;7&quot;)
+</code></pre></div>
+<p>The conditions corresponding to a logical AND can be provided as a list:</p>
+<div class="highlight"><pre><span></span><code>- name: &quot;Reboot only CentOS version 6&quot;
+  reboot:
+  when:
+    - ansible_distribution == &quot;CentOS&quot;
+    - ansible_distribution_major_version == &quot;6&quot;
+</code></pre></div>
+<p>You can test the value of a boolean and verify that it is true:</p>
+<div class="highlight"><pre><span></span><code>- name: check if directory exists
+  stat:
+    path: /home/ansible
+  register: directory
+
+- ansible.builtin.debug:
+    var: directory
+
+- ansible.builtin.debug:
+    msg: The directory exists
+  when:
+    - directory.stat.exists
+    - directory.stat.isdir
+</code></pre></div>
+<p>You can also test that it is not true:</p>
+<div class="highlight"><pre><span></span><code>  when:
+    - file.stat.exists
+    - not file.stat.isdir
+</code></pre></div>
+<p>You will probably have to test that a variable exists to avoid execution errors:</p>
+<div class="highlight"><pre><span></span><code>  when: myboolean is defined and myboolean
+</code></pre></div>
+<h3 id="exercices_2">Exercices<a class="headerlink" href="#exercices_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Print the value of <code>service.web</code> only when <code>type</code> equals to <code>web</code>.</li>
+</ul>
+<h2 id="managing-changes-the-handlers">Managing changes: the <code>handlers</code><a class="headerlink" href="#managing-changes-the-handlers" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information can be <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html">found here</a>.</p>
+</div>
+<p>Handlers allow to launch operations, like restarting a service, when changes occur.</p>
+<p>A module, being idempotent, a playbook can detect that there has been a significant change on a remote system, and thus trigger an operation in reaction to this change. A notification is sent at the end of a playbook task block, and the reaction operation will be triggered only once even if several tasks send the same notification.</p>
+<p><img alt="Handlers" src="../../../../books/learning_ansible/images/handlers.png" /></p>
+<p>For example, several tasks may indicate that the <code>httpd</code> service needs to be restarted due to a change in its configuration files. But the service will only be restarted once to avoid multiple unnecessary starts.</p>
+<div class="highlight"><pre><span></span><code>- name: template configuration file
+  template:
+    src: template-site.j2
+    dest: /etc/httpd/sites-availables/test-site.conf
+  notify:
+     - restart memcached
+     - restart httpd
+</code></pre></div>
+<p>A handler is a kind of task referenced by a unique global name:</p>
+<ul>
+<li>It is activated by one or more notifiers.</li>
+<li>It does not start immediately, but waits until all tasks are complete to run.</li>
+</ul>
+<p>Example of handlers:</p>
+<div class="highlight"><pre><span></span><code>handlers:
+
+  - name: restart memcached
+    systemd:
+      name: memcached
+      state: restarted
+
+  - name: restart httpd
+    systemd:
+      name: httpd
+      state: restarted
+</code></pre></div>
+<p>Since version 2.2 of Ansible, handlers can listen directly as well:</p>
+<div class="highlight"><pre><span></span><code>handlers:
+
+  - name: restart memcached
+    systemd:
+      name: memcached
+      state: restarted
+    listen: &quot;web services restart&quot;
+
+  - name: restart apache
+    systemd:
+      name: apache
+      state: restarted
+    listen: &quot;web services restart&quot;
+
+tasks:
+    - name: restart everything
+      command: echo &quot;this task will restart the web services&quot;
+      notify: &quot;web services restart&quot;
+</code></pre></div>
+<h2 id="asynchronous-tasks">Asynchronous tasks<a class="headerlink" href="#asynchronous-tasks" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information can be <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html">found here</a>.</p>
+</div>
+<p>By default, SSH connections to hosts remain open during the execution of various playbook tasks on all nodes.</p>
+<p>This can cause some problems, especially:</p>
+<ul>
+<li>if the execution time of the task is longer than the SSH connection timeout</li>
+<li>if the connection is interrupted during the action (server reboot for example)</li>
+</ul>
+<p>In this case, you will have to switch to asynchronous mode and specify a maximum execution time as well as the frequency (by default 10s) with which you will check the host status.</p>
+<p>By specifying a poll value of 0, Ansible will execute the task and continue without worrying about the result.</p>
+<p>Here's an example using asynchronous tasks, which allows you to restart a server and wait for port 22 to be reachable again:</p>
+<div class="highlight"><pre><span></span><code># Wait 2s and launch the reboot
+- name: Reboot system
+  shell: sleep 2 &amp;&amp; shutdown -r now &quot;Ansible reboot triggered&quot;
+  async: 1
+  poll: 0
+  ignore_errors: true
+  become: true
+  changed_when: False
+
+  # Wait the server is available
+  - name: Waiting for server to restart (10 mins max)
+    wait_for:
+      host: &quot;{{ inventory_hostname }}&quot;
+      port: 22
+      delay: 30
+      state: started
+      timeout: 600
+    delegate_to: localhost
+</code></pre></div>
+<p>You can also decide to launch a long-running task and forget it (fire and forget) because the execution does not matter in the playbook.</p>
+<h2 id="exercise-results">Exercise results<a class="headerlink" href="#exercise-results" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Write a  playbook <code>play-vars.yml</code> that print the distribution name of the target with its major version, using global variables.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>---
+- hosts: ansible_clients
+
+  tasks:
+
+    - name: Print globales variables
+      debug:
+        msg: &quot;The distribution is {{ ansible_distribution }} version {{ ansible_distribution_major_version }}&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ ansible-playbook play-vars.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print globales variables] ************************************************************************
+ok: [192.168.1.11] =&gt; {
+    &quot;msg&quot;: &quot;The distribution is Rocky version 8&quot;
+}
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+</code></pre></div>
+<ul>
+<li>Write a playbook using the following dictionary to display the services that will be installed:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>service:
+  web:
+    name: apache
+    rpm: httpd
+  db:
+    name: mariadb
+    rpm: mariadb-server
+</code></pre></div>
+<p>The default type should be "web".</p>
+<div class="highlight"><pre><span></span><code>---
+- hosts: ansible_clients
+  vars:
+    type: web
+    service:
+      web:
+        name: apache
+        rpm: httpd
+      db:
+        name: mariadb
+        rpm: mariadb-server
+
+  tasks:
+
+    - name: Print a specific entry of a dictionary
+      debug:
+        msg: &quot;The {{ service[type][&#39;name&#39;] }} will be installed with the packages {{ service[type].rpm }}&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ ansible-playbook display-dict.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print a specific entry of a dictionnaire] ********************************************************
+ok: [192.168.1.11] =&gt; {
+    &quot;msg&quot;: &quot;The apache will be installed with the packages httpd&quot;
+}
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+</code></pre></div>
+<ul>
+<li>Override the <code>type</code> variable using the command line:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ansible-playbook --extra-vars &quot;type=db&quot; display-dict.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print a specific entry of a dictionary] ********************************************************
+ok: [192.168.1.11] =&gt; {
+    &quot;msg&quot;: &quot;The mariadb will be installed with the packages mariadb-server&quot;
+}
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+</code></pre></div>
+<ul>
+<li>Externalize variables in a <code>vars.yml</code> file</li>
+</ul>
+<div class="highlight"><pre><span></span><code>type: web
+service:
+  web:
+    name: apache
+    rpm: httpd
+  db:
+    name: mariadb
+    rpm: mariadb-server
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>---
+- hosts: ansible_clients
+  vars_files:
+    - vars.yml
+
+  tasks:
+
+    - name: Print a specific entry of a dictionary
+      debug:
+        msg: &quot;The {{ service[type][&#39;name&#39;] }} will be installed with the packages {{ service[type].rpm }}&quot;
+</code></pre></div>
+<ul>
+<li>Display the content of the <code>service</code> variable from the previous exercise using a loop.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will have to transform your <code>service</code> variable, which is a dictionary, to an item or a list with the help of the jinja filters <code>dict2items</code> or <code>list</code> as this:</p>
+<div class="highlight"><pre><span></span><code>{{ service | dict2items }}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{{ service.values() | list }}
+</code></pre></div>
+</div>
+<p>With <code>dict2items</code>:</p>
+<div class="highlight"><pre><span></span><code>---
+- hosts: ansible_clients
+  vars_files:
+    - vars.yml
+
+  tasks:
+
+    - name: Print a dictionary variable with a loop
+      debug:
+        msg: &quot;{{item.key }} | The {{ item.value.name }} will be installed with the packages {{ item.value.rpm }}&quot;
+      loop: &quot;{{ service | dict2items }}&quot;              
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ ansible-playbook display-dict.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print a dictionary variable with a loop] ********************************************************
+ok: [192.168.1.11] =&gt; (item={&#39;key&#39;: &#39;web&#39;, &#39;value&#39;: {&#39;name&#39;: &#39;apache&#39;, &#39;rpm&#39;: &#39;httpd&#39;}}) =&gt; {
+    &quot;msg&quot;: &quot;web | The apache will be installed with the packages httpd&quot;
+}
+ok: [192.168.1.11] =&gt; (item={&#39;key&#39;: &#39;db&#39;, &#39;value&#39;: {&#39;name&#39;: &#39;mariadb&#39;, &#39;rpm&#39;: &#39;mariadb-server&#39;}}) =&gt; {
+    &quot;msg&quot;: &quot;db | The mariadb will be installed with the packages mariadb-server&quot;
+}
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+</code></pre></div>
+<p>With <code>list</code>:</p>
+<div class="highlight"><pre><span></span><code>---
+- hosts: ansible_clients
+  vars_files:
+    - vars.yml
+
+  tasks:
+
+    - name: Print a dictionary variable with a loop
+      debug:
+        msg: &quot;The {{ item.name }} will be installed with the packages {{ item.rpm }}&quot;
+      loop: &quot;{{ service.values() | list}}&quot;
+~                                                 
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ ansible-playbook display-dict.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print a dictionary variable with a loop] ********************************************************
+ok: [192.168.1.11] =&gt; (item={&#39;name&#39;: &#39;apache&#39;, &#39;rpm&#39;: &#39;httpd&#39;}) =&gt; {
+    &quot;msg&quot;: &quot;The apache will be installed with the packages httpd&quot;
+}
+ok: [192.168.1.11] =&gt; (item={&#39;name&#39;: &#39;mariadb&#39;, &#39;rpm&#39;: &#39;mariadb-server&#39;}) =&gt; {
+    &quot;msg&quot;: &quot;The mariadb will be installed with the packages mariadb-server&quot;
+}
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+</code></pre></div>
+<ul>
+<li>Print the value of <code>service.web</code> only when <code>type</code> equals to <code>web</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>---
+- hosts: ansible_clients
+  vars_files:
+    - vars.yml
+
+  tasks:
+
+    - name: Print a dictionary variable
+      debug:
+        msg: &quot;The {{ service.web.name }} will be installed with the packages {{ service.web.rpm }}&quot;
+      when: type == &quot;web&quot;
+
+
+    - name: Print a dictionary variable
+      debug:
+        msg: &quot;The {{ service.db.name }} will be installed with the packages {{ service.db.rpm }}&quot;
+      when: type == &quot;db&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ ansible-playbook display-dict.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print a dictionary variable] ********************************************************************
+ok: [192.168.1.11] =&gt; {
+    &quot;msg&quot;: &quot;The apache will be installed with the packages httpd&quot;
+}
+
+TASK [Print a dictionary variable] ********************************************************************
+skipping: [192.168.1.11]
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+$ ansible-playbook --extra-vars &quot;type=db&quot; display-dict.yml
+
+PLAY [ansible_clients] *********************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************
+ok: [192.168.1.11]
+
+TASK [Print a dictionary variable] ********************************************************************
+skipping: [192.168.1.11]
+
+TASK [Print a dictionary variable] ********************************************************************
+ok: [192.168.1.11] =&gt; {
+    &quot;msg&quot;: &quot;The mariadb will be installed with the packages mariadb-server&quot;
+}
+
+PLAY RECAP *********************************************************************************************
+192.168.1.11               : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Sidfot">
+      
+        
+        <a href="../01-bases/" class="md-footer__link md-footer__link--prev" aria-label="Föregående: Ansible Basics" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Föregående
+              </span>
+              Ansible Basics
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../03-working-with-files/" class="md-footer__link md-footer__link--next" aria-label="Nästa: Ansible - Management of Files" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Nästa
+              </span>
+              Ansible - Management of Files
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Kopiera till urklipp", "clipboard.copied": "Kopierat till urklipp", "search.config.lang": "sv", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "S\u00f6k", "search.result.placeholder": "Skriv s\u00f6kord", "search.result.none": "Inga s\u00f6kresultat", "search.result.one": "1 s\u00f6kresultat", "search.result.other": "# s\u00f6kresultat", "search.result.more.one": "1 till p\u00e5 denna sidan", "search.result.more.other": "# till p\u00e5 denna sidan", "search.result.term.missing": "Saknas", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>

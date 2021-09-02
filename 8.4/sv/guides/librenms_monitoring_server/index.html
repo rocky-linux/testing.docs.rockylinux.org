@@ -1,0 +1,2748 @@
+
+<!doctype html>
+<html lang="sv" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.rockylinux.org/8.4/sv/guides/librenms_monitoring_server/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
+    
+    
+      
+        <title>LibreNMS Monitoring Server - Documentation</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.be71726b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+<link rel="stylesheet" href="../../../assets/stylesheets/extra.css" />
+
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Red Hat Text";--md-code-font-family:""}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#librenms-monitoring-server" class="md-skip">
+          Gå till innehållet
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Sidhuvud">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LibreNMS Monitoring Server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="../../../" hreflang="en" class="md-select__link">
+                    Default (en)
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../en/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../fr/" hreflang="fr" class="md-select__link">
+                    Français
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../de/" hreflang="de" class="md-select__link">
+                    Deutsch
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../es/" hreflang="es" class="md-select__link">
+                    Español
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../jp/" hreflang="jp" class="md-select__link">
+                    日本語
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../../zh_CN/" hreflang="zh_CN" class="md-select__link">
+                    简体中文
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="../../" hreflang="sv" class="md-select__link">
+                    Svenska
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Sök" placeholder="Sök" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Rensa" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialiserar sök
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Flikar" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../" class="md-tabs__link">
+      Table of Contents
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../books/" class="md-tabs__link">
+        Books
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../labs/" class="md-tabs__link">
+        Labs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../release_notes/8.4/" class="md-tabs__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://rockylinux.org" class="md-tabs__link">
+      Rocky Linux
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rocky-linux/documentation" title="Gå till datakatalog" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rocky-linux/documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Guides Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Apache Hardened Webserver
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apache Hardened Webserver" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Apache Hardened Webserver
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/" class="md-nav__link">
+        Apache Hardened Webserver
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/modsecurity/" class="md-nav__link">
+        Web-based Application Firewall (WAF)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/ossec-hids/" class="md-nav__link">
+        Host-based Intrusion Detection System (HIDS)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache_hardened_webserver/rkhunter/" class="md-nav__link">
+        Rootkit Hunter
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Content Management Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Content Management Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Content Management Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cms/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Database Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Database Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Database Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_build_troubleshooting/" class="md-nav__link">
+        Package build troubleshooting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_debranding/" class="md-nav__link">
+        Rocky paket Hur man tar bort varumärke
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_dev_start/" class="md-nav__link">
+        Packaging and developer starter guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/package_signing/" class="md-nav__link">
+        Paketsignering och testning
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/rockydocs_web_dev/" class="md-nav__link">
+        Running a local copy of the docs.rockylinux.org website for web development and/or content authors
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      <label class="md-nav__link" for="__nav_2_6">
+        Email Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Email Servers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Email Servers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      <label class="md-nav__link" for="__nav_2_7">
+        File Transfer Systems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="File Transfer Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          File Transfer Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_transfer/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../add_mirror_manager/" class="md-nav__link">
+        Lägg till en publik spegel till Rocky's spegelhanterare
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-sites-enabled/" class="md-nav__link">
+        Apache Web Server Multi-Site Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asterisk_installation/" class="md-nav__link">
+        Installing Asterisk on Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_network_configuration/" class="md-nav__link">
+        Networking configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud_server_using_nextcloud/" class="md-nav__link">
+        Cloud Server Using Nextcloud
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cron_jobs_howto/" class="md-nav__link">
+        Automating Processes with cron and crontab
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database_mariadb-server/" class="md-nav__link">
+        MariaDB Database Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_start2/" class="md-nav__link">
+        Development Tutorial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dokuwiki_server/" class="md-nav__link">
+        DokuWiki Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enabling_iptables_firewall/" class="md-nav__link">
+        Aktivera iptables Brandvägg
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generating_ssl_keys_lets_encrypt/" class="md-nav__link">
+        Generating SSL Keys - Let's Encrypt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git_wf_git-cola_atom/" class="md-nav__link">
+        git Workflow for Documentation: git, Git Cola, and Atom
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../import_rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL2 with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning_selinux/" class="md-nav__link">
+        SELinux security
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          LibreNMS Monitoring Server
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        LibreNMS Monitoring Server
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-assumptions-and-conventions" class="md-nav__link">
+    Prerequisites, Assumptions and Conventions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-packages" class="md-nav__link">
+    Installing Packages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-librenms-user" class="md-nav__link">
+    Setting Up The librenms User
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-librenms-and-set-permissions" class="md-nav__link">
+    Download LibreNMS and Set Permissions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-php-dependencies-as-librenms" class="md-nav__link">
+    Install PHP Dependencies As librenms
+  </a>
+  
+    <nav class="md-nav" aria-label="Install PHP Dependencies As librenms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#failure-of-php-dependency-install-workaround" class="md-nav__link">
+    Failure Of PHP Dependency Install Workaround
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-timezone" class="md-nav__link">
+    Set Timezone
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mariadb-setup" class="md-nav__link">
+    MariaDB Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-php-fpm" class="md-nav__link">
+    Configure PHP-FPM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-apache" class="md-nav__link">
+    Configure Apache
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selinux" class="md-nav__link">
+    SELinux
+  </a>
+  
+    <nav class="md-nav" aria-label="SELinux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-librenms-contexts" class="md-nav__link">
+    Configure LibreNMS Contexts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-fping" class="md-nav__link">
+    Allow fping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firewall-configuration" class="md-nav__link">
+    Firewall Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Firewall Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewalld" class="md-nav__link">
+    firewalld
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptables" class="md-nav__link">
+    iptables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-symbolic-link-and-tab-autocomplete-for-lnms-commands" class="md-nav__link">
+    Enable Symbolic Link And Tab-Autocomplete For lnms Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-snmpd" class="md-nav__link">
+    Configure snmpd
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automating-with-a-cron-job" class="md-nav__link">
+    Automating With A Cron Job
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-rotation" class="md-nav__link">
+    Log Rotation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-setup" class="md-nav__link">
+    Web Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-devices" class="md-nav__link">
+    Adding Devices
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-workstation-setup" class="md-nav__link">
+    Ubuntu Workstation Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos-or-rocky-linux-server-setup" class="md-nav__link">
+    CentOS or Rocky Linux Server Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="CentOS or Rocky Linux Server Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewall" class="md-nav__link">
+    Firewall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-the-devices-in-librenms" class="md-nav__link">
+    Adding The Devices In Librenms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-alerts" class="md-nav__link">
+    Getting Alerts
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Alerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transports" class="md-nav__link">
+    Transports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-devices-into-groups" class="md-nav__link">
+    Organizing Devices Into Groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-alert-rules" class="md-nav__link">
+    Setting Up The Alert Rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lxd_server/" class="md-nav__link">
+        Creating a full LXD Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mate_installation/" class="md-nav__link">
+        MATE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrate2rocky/" class="md-nav__link">
+        How to Migrate to Rocky Linux from CentOS, Alma Linux, RHEL, or Oracle Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mirroring_lsyncd/" class="md-nav__link">
+        Mirroring Solution - lsyncd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mod_SSL_apache/" class="md-nav__link">
+        `mod_ssl` on Rocky Linux in an httpd Apache Web-Server Environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postfix_reporting/" class="md-nav__link">
+        Using Postfix For Server Process Reporting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../private_dns_server_using_bind/" class="md-nav__link">
+        Private DNS Server Using Bind
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rocky-8-installation/" class="md-nav__link">
+        Installera Rocky Linux
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rocky_to_wsl_howto/" class="md-nav__link">
+        Import Rocky Linux to WSL with WSL and rinse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsnapshot_backup/" class="md-nav__link">
+        Backup Solution - Rsnapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsync_ssh/" class="md-nav__link">
+        Using rsync To Keep Two Machines Synchronized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secure_ftp_server_vsftpd/" class="md-nav__link">
+        Secure FTP Server - vsftpd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh_public_private_keys/" class="md-nav__link">
+        SSH Publika och privata nycklar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssl_keys_https/" class="md-nav__link">
+        Generating SSL Keys
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates-automation-packer-vsphere/" class="md-nav__link">
+        Automatic template creation with Packer and deployment with Ansible in a VMWare VSphere environment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xfce_installation/" class="md-nav__link">
+        XFCE Desktop Environment
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Books
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Books" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Books
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/" class="md-nav__link">
+        Books Home
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        System Administrator's Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Administrator's Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Administrator's Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/00-toc/" class="md-nav__link">
+        Learning Linux with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/01-presentation/" class="md-nav__link">
+        Introduction to the Linux operating system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/03-commands/" class="md-nav__link">
+        Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/04-advanced-commands/" class="md-nav__link">
+        Advanced Commands for Linux users
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/05-vi/" class="md-nav__link">
+        VI Text Editor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/06-users/" class="md-nav__link">
+        User management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/07-file-systems/" class="md-nav__link">
+        File system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/08-process/" class="md-nav__link">
+        Process management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/09-backups/" class="md-nav__link">
+        Backups and restorations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/10-boot/" class="md-nav__link">
+        System startup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/11-tasks/" class="md-nav__link">
+        Task management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/12-network/" class="md-nav__link">
+        Implementing the network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/admin_guide/13-softwares/" class="md-nav__link">
+        Software Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Learning Ansible
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Learning Ansible" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Learning Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/" class="md-nav__link">
+        Learning Ansible with Rocky
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/01-bases/" class="md-nav__link">
+        Ansible Basics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/02-advanced/" class="md-nav__link">
+        Ansible Intermediate
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/03-working-with-files/" class="md-nav__link">
+        Ansible - Management of Files
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/04-ansible-galaxy/" class="md-nav__link">
+        Ansible-galaxy: collections and roles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/05-deployments/" class="md-nav__link">
+        Ansible Deployments with Ansistrano
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../books/learning_ansible/06-large-scale-infrastructure/" class="md-nav__link">
+        Ansible - Large scale infrastucture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/" class="md-nav__link">
+        English Labs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        System Security Labs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System Security Labs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          System Security Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/" class="md-nav__link">
+        Table of Contents
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/security/rocky-lab9-cryptography/" class="md-nav__link">
+        Lab 9: Cryptography
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/8.4/" class="md-nav__link">
+        Current
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/8-changelog/" class="md-nav__link">
+        Rocky Linux 8 Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://rockylinux.org" class="md-nav__link">
+        Rocky Linux
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Innehållsförteckning">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Innehållsförteckning
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-assumptions-and-conventions" class="md-nav__link">
+    Prerequisites, Assumptions and Conventions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-packages" class="md-nav__link">
+    Installing Packages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-librenms-user" class="md-nav__link">
+    Setting Up The librenms User
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-librenms-and-set-permissions" class="md-nav__link">
+    Download LibreNMS and Set Permissions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-php-dependencies-as-librenms" class="md-nav__link">
+    Install PHP Dependencies As librenms
+  </a>
+  
+    <nav class="md-nav" aria-label="Install PHP Dependencies As librenms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#failure-of-php-dependency-install-workaround" class="md-nav__link">
+    Failure Of PHP Dependency Install Workaround
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-timezone" class="md-nav__link">
+    Set Timezone
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mariadb-setup" class="md-nav__link">
+    MariaDB Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-php-fpm" class="md-nav__link">
+    Configure PHP-FPM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-apache" class="md-nav__link">
+    Configure Apache
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selinux" class="md-nav__link">
+    SELinux
+  </a>
+  
+    <nav class="md-nav" aria-label="SELinux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-librenms-contexts" class="md-nav__link">
+    Configure LibreNMS Contexts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-fping" class="md-nav__link">
+    Allow fping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firewall-configuration" class="md-nav__link">
+    Firewall Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Firewall Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewalld" class="md-nav__link">
+    firewalld
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptables" class="md-nav__link">
+    iptables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-symbolic-link-and-tab-autocomplete-for-lnms-commands" class="md-nav__link">
+    Enable Symbolic Link And Tab-Autocomplete For lnms Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-snmpd" class="md-nav__link">
+    Configure snmpd
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automating-with-a-cron-job" class="md-nav__link">
+    Automating With A Cron Job
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-rotation" class="md-nav__link">
+    Log Rotation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-setup" class="md-nav__link">
+    Web Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-devices" class="md-nav__link">
+    Adding Devices
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-workstation-setup" class="md-nav__link">
+    Ubuntu Workstation Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#centos-or-rocky-linux-server-setup" class="md-nav__link">
+    CentOS or Rocky Linux Server Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="CentOS or Rocky Linux Server Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewall" class="md-nav__link">
+    Firewall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-the-devices-in-librenms" class="md-nav__link">
+    Adding The Devices In Librenms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-alerts" class="md-nav__link">
+    Getting Alerts
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Alerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transports" class="md-nav__link">
+    Transports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-devices-into-groups" class="md-nav__link">
+    Organizing Devices Into Groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-alert-rules" class="md-nav__link">
+    Setting Up The Alert Rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="librenms-monitoring-server">LibreNMS Monitoring Server<a class="headerlink" href="#librenms-monitoring-server" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Network and systems administrators almost always need some form of monitoring. This can include graphing bandwidth usage at router end points, monitoring the up/down of services running on various servers, and much, much more. There are many monitoring options out there, but one option that is very good and has many, if not all, of the monitoring components available under one roof, is LibreNMS.</p>
+<p>This document will only get you started with LibreNMS, but we will point you to the projects excellent (and extensive) documentation to get you going further. There are lots of other options for monitoring out there that this author has used before, Nagios and Cacti being two, but LibreNMS offers what these two project offer individually, in one spot.</p>
+<p>While the installation will follow pretty closely to the official install instructions found <a href="https://docs.librenms.org/Installation/Install-LibreNMS/">here</a>, we've added some explanation and even some minor changes, which make this procedure preferable to that excellent document.</p>
+<h2 id="prerequisites-assumptions-and-conventions">Prerequisites, Assumptions and Conventions<a class="headerlink" href="#prerequisites-assumptions-and-conventions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A server or container (yes, LibreNMS will run in a container, however if you have a lot to monitor, your best bet would be to install on its own hardware) running Rocky Linux. All commands assume a fresh install of Rocky Linux.</li>
+<li>Assumption: that you are able to execute commands as root or can <em>sudo</em> to do so</li>
+<li>Working knowledge of command-line tools, including editors, such as <em>vi</em></li>
+<li>We are assuming the use of SNMP v2. If you want to use SNMP v3, it is supported by LibreNMS and will work. You'll just need to switch up the SNMP configuration and options on your devices to match up to v3.</li>
+<li>While we have included the SELinux procedure in this document, the container that we are using in the lab does not include it by default. For this reason, the SELinux procedure has <strong>not</strong> been lab tested.</li>
+<li>Throughout this document, the examples use the <em>vi</em> editor as mentioned. When the document says to save your changes and exit, this is done with <code>SHIFT:wq!</code></li>
+<li>Some trouble-shooting skills, including log monitoring, web testing, and more, are required.</li>
+</ul>
+<h2 id="installing-packages">Installing Packages<a class="headerlink" href="#installing-packages" title="Permanent link">&para;</a></h2>
+<p>These commands should be entered as the root user. Before we begin, note that this installation procedure focuses on httpd, rather than nginx. If you prefer to use the latter, head up to the <a href="https://docs.librenms.org/Installation/Install-LibreNMS/">Librenms Install Instructions</a> and follow the guide there. We are assuming a fresh install, so we need to do a few things with the repositories before we can continue. First, we need to install the EPEL repository (Extra Packages for Enterprise Linux):</p>
+<p><code>dnf install -y epel-release</code></p>
+<p>Next, we need to tell the repositories to enable PHP 7.3 as the default PHP:</p>
+<div class="highlight"><pre><span></span><code>dnf module reset php
+dnf module enable php:7.3
+</code></pre></div>
+<p>This will return a listing for httpd, nginx, and php, just answer "y" to the prompt to continue. Next, we need to install a bunch of packages:</p>
+<p><code>dnf install bash-completion cronie fping git httpd ImageMagick mariadb-server mtr net-snmp net-snmp-utils nmap php-fpm php-cli php-common php-curl php-gd php-json php-mbstring php-process php-snmp php-xml php-zip php-mysqlnd python3 python3-PyMySQL python3-redis python3-memcached python3-pip python3-systemd rrdtool unzip</code></p>
+<p>All of these packages represent some portion of the LibreNMS feature set.</p>
+<h2 id="setting-up-the-librenms-user">Setting Up The librenms User<a class="headerlink" href="#setting-up-the-librenms-user" title="Permanent link">&para;</a></h2>
+<p>To do this, copy and paste (or type) the following:</p>
+<p><code>useradd librenms -d /opt/librenms -M -r -s "$(which bash)"</code></p>
+<p>With this command, we are setting the default directory for our new user to "/opt/librenms" however the "-M" option says "don't create the directory." The reason, of course, is that we will be creating it when we install libreNMS. The "-r" says to make this user a system account and the "-s" says to set the shell (in this case, to "bash")</p>
+<h2 id="download-librenms-and-set-permissions">Download LibreNMS and Set Permissions<a class="headerlink" href="#download-librenms-and-set-permissions" title="Permanent link">&para;</a></h2>
+<p>The download is all done through git. You may be familiar with the process as it is used for many projects these days. First, switch over to the /opt directory:</p>
+<p><code>cd /opt</code></p>
+<p>Then clone the repository:</p>
+<p><code>git clone https://github.com/librenms/librenms.git</code></p>
+<p>Next change permissions for the directory:</p>
+<div class="highlight"><pre><span></span><code>chown -R librenms:librenms /opt/librenms
+chmod 771 /opt/librenms
+setfacl -d -m g::rwx /opt/librenms/rrd /opt/librenms/logs /opt/librenms/bootstrap/cache/ /opt/librenms/storage/
+setfacl -R -m g::rwx /opt/librenms/rrd /opt/librenms/logs /opt/librenms/bootstrap/cache/ /opt/librenms/storage/
+</code></pre></div>
+<p>The <em>setfacl</em> command stands for "set file access control lists" and is another way of securing directories and files.</p>
+<h2 id="install-php-dependencies-as-librenms">Install PHP Dependencies As librenms<a class="headerlink" href="#install-php-dependencies-as-librenms" title="Permanent link">&para;</a></h2>
+<p>All of the above commands were executed as root or <em>sudo</em>, but the PHP dependencies within LibreNMS need to be installed as the librenms user. To do this,</p>
+<p><code>su - librenms</code></p>
+<p>And then enter the following:</p>
+<p><code>./scripts/composer_wrapper.php install --no-dev</code></p>
+<p>Once the script is completed, exit back to root:</p>
+<p><code>exit</code></p>
+<h3 id="failure-of-php-dependency-install-workaround">Failure Of PHP Dependency Install Workaround<a class="headerlink" href="#failure-of-php-dependency-install-workaround" title="Permanent link">&para;</a></h3>
+<p>LibreNMS documentation says that when you are behind a proxy server, the above procedure may fail. If so, use this procedure as a workaround. Note, too, that this workaround would have to be run as the root user, because it makes modifications to /usr/bin:</p>
+<div class="highlight"><pre><span></span><code>wget https://getcomposer.org/composer-stable.phar
+mv composer-stable.phar /usr/bin/composer
+chmod +x /usr/bin/composer
+</code></pre></div>
+<h2 id="set-timezone">Set Timezone<a class="headerlink" href="#set-timezone" title="Permanent link">&para;</a></h2>
+<p>We need to make sure that this is set correctly, both for the system and for PHP. You can find a list of valid timezone settings for PHP <a href="https://php.net/manual/en/timezones.php">here</a>. For instance, for the Central timezone, a common entry would be "America/Chicago". Let's start by editing the php.ini file:</p>
+<p><code>vi /etc/php.ini</code></p>
+<p>Find the <code>date.timezone</code> line and modify it. Note that it is remarked out, so remove the ";" from the beginning of the line and add your timezone after the "=" sign. For our Central timezone example we will use:</p>
+<p><code>date.timezone = America/Chicago</code></p>
+<p>Save your changes and exit the php.ini file.</p>
+<p>We also need to make sure that the system timezone is correct. Again, using our Central timezone as the example, we would do this with:</p>
+<p><code>timedatectl set-timezone America/Chicago</code></p>
+<h2 id="mariadb-setup">MariaDB Setup<a class="headerlink" href="#mariadb-setup" title="Permanent link">&para;</a></h2>
+<p>Before we get into the database setup required for LibreNMS, run through the <a href="../database_mariadb-server/">MariaDB procedure</a> and specifically the section for "Securing mariadb-server", and then come back here for these specific settings. The first thing we need to do is modify the mariadb-server.cnf file:</p>
+<p><code>vi /etc/my.cnf.d/mariadb-server.cnf</code></p>
+<p>And add the following lines to the "[Mysqld]" section:</p>
+<div class="highlight"><pre><span></span><code>innodb_file_per_table=1
+lower_case_table_names=0
+</code></pre></div>
+<p>Then enable and restart the mariadb server:</p>
+<div class="highlight"><pre><span></span><code>systemctl enable mariadb
+systemctl restart mariadb
+</code></pre></div>
+<p>Now gain access to mariadb as the root user. Remember to use the password that you created when folloing the "Securing mariadb-server" section that you performed above:</p>
+<p><code>mysql -u root -p</code></p>
+<p>The next thing we need to do is make some specific changes for LibreNMS. With the command below, remember to change the password "password" to something secure and document what that is in a safe spot, such as a password manager, so that you will have it later. At the mysql prompt do:</p>
+<div class="highlight"><pre><span></span><code>CREATE DATABASE librenms CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER &#39;librenms&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39;;
+GRANT ALL PRIVILEGES ON librenms.* TO &#39;librenms&#39;@&#39;localhost&#39;;
+FLUSH PRIVILEGES;
+</code></pre></div>
+<p>Once you've done this, type "exit" to exit back out of mariadb.</p>
+<h2 id="configure-php-fpm">Configure PHP-FPM<a class="headerlink" href="#configure-php-fpm" title="Permanent link">&para;</a></h2>
+<p>This section is basically unchanged from the official documentation. First, copy the www.conf:</p>
+<p><code>cp /etc/php-fpm.d/www.conf /etc/php-fpm.d/librenms.conf</code></p>
+<p>Next modify the librenms.conf file:</p>
+<p><code>vi /etc/php-fpm.d/librenms.conf</code></p>
+<p>Near the top, add these two lines to fix a path issue for the librenms user that will come up later:</p>
+<div class="highlight"><pre><span></span><code>; Set the ENV path to fix broken Centos web page issue
+env[PATH] = /usr/local/bin:/usr/bin:/bin
+</code></pre></div>
+<p>Change "[www]" to ["librenms]"</p>
+<p>Change the user and group to "librenms":</p>
+<div class="highlight"><pre><span></span><code>user = librenms
+group = librenms
+</code></pre></div>
+<p>And finally change the "listen" line to reflect a unique name:</p>
+<p><code>listen = /run/php-fpm-librenms.sock</code></p>
+<p>Save your changes and exit the file. If this is the only web service that will be running on this machine, feel free to remove the old www.conf file that we copied:</p>
+<p><code>rm -f /etc/php-fpm.d/www.conf</code></p>
+<h2 id="configure-apache">Configure Apache<a class="headerlink" href="#configure-apache" title="Permanent link">&para;</a></h2>
+<p>Normally, we would use the <a href="../apache-sites-enabled/">Apache sites-enabled</a> procedure to set up any web services, but in this case, we are just going with the default setup. Note that if you want to use that procedure, you simply need to place the configuration file in /etc/httpd/sites-available and then follow the procedure to link it to sites-enabled. The default document root, however, would <strong>not</strong> be /var/www/sub-domains/librenms/html, but instead it would be /opt/librenms/html.</p>
+<p>Again, in this case we aren't using that procedure and just going with the default, suggested setup. To do this, start by creating this file:</p>
+<p><code>vi /etc/httpd/conf.d/librenms.conf</code></p>
+<p>And placing the following in that file:</p>
+<div class="highlight"><pre><span></span><code>&lt;VirtualHost *:80&gt;
+  DocumentRoot /opt/librenms/html/
+  ServerName  librenms.example.com
+
+  AllowEncodedSlashes NoDecode
+  &lt;Directory &quot;/opt/librenms/html/&quot;&gt;
+    Require all granted
+    AllowOverride All
+    Options FollowSymLinks MultiViews
+  &lt;/Directory&gt;
+
+  # Enable http authorization headers
+  &lt;IfModule setenvif_module&gt;
+    SetEnvIfNoCase ^Authorization$ &quot;(.+)&quot; HTTP_AUTHORIZATION=$1
+  &lt;/IfModule&gt;
+
+  &lt;FilesMatch &quot;.+\.php$&quot;&gt;
+    SetHandler &quot;proxy:unix:/run/php-fpm-librenms.sock|fcgi://localhost&quot;
+  &lt;/FilesMatch&gt;
+&lt;/VirtualHost&gt;
+</code></pre></div>
+<p>You should also remove the old default site, welcome.conf:</p>
+<p><code>rm /etc/httpd/conf.d/welcome.conf</code></p>
+<p>Finally, we need to enable both <em>httpd</em> and <em>php-fpm</em>:</p>
+<div class="highlight"><pre><span></span><code>systemctl enable --now httpd
+systemctl enable --now php-fpm
+</code></pre></div>
+<h2 id="selinux">SELinux<a class="headerlink" href="#selinux" title="Permanent link">&para;</a></h2>
+<p>Please note that if you don't plan on using SELinux, skip this and head to the next section. This might also apply to you if you use LibreNMS on a container that does not support SELinux at the container level, or does not include it by default.</p>
+<p>To setup everything with SELinux, you'll need an additional package installed:</p>
+<p><code>dnf install policycoreutils-python-utils</code></p>
+<h3 id="configure-librenms-contexts">Configure LibreNMS Contexts<a class="headerlink" href="#configure-librenms-contexts" title="Permanent link">&para;</a></h3>
+<p>You'll need to set the following contexts for LibreNMS to work properly with SELinux:</p>
+<div class="highlight"><pre><span></span><code>semanage fcontext -a -t httpd_sys_content_t &#39;/opt/librenms/html(/.*)?&#39;
+semanage fcontext -a -t httpd_sys_rw_content_t &#39;/opt/librenms/(logs|rrd|storage)(/.*)?&#39;
+restorecon -RFvv /opt/librenms
+setsebool -P httpd_can_sendmail=1
+setsebool -P httpd_execmem 1
+chcon -t httpd_sys_rw_content_t /opt/librenms/.env
+</code></pre></div>
+<h3 id="allow-fping">Allow fping<a class="headerlink" href="#allow-fping" title="Permanent link">&para;</a></h3>
+<p>Create a file called <code>http_fping.tt</code> anywhere and it will be installed via a command later. The contents of this file are:</p>
+<p><div class="highlight"><pre><span></span><code>module http_fping 1.0;
+
+require {
+type httpd_t;
+class capability net_raw;
+class rawip_socket { getopt create setopt write read };
+}
+
+#============= httpd_t ==============
+allow httpd_t self:capability net_raw;
+allow httpd_t self:rawip_socket { getopt create setopt write read };
+</code></pre></div>
+Now install the contents of this file with the following commands:</p>
+<p><div class="highlight"><pre><span></span><code>checkmodule -M -m -o http_fping.mod http_fping.tt
+semodule_package -o http_fping.pp -m http_fping.mod
+semodule -i http_fping.pp
+</code></pre></div>
+If you run into problems and you suspect it might be due to an SELinux issue, run the following:</p>
+<p><code>audit2why &lt; /var/log/audit/audit.log</code></p>
+<h2 id="firewall-configuration">Firewall Configuration<a class="headerlink" href="#firewall-configuration" title="Permanent link">&para;</a></h2>
+<p>We will include the <em>firewalld</em> instructions from the official documentation, however we will be using <em>iptables</em> in the lab, so will also include those instructions. To use <em>iptables</em> simply follow <a href="../enabling_iptables_firewall/">this procedure</a> and then use the <em>iptables</em> script found in this procedure, and make modifications to it for your network.</p>
+<h3 id="firewalld">firewalld<a class="headerlink" href="#firewalld" title="Permanent link">&para;</a></h3>
+<p>The command to use for <em>firewalld</em> allow rules are as follows:</p>
+<div class="highlight"><pre><span></span><code>firewall-cmd --zone public --add-service http --add-service https
+firewall-cmd --permanent --zone public --add-service http --add-service https
+</code></pre></div>
+<p>The author has problems with the simplistic nature of <em>firewalld</em>. This rule allows your web services to be open to the world, but is that what you want for a monitoring server?  I would say that this is usually <strong>not</strong> the case. I prefer <em>iptables</em> rules, because it is easy to see at a glance what you are allowing.</p>
+<h3 id="iptables">iptables<a class="headerlink" href="#iptables" title="Permanent link">&para;</a></h3>
+<p>Create a script to run for adding, changing firewall rules called firewall.conf and put this in /etc</p>
+<p><code>vi /etc/firewall.conf</code></p>
+<p>Place the following in the file, substituting your network IP addresses as needed. This script allows UDP, SSH, HTTP and HTTPS from the local network in the lab, 192.168.1.0/24. It also allows ICMP type 8 (which stands for "Echo Request" or more commonly "ping") from our network gateway, 192.168.1.2:</p>
+<div class="highlight"><pre><span></span><code>#!/bin/sh
+#
+#IPTABLES=/usr/sbin/iptables
+
+#  Unless specified, the defaults for OUTPUT is ACCEPT
+#    The default for FORWARD and INPUT is DROP
+#
+echo &quot;   clearing any existing rules and setting default policy..&quot;
+iptables -F INPUT
+iptables -P INPUT DROP
+iptables -A INPUT -p udp -m udp -s 192.168.1.0/24 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp -s 192.168.1.0/24 --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp -s 192.168.1.0/24 --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp -s 192.168.1.0/24 --dport 443 -j ACCEPT
+iptables -A INPUT -p icmp -m icmp --icmp-type 8 -s 192.168.1.2 -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp -j REJECT --reject-with tcp-reset
+iptables -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+
+/usr/sbin/service iptables save
+</code></pre></div>
+<p>Make the script executable:</p>
+<p><code>chmod +x /etc/firewall.conf</code></p>
+<p>Run the script:</p>
+<p><code>/etc/firewall.conf</code></p>
+<p>Assuming no errors, you should be ready to go.</p>
+<h2 id="enable-symbolic-link-and-tab-autocomplete-for-lnms-commands">Enable Symbolic Link And Tab-Autocomplete For lnms Commands<a class="headerlink" href="#enable-symbolic-link-and-tab-autocomplete-for-lnms-commands" title="Permanent link">&para;</a></h2>
+<p>First, we need a symbolic link on our <em>lnms</em> command so that it can be executed from anywhere:</p>
+<p><code>ln -s /opt/librenms/lnms /usr/bin/lnms</code></p>
+<p>Next, we need to set it up for autocomplete:</p>
+<p><code>cp /opt/librenms/misc/lnms-completion.bash /etc/bash_completion.d/</code></p>
+<h2 id="configure-snmpd">Configure snmpd<a class="headerlink" href="#configure-snmpd" title="Permanent link">&para;</a></h2>
+<p><em>SNMP</em> stands for "Simple Network Management Protocol" and is used in many monitoring programs for pulling data. In version 2, which we are using here, it involves a "community string" which is specific for your environment. You'll need to assign this "community string" to your network devices that you want to monitor so that <em>snmpd</em> (the "d" here stands for the daemon) will be able to find it. If your network has been in place for some time, you may already have a "community string" that you are using.</p>
+<p>First, copy the snmp.conf file from LibreNMS:</p>
+<p><code>cp /opt/librenms/snmpd.conf.example /etc/snmp/snmpd.conf</code></p>
+<p>Next, edit this file and change the community string from "RANDOMSTRINGGOESHERE" to whatever your community string is or will be. In our example, we are changing it to "LABone":</p>
+<p><code>vi /etc/snmp/snmpd.conf</code></p>
+<p>and change this line:</p>
+<p><code>com2sec readonly  default         RANDOMSTRINGGOESHERE</code></p>
+<p>to</p>
+<p><code>com2sec readonly  default         LABone</code></p>
+<p>Now save your changes and exit.</p>
+<h2 id="automating-with-a-cron-job">Automating With A Cron Job<a class="headerlink" href="#automating-with-a-cron-job" title="Permanent link">&para;</a></h2>
+<p>Do the following:</p>
+<p><code>cp /opt/librenms/librenms.nonroot.cron /etc/cron.d/librenms</code></p>
+<h2 id="log-rotation">Log Rotation<a class="headerlink" href="#log-rotation" title="Permanent link">&para;</a></h2>
+<p>LibreNMS will create a large set of logs over time. You'll need to setup log rotation for this so that it doesn't eat up too much disk space. To do this, simply do the following now:</p>
+<p><code>cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms</code></p>
+<h2 id="web-setup">Web Setup<a class="headerlink" href="#web-setup" title="Permanent link">&para;</a></h2>
+<p>Now that we have all of the components installed and configured, our next step is to finish the installation via the web. In our lab version, we've got no hostname setup so to finish the setup, we need to go to the web server by IP address. The IP of our lab machine is 192.168.1.140, so we need to do the following in a web browser to finish the install:</p>
+<p><code>http://192.168.1.140/librenms</code></p>
+<p>Assuming all is working correctly, you should be redirected to the pre-install checks. Assuming that these are all marked as green, then we should be able to continue.</p>
+<p><img alt="LibreNMS Prechecks" src="../../../guides/images/librenms_prechecks.png" /></p>
+<p>There are four buttons beneath the LibreNMS logo. The first button on the left is for the pre-checks. Our next button over is for the database. You'll need the password that you set for the database user "librenms" earlier in the process. If you've been following along diligently, then you've got that saved in a safe place. Go ahead and click on the "Database" button. The "User" and "Password" should be all that is necessary to fill in here. Once you do that, click the "Check Credentials" button.</p>
+<p><img alt="LibreNMS Database" src="../../../guides/images/librenms_configure_database.png" /></p>
+<p>Once you click that, if it comes back green, then you are ready to click the "Build Database" button.</p>
+<p><img alt="LibreNMS Database Status" src="../../../guides/images/librenms_configure_database_status.png" /></p>
+<p>Once that is complete, the third button will be active, which is "Create Admin User", so go ahead and click this. You will be prompted for an admin user name. In our lab we are simply going to use "admin", and a password for that user. Make sure the password is secure and, again, log it somewhere safe, such as a password manager. You'll also need to fill in the email address for the administrative user. Once all of that is completed, simply click the "Add User" button.</p>
+<p><img alt="LibreNMS Administrative User" src="../../../guides/images/librenms_administrative_user.png" /></p>
+<p>Once you do this, you'll be faced with a screen for "Finish Install." There should only be one item left to finish the install and that is a line that asks you to "validate your install". Click the link. Once you've done this and everything is successful, you'll be redirected to the login page. Login with your administrative user and password.</p>
+<h2 id="adding-devices">Adding Devices<a class="headerlink" href="#adding-devices" title="Permanent link">&para;</a></h2>
+<p>Again, one of our assumptions was that you are using SNMP v2. Remember that each device you add must be member of your community string. We are adding two devices as examples here. A Ubuntu workstation and a CentOS server. You will more than likely have managed switches, routers, and other devices to add. The author can tell you from past experience that adding switches and routers tends to be a whole lot easier than adding workstations and servers, which is why we are using those as our examples.</p>
+<h3 id="ubuntu-workstation-setup">Ubuntu Workstation Setup<a class="headerlink" href="#ubuntu-workstation-setup" title="Permanent link">&para;</a></h3>
+<p>First, install <em>snmpd</em> on the workstation while also updating packages, just to be safe:</p>
+<p><code>sudo update &amp;&amp; sudo apt-get upgrade &amp;&amp; sudo apt-get install snmpd</code></p>
+<p>Next, you need to modify the snmpd.conf file:</p>
+<p><code>sudo vi /etc/snmpd/snmpd.conf</code></p>
+<p>Go ahead and find the lines that describe your workstation and change them to things that identify the workstation. These lines are shown below:</p>
+<div class="highlight"><pre><span></span><code>sysLocation    Desktop
+sysContact     Username &lt;user@mydomain.com&gt;
+</code></pre></div>
+<p>By default, when you install snmpd on Ubuntu, it only binds to the local address. It does not listen on your machine IP address. This will not allow LibreNMS to connect to it. We need to remark out this line:</p>
+<p><code>agentaddress  127.0.0.1,[::1]</code></p>
+<p>And add a new line that looks like what follows here: (In this example, the IP address of our workstation is 192.168.1.122 and the UDP port we are setting is "161")</p>
+<p><code>agentAddress udp:127.0.0.1:161,udp:192.168.1.122:161</code></p>
+<p>Next, we need to specify the read only access community string. Find the below lines and remark them out. (note that we are showing them as remarked out below):</p>
+<div class="highlight"><pre><span></span><code>#rocommunity public default -V systemonly
+#rocommunity6 public default -V systemonly
+</code></pre></div>
+<p>Next, add a new line:</p>
+<p><code>rocommunity LABone</code></p>
+<p>Now save your changes and exit.</p>
+<p>Enable and start <em>snmpd</em>:</p>
+<div class="highlight"><pre><span></span><code>sudo systemctl enable snmpd
+sudo systemctl start snmpd
+</code></pre></div>
+<p>If you are running a firewall on your internal workstations, then you will need to modify the firewall to allow UDP traffic from the monitoring server or from the network. LibreNMS also wants to be able to "ping" your device, so make sure that icmp port 8 is allowed from the server.</p>
+<h3 id="centos-or-rocky-linux-server-setup">CentOS or Rocky Linux Server Setup<a class="headerlink" href="#centos-or-rocky-linux-server-setup" title="Permanent link">&para;</a></h3>
+<p>We are assuming that you are root here or that you can <em>sudo</em> to become so. First, we need to install some packages:</p>
+<p><code>dnf install net-snmp net-snmp-utils</code></p>
+<p>Next, we want to create a snmpd.conf file. Rather than try to navigate through the file that is included, move this file to rename it, and create a brand new empty file:</p>
+<p><code>mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.orig</code></p>
+<p>and</p>
+<p><code>vi /etc/snmp/snmpd.conf</code></p>
+<p>Next copy the below into the new file:</p>
+<div class="highlight"><pre><span></span><code># Map &#39;LABone&#39; community to the &#39;AllUser&#39;
+# sec.name source community
+com2sec AllUser default LABone
+# Map &#39;ConfigUser&#39; to &#39;ConfigGroup&#39; for SNMP Version 2c
+# Map &#39;AllUser&#39; to &#39;AllGroup&#39; for SNMP Version 2c
+# sec.model sec.name
+group AllGroup v2c AllUser
+# Define &#39;SystemView&#39;, which includes everything under .1.3.6.1.2.1.1 (or .1.3.6.1.2.1.25.1)
+# Define &#39;AllView&#39;, which includes everything under .1
+# incl/excl subtree
+view SystemView included .1.3.6.1.2.1.1
+view SystemView included .1.3.6.1.2.1.25.1.1
+view AllView included .1
+# Give &#39;ConfigGroup&#39; read access to objects in the view &#39;SystemView&#39;
+# Give &#39;AllGroup&#39; read access to objects in the view &#39;AllView&#39;
+# context model level prefix read write notify
+access AllGroup &quot;&quot; any noauth exact AllView none none
+</code></pre></div>
+<p>CentOS and Rocky use a mapping convention to direct things. The above file is commented nicely so that you can learn what is happening, but doesn't include all of the clutter of the original file.</p>
+<p>Once you've made the changes, save them and exit the file.</p>
+<p>Now we need to enable and start <em>snmpd</em>:</p>
+<div class="highlight"><pre><span></span><code>systemctl enable snmpd
+systemctl start snmpd
+</code></pre></div>
+<h4 id="firewall">Firewall<a class="headerlink" href="#firewall" title="Permanent link">&para;</a></h4>
+<p>If you are running a server, then you <strong>are</strong> running a firewall, right?  We are assuming <em>iptables</em> as noted above, so we need to modify our firewall configuration, (in this case, /etc/firewall.conf) and add access for UDP and ICMP traffic coming from the monitoring server. If you are running <em>firewalld</em>, just substitute in the appropriate rules for <em>firewalld</em>. Here's a rule set for our example server:</p>
+<div class="highlight"><pre><span></span><code>#!/bin/sh
+#
+#IPTABLES=/usr/sbin/iptables
+
+#  Unless specified, the defaults for OUTPUT is ACCEPT
+#    The default for FORWARD and INPUT is DROP
+#
+echo &quot;   clearing any existing rules and setting default policy..&quot;
+iptables -F INPUT
+iptables -P INPUT DROP
+iptables -A INPUT -p icmp --icmp-type 8 -s 192.168.1.140 -j ACCEPT
+iptables -A INPUT -p udp -m udp -s 192.168.1.140 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp -s 192.168.1.0/24 --dport 22 -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp -j REJECT --reject-with tcp-reset
+iptables -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+
+/usr/sbin/service iptables save
+</code></pre></div>
+<p>If you are new to this particular <em>iptables</em> concept, the /etc/firewall.conf is executable, and it's our way of making changes to the saved <em>iptables</em> rules that will be restored on boot. In the above example, we are allowing "ping" and UDP traffic from our monitoring server and SSH from our local network. Many other rules may be necessary for your server functions, perhaps http rules or mysql port allow rules, etc. Once you've made the changes to /etc/firewall.conf, execute it with:</p>
+<p><code>/etc/firewall.conf</code></p>
+<h2 id="adding-the-devices-in-librenms">Adding The Devices In Librenms<a class="headerlink" href="#adding-the-devices-in-librenms" title="Permanent link">&para;</a></h2>
+<p>Now that our sample devices are configured to accept snmp traffic from our LibreNMS server, the next step is to add those devices in LibreNMS. We are assuming that you have the web interface for LibreNMS open, and if so, it is going to be showing you that you have no devices added and asking you to add one. So go ahead and do that. Once you click to add a device, you'll be faced with this screen:</p>
+<p><img alt="LibreNMS Add Device" src="../../../guides/images/librenms_add_device.png" /></p>
+<p>Put in the information we used for our test devices. In our case, we are using the IP for the Ubuntu workstation to start, in our example that is 192.168.1.122. The only other thing we will need to add here is the community string in the "Community" field, so we would type in "LABone" here. Now click the "Add Device" button. Assuming that you have done everything correctly above when adding the device, your device should be added successfully. If you run into a failure to add, review the SNMP setup for the workstation or the firewall if it exists. Next we repeat the "Add Device" process for our CentOS server.</p>
+<h2 id="getting-alerts">Getting Alerts<a class="headerlink" href="#getting-alerts" title="Permanent link">&para;</a></h2>
+<p>As we said from the start, this document will only get you started with LibreNMS. There are a large number of additional configuration items, an extensive API (Application Programming Interface), an alerts system that provides a huge number of options for delivery, called "Transports", and much more.  We are not going to create any alert rules, but instead we will be editing the built-in alert rule "Device Down! Due to no ICMP response"  that is pre-configured out of the box, and for "Transports" we are going to stick with "Mail", which is just email. Just know that you are not limited.</p>
+<p>In order to use email for our transport, however, we need to have mail working on our server. To get this going, we are going to use this <a href="../postfix_reporting/">Postfix Procedure</a>. Run through that procedure to configure postfix so that it will properly identify where the messages are coming from, but you can stop after the configuration process and come back here.</p>
+<h3 id="transports">Transports<a class="headerlink" href="#transports" title="Permanent link">&para;</a></h3>
+<p>We need a way to send out our alerts. As noted earlier, LibreNMS supports a huge number of transports. We are going to do our alert by email, which is defined as the "Mail" transport. To set up the transport:</p>
+<ol>
+<li>Go to the dashboard</li>
+<li>Let your mouse hover over "Alerts"</li>
+<li>Go down to "Alert Transports" and click on it</li>
+<li>Click on on the "Create alert transport" button (Note the "Create transport group" button. You can use this to have alerts go to several individuals)</li>
+<li>In the "Transport name:" field, type in "Alert By Email"</li>
+<li>In the "Transport type: field, use the drop down to select "Mail"</li>
+<li>Make sure the "Default alert:" field is set to "On"</li>
+<li>In the "Email:" field, type the email address of the administrator</li>
+</ol>
+<h3 id="organizing-devices-into-groups">Organizing Devices Into Groups<a class="headerlink" href="#organizing-devices-into-groups" title="Permanent link">&para;</a></h3>
+<p>The best way to set up alerts is to first organize your devices into some logical order. Currently, we have a workstation and a server in devices. While we may not normally wish to organize the two together, we will for this example. Keep in mind that our example is also redundant, as there is an "All Devices" group that would work for this as well. To set up a device group:</p>
+<ol>
+<li>Go to the dashboard</li>
+<li>Let your mouse hover over "Devices"</li>
+<li>Go down to "Manage Groups" and click on it</li>
+<li>Click on the "+ New Device Group" button</li>
+<li>In the "Name" field, type "ICMP Group"</li>
+<li>In the description field type what ever you think will help describe the group</li>
+<li>Change the "Type" field from "Dynamic" to "Static"</li>
+<li>Add both devices to the "Select Devices" field and then just save your changes</li>
+</ol>
+<h3 id="setting-up-the-alert-rules">Setting Up The Alert Rules<a class="headerlink" href="#setting-up-the-alert-rules" title="Permanent link">&para;</a></h3>
+<p>Now that we have the transport and the device group set up, let's configure the alert rule. By default, LibreNMS has several alert rules already created for you:</p>
+<ol>
+<li>Go to the dashboard</li>
+<li>Let your mouse hover over "Alerts"</li>
+<li>Go down to "Alert Rules" and click on it</li>
+<li>The top active rule in the display will be "Device Down! Due to no ICMP response." Go over to the "Action" (far right column) and click on the pencil icon to edit the rule.</li>
+<li>Leave all the fields at the top as is and go down to the "Match devices, groups and locations list:" field and click inside the field</li>
+<li>Select "ICMP Group" from the list</li>
+<li>Make sure the "All devices except in list:" field is "Off"</li>
+<li>Click inside the "Transports:" field and select "Mail: Alert By Email" and save your rule.</li>
+</ol>
+<p>Before saving, your rule should look something like this:</p>
+<p><img alt="LibreNMS Alert Rule" src="../../../guides/images/librenms_alert_rule.png" /></p>
+<p>These two devices should now alert you by email if they are down and when they recover.</p>
+<h2 id="conclusions">Conclusions<a class="headerlink" href="#conclusions" title="Permanent link">&para;</a></h2>
+<p>LibreNMS is a powerful monitoring tool with a full set of features in one application. We have only <em>just</em> scratched the surface on the capabilities. We haven't shown you some of the obvious screens. For instance, as soon as you add devices, assuming that all of the SNMP properties are set correctly, you'll start to receive bandwidth, memory utilization, and CPU utilization graphs on each device. We haven't shown you the wealth of transports available besides "Mail". All of that said, we have shown you enough in this document to get a good start monitoring your environment. LibreNMS takes some time to master all of the elements. You should visit the project's <a href="https://docs.librenms.org/">excellent documentation</a> for additional information.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Sidfot">
+      
+        
+        <a href="../learning_selinux/" class="md-footer__link md-footer__link--prev" aria-label="Föregående: SELinux security" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Föregående
+              </span>
+              SELinux security
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../lxd_server/" class="md-footer__link md-footer__link--next" aria-label="Nästa: Creating a full LXD Server" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Nästa
+              </span>
+              Creating a full LXD Server
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 The Rocky Enterprise Software Foundation
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/rocky_linux" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/rocky-linux" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://git.rockylinux.org" target="_blank" rel="noopener" title="git.rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M105.2 24.9c-3.1-8.9-15.7-8.9-18.9 0L29.8 199.7h132c-.1 0-56.6-174.8-56.6-174.8zM.9 287.7c-2.6 8 .3 16.9 7.1 22l247.9 184-226.2-294zm160.8-88 94.3 294 94.3-294zm349.4 88-28.8-88-226.3 294 247.9-184c6.9-5.1 9.7-14 7.2-22zM425.7 24.9c-3.1-8.9-15.7-8.9-18.9 0l-56.6 174.8h132z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://rockylinux.org" target="_blank" rel="noopener" title="rockylinux.org" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest"], "translations": {"clipboard.copy": "Kopiera till urklipp", "clipboard.copied": "Kopierat till urklipp", "search.config.lang": "sv", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "S\u00f6k", "search.result.placeholder": "Skriv s\u00f6kord", "search.result.none": "Inga s\u00f6kresultat", "search.result.one": "1 s\u00f6kresultat", "search.result.other": "# s\u00f6kresultat", "search.result.more.one": "1 till p\u00e5 denna sidan", "search.result.more.other": "# till p\u00e5 denna sidan", "search.result.term.missing": "Saknas", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+      <script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+      
+    
+  </body>
+</html>
